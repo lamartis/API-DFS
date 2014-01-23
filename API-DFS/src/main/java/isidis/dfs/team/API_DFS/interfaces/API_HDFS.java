@@ -1,4 +1,4 @@
-package isidis.dfs.team.API_DFS;
+package isidis.dfs.team.API_DFS.interfaces;
 
 import java.io.IOException;
 

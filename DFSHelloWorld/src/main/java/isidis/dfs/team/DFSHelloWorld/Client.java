@@ -3,8 +3,8 @@ package isidis.dfs.team.DFSHelloWorld;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import isidis.dfs.team.API_DFS.API_HDFS_Impl;
 import isidis.dfs.team.API_DFS.exceptions.FileNotFoundException;
+import isidis.dfs.team.API_DFS.implementation.API_HDFS_Impl;
 
 public class Client {
 	

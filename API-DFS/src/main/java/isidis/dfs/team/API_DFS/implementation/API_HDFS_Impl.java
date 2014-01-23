@@ -1,20 +1,20 @@
-package isidis.dfs.team.API_DFS;
+package isidis.dfs.team.API_DFS.implementation;
 
 import isidis.dfs.team.API_DFS.exceptions.FileNotFoundException;
+import isidis.dfs.team.API_DFS.interfaces.API_HDFS;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hdfs.DFSClient;
 import org.apache.hadoop.hdfs.DFSInputStream;
 /***
  * 
  * @author saad
- * All méthods have to be figured on the interface.
  * Demander au prof la signature des méthode si c correcte.
- * Verifier s'il faut mettre l'api En Singleton.
- * 
  * 
  */
 public class API_HDFS_Impl implements API_HDFS{
