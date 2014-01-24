@@ -30,7 +30,6 @@ public class API_HDFS_Impl implements API_HDFS{
 		System.setProperty("HADOOP_USER_NAME", systemUserName);
 	}
 
-	@Override
 	public byte[] readFile(String sourceFileName) throws FileNotFoundException, IOException {
 		byte[] arr = new byte[(int)fileLenght];
 
@@ -56,7 +55,6 @@ public class API_HDFS_Impl implements API_HDFS{
 		return arr;
 	}
 
-	@Override
 	public void writeFile(byte[] content, String destinationFileName) {
 
 		try{
@@ -84,7 +82,6 @@ public class API_HDFS_Impl implements API_HDFS{
 
 	}
 
-	@Override
 	public void deleteFile(String sourceFileName) throws FileNotFoundException, IOException{
 		DFSClient client = null;
 		try {
@@ -96,6 +93,14 @@ public class API_HDFS_Impl implements API_HDFS{
 		} finally {
 			client.close();
 		}
+	}
+
+	public void copyfileIntoHDFS(String filetocopy, String destinationPath) {
+
+	}
+
+	public void createDirectory(String directoryPath) {
+
 	}
 
 }
