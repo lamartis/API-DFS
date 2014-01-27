@@ -29,7 +29,7 @@ public class API_HDFS_Impl implements API_HDFS{
 		conf.set("fs.defaultFS", hdfsURL);
 		System.setProperty("HADOOP_USER_NAME", systemUserName);
 	}
-
+	//For big file use copyfileFromHDFS
 	public byte[] readFile(String sourceFileName) throws FileNotFoundException, IOException {
 		byte[] arr = new byte[(int)fileLenght];
 
@@ -54,7 +54,7 @@ public class API_HDFS_Impl implements API_HDFS{
 
 		return arr;
 	}
-
+	//For big file use copyIntoFromHDFS
 	public void writeFile(byte[] content, String destinationFileName) {
 
 		try{
@@ -95,12 +95,36 @@ public class API_HDFS_Impl implements API_HDFS{
 		}
 	}
 
-	public void copyfileIntoHDFS(String filetocopy, String destinationPath) {
-
-	}
 
 	public void createDirectory(String directoryPath) {
+		//Create Directory
+	}
 
+	public void copyfileFromHDFS(String filename, String destinationPath)
+			throws FileNotFoundException, IOException {
+		// Copy entire file from the HDFS
+	}
+
+	public String[] getfileInfo(String filename) throws FileNotFoundException,
+			IOException {
+		// Get File Info
+		return null;
+	}
+
+	public void copyfileIntoHDFS(String filetocopy, String destinationPath)
+			throws IOException {
+		// Copy entire file into the HDFS
+	}
+
+	public void deleteDirectory(String directoryPath) throws IOException {
+		// Delete Directory
+		
+	}
+
+	public void deleteDirectory(String directoryPath, boolean suppressContent)
+			throws IOException {
+		// Delete Directory and its content if suppressContent = true
+		
 	}
 
 }
