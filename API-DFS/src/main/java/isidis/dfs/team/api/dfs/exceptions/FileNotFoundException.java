@@ -1,5 +1,8 @@
 package isidis.dfs.team.api.dfs.exceptions;
-
+/**
+ * File not found
+ *
+ */
 public class FileNotFoundException extends Exception {
 
 	/**
