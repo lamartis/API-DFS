@@ -1,11 +1,11 @@
 package isidis.dfs.team.DFSHelloWorld;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-
 import isidis.dfs.team.api.dfs.exceptions.FileNotFoundException;
 import isidis.dfs.team.api.dfs.implementation.API_HDFS_Impl;
 import isidis.dfs.team.api.dfs.interfaces.API_HDFS;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class Client {
 	

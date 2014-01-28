@@ -23,7 +23,7 @@
 		</dependency>
 		<dependency>
 			<groupId>isidis.dfs.team</groupId>
-			<artifactId>API-DFS</artifactId>
+			<artifactId>api-dfs</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
