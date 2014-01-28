@@ -1,48 +1,73 @@
 package isidis.dfs.team.DFSHelloWorld;
 
+import isidis.dfs.team.api.dfs.exceptions.EndpointNotReacheableException;
 import isidis.dfs.team.api.dfs.exceptions.FileNotFoundException;
+import isidis.dfs.team.api.dfs.exceptions.SystemUserPermissionException;
 import isidis.dfs.team.api.dfs.implementation.API_HDFS_Impl;
 import isidis.dfs.team.api.dfs.interfaces.API_HDFS;
 
-import java.io.IOException;
 import java.net.URISyntaxException;
 
+import org.apache.hadoop.fs.FileAlreadyExistsException;
+
 public class Client {
-	
-	public final static String hdfsURL = "hdfs://192.168.217.128:9000";
+
+	public final static String hdfsURL = "hdfs://192.168.0.41:9000/";
 	public final static String systemUserName = "hduser";
-	
+
 	public static void main(String[] args){
 		API_HDFS api = null;
 		try {
 			api = new API_HDFS_Impl(Client.hdfsURL, systemUserName);
 		} catch (URISyntaxException e1) {
 			System.out.println("URL format not correct");
+			System.exit(0);
 		}
-		
+
 		/***
 		 * Testing ReadFile method
-		 */
+		 **/
+
 		try {
 			System.out.println(new String(api.readFile("/user/file1")));
-		} catch (FileNotFoundException | IOException e) {
-			System.out.println("File Not Found on the DFS Or IOException");
-		} 
-		
-		
+		} catch (SystemUserPermissionException e1) {
+			System.out.println("permession error");
+		} catch (FileNotFoundException e1) {
+			System.out.println("file not found");
+		} catch (EndpointNotReacheableException e1) {
+			System.out.println("endpoint not reachbear");
+		}
+		 
+
+
 		/***
 		 * Testing WriteFile method
-		 */
-	//	api.writeFile("mon texte que je veux ecrire".getBytes(), "/user/file1");
-		
+		 **/
+		try {
+			api.writeFile("mon texte que je veux ecrire".getBytes(), "/user/file2");
+		} catch (SystemUserPermissionException e) {
+			System.out.println("permission error");
+		} catch (FileAlreadyExistsException e) {
+			System.out.println("file already exist error");
+		} catch (EndpointNotReacheableException e) {
+			System.out.println("Endpoint not reachable");
+		}
+		 
+
 		/***
 		 * Testing deleteFile method
 		 */
-/*		try {
+
+		try {
 			api.deleteFile("/user/file1");
-		} catch (FileNotFoundException | IOException e) {
-			e.printStackTrace();
-		}*/
-		
+		} catch (SystemUserPermissionException e) {
+			System.out.println("permission error");
+		} catch (FileNotFoundException e) {
+			System.out.println("file not found");
+		} catch (EndpointNotReacheableException e) {
+			System.out.println("Endpoint not reachable");
+		}
+
+
 	}
 }

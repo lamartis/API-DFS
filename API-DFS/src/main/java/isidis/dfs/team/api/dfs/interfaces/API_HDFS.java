@@ -1,13 +1,14 @@
 package isidis.dfs.team.api.dfs.interfaces;
 
-import java.io.IOException;
-
+import org.apache.hadoop.fs.FileAlreadyExistsException;
+import isidis.dfs.team.api.dfs.exceptions.EndpointNotReacheableException;
 import isidis.dfs.team.api.dfs.exceptions.FileNotFoundException;
+import isidis.dfs.team.api.dfs.exceptions.SystemUserPermissionException;
 
 public interface API_HDFS {
-	public byte[] readFile(String sourceFileName) throws FileNotFoundException, IOException;
-	public void writeFile(byte[] content, String destinationFileName);
-	public void deleteFile(String sourceFileName) throws FileNotFoundException, IOException;
+	public byte[] readFile(String sourceFileName) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException;
+	public void writeFile(byte[] content, String destinationFileName) throws SystemUserPermissionException, EndpointNotReacheableException, FileAlreadyExistsException;
+	public void deleteFile(String sourceFileName) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException;
 	
 	/***
 	 * 
