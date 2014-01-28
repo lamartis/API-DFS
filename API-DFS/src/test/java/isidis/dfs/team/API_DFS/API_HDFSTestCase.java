@@ -3,9 +3,9 @@ package isidis.dfs.team.API_DFS;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import isidis.dfs.team.API_DFS.exceptions.FileNotFoundException;
-import isidis.dfs.team.API_DFS.implementation.API_HDFS_Impl;
-import isidis.dfs.team.API_DFS.interfaces.API_HDFS;
+import isidis.dfs.team.api.dfs.exceptions.FileNotFoundException;
+import isidis.dfs.team.api.dfs.implementation.API_HDFS_Impl;
+import isidis.dfs.team.api.dfs.interfaces.API_HDFS;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 

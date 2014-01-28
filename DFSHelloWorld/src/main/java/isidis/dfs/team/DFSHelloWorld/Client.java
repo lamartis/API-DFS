@@ -3,8 +3,9 @@ package isidis.dfs.team.DFSHelloWorld;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import isidis.dfs.team.API_DFS.exceptions.FileNotFoundException;
-import isidis.dfs.team.API_DFS.implementation.API_HDFS_Impl;
+import isidis.dfs.team.api.dfs.exceptions.FileNotFoundException;
+import isidis.dfs.team.api.dfs.implementation.API_HDFS_Impl;
+import isidis.dfs.team.api.dfs.interfaces.API_HDFS;
 
 public class Client {
 	
@@ -12,7 +13,7 @@ public class Client {
 	public final static String systemUserName = "hduser";
 	
 	public static void main(String[] args){
-		API_HDFS_Impl api = null;
+		API_HDFS api = null;
 		try {
 			api = new API_HDFS_Impl(Client.hdfsURL, systemUserName);
 		} catch (URISyntaxException e1) {

@@ -1,7 +1,7 @@
-package isidis.dfs.team.API_DFS.implementation;
+package isidis.dfs.team.api.dfs.implementation;
 
-import isidis.dfs.team.API_DFS.exceptions.FileNotFoundException;
-import isidis.dfs.team.API_DFS.interfaces.API_HDFS;
+import isidis.dfs.team.api.dfs.exceptions.FileNotFoundException;
+import isidis.dfs.team.api.dfs.interfaces.API_HDFS;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -14,7 +14,6 @@ import org.apache.hadoop.hdfs.DFSInputStream;
 /***
  * 
  * @author saad
- * Demander au prof la signature des méthode si c correcte.
  * 
  */
 public class API_HDFS_Impl implements API_HDFS{
@@ -96,35 +95,5 @@ public class API_HDFS_Impl implements API_HDFS{
 	}
 
 
-	public void createDirectory(String directoryPath) {
-		//Create Directory
-	}
-
-	public void copyfileFromHDFS(String filename, String destinationPath)
-			throws FileNotFoundException, IOException {
-		// Copy entire file from the HDFS
-	}
-
-	public String[] getfileInfo(String filename) throws FileNotFoundException,
-			IOException {
-		// Get File Info
-		return null;
-	}
-
-	public void copyfileIntoHDFS(String filetocopy, String destinationPath)
-			throws IOException {
-		// Copy entire file into the HDFS
-	}
-
-	public void deleteDirectory(String directoryPath) throws IOException {
-		// Delete Directory
-		
-	}
-
-	public void deleteDirectory(String directoryPath, boolean suppressContent)
-			throws IOException {
-		// Delete Directory and its content if suppressContent = true
-		
-	}
 
 }
