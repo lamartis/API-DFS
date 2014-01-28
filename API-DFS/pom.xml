@@ -71,7 +71,7 @@
 						</manifestEntries>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<mainClass>edu.esiag.isidis.m2.openID_template.App</mainClass>
+							<mainClass></mainClass>
 							<classpathPrefix>../lib/</classpathPrefix>
 						</manifest>
 					</archive>
