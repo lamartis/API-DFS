@@ -62,7 +62,7 @@
 						</manifestEntries>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<mainClass>isidis.dfs.team.DFSHelloWorld.Client</mainClass>
+							<mainClass>isidis.dfs.team.DFSGUI.Connection</mainClass>
 							<classpathPrefix>../lib/</classpathPrefix>
 						</manifest>
 					</archive>
