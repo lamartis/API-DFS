@@ -12,7 +12,7 @@ import org.junit.Assert;
 import isidis.dfs.team.api.dfs.implementation.API_HDFS_Impl;
 import isidis.dfs.team.api.dfs.interfaces.API_HDFS;
 
-public class ItHDFSApi extends TestCase {
+public class ITHDFSApiTestCase extends TestCase {
     
     public static final String hdfsURL = "hdfs://192.168.0.41:9000";
     public static final String systemUserName = "hduser";
