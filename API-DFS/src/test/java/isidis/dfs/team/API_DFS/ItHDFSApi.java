@@ -1,22 +1,24 @@
 package isidis.dfs.team.API_DFS;
 
 import static org.junit.Assert.*;
+
 import java.net.URISyntaxException;
+
+import junit.framework.TestCase;
 import isidis.dfs.team.api.dfs.exceptions.*;
+
 import org.apache.hadoop.fs.FileAlreadyExistsException;
 import org.junit.Assert;
-import org.junit.Test;
 import isidis.dfs.team.api.dfs.implementation.API_HDFS_Impl;
 import isidis.dfs.team.api.dfs.interfaces.API_HDFS;
 
-public class ItHDFSApi {
+public class ItHDFSApi extends TestCase {
     
     public static final String hdfsURL = "hdfs://192.168.0.41:9000";
     public static final String systemUserName = "hduser";
     public static final String fileName = "/user/fileForIntegration7";
     public static final String texte = "This is a test";
     
-    @Test
     public void testAPI_HDFS_Impl() {
         
         API_HDFS api = null;
