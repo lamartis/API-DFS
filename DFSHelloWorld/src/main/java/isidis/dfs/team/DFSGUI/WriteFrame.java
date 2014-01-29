@@ -70,17 +70,17 @@ public class WriteFrame extends JComponent implements ActionListener  {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		
+
 		if	(e.getSource() == buttonWrite)	{
 			int returnVal = fc.showOpenDialog(this);
 			file = fc.getSelectedFile();
-			Path path = Paths.get(file.getAbsolutePath());
-			try {
-				byteFile = Files.readAllBytes(path);	
-			} catch (IOException e1) {
-				supervisor.getScrenSupervisor().append("Write File  : [Error reading file] "+newline);
-			}
 			if	(file != null){
+				Path path = Paths.get(file.getAbsolutePath());
+				try {
+					byteFile = Files.readAllBytes(path);	
+				} catch (IOException e1) {
+					supervisor.getScrenSupervisor().append("Write File  : [Error reading file] "+newline);
+				}
 				String message = null;
 				try {
 					DFSProvider.getInstance().writeFile(byteFile, pathFile.getText());
@@ -92,7 +92,7 @@ public class WriteFrame extends JComponent implements ActionListener  {
 				} catch (EndpointNotReacheableException e1) {
 					message = " [Endpoint Not Reacheable]";
 				}
-				supervisor.getScrenSupervisor().append("Write File  :  " + file.getName() +newline);
+				supervisor.getScrenSupervisor().append("Write File  :  " + file.getName() + " to " + pathFile.getText() + " " + message +newline);
 			}
 		}
 	}
