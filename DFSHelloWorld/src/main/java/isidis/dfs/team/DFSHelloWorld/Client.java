@@ -42,7 +42,7 @@ public class Client {
 
 		/***
 		 * Testing WriteFile method
-		 **/
+		 **
 		try {
 			api.writeFile("mon texte que je veux ecrire".getBytes(), "/user/file2");
 		} catch (SystemUserPermissionException e) {
@@ -56,7 +56,7 @@ public class Client {
 
 		/***
 		 * Testing deleteFile method
-		 */
+		 *
 
 		try {
 			api.deleteFile("/user/file1");
@@ -66,7 +66,7 @@ public class Client {
 			System.out.println("file not found");
 		} catch (EndpointNotReacheableException e) {
 			System.out.println("Endpoint not reachable");
-		}
+		}*/
 
 
 	}
