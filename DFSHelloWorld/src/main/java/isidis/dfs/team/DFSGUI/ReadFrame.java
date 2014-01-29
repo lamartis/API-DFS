@@ -72,13 +72,13 @@ public class ReadFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		String message = null;
 		api = DFSProvider.getInstance();
+		area.setText("");
 		if	(e.getSource() == buttonRead) {
 			try {
 				System.out.println("reading " + pathFile.getText());
-				System.out.println(new String(api.readFile(pathFile.getText())));
+				area.setText(new String(api.readFile(pathFile.getText())));
 				message = " with success !";
 			} catch (SystemUserPermissionException e1) {
 				message = " [system user permission Exception]";
@@ -87,7 +87,7 @@ public class ReadFrame implements ActionListener {
 			} catch (EndpointNotReacheableException e1) {
 				message = " [Endpoint not reacheable Exception]";
 			}
-			supervisor.getScrenSupervisor().append("Read File : " + pathFile.getText() + message);
+			supervisor.getScrenSupervisor().append("Read File : " + pathFile.getText() + message + "\n");
 
 		}
 	}

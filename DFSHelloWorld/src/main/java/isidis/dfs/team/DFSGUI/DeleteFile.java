@@ -63,7 +63,6 @@ public class DeleteFile implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		String message = null;
 		if	(e.getSource() == buttonDelete)	{
 			try {
@@ -76,7 +75,7 @@ public class DeleteFile implements ActionListener {
 			} catch (EndpointNotReacheableException e1) {
 				message =  " [Endpoint Not Reacheable Exception]";
 			}
-			supervisor.getScrenSupervisor().append("delete File: "+ pathFile.getText() + message);
+			supervisor.getScrenSupervisor().append("Delete File: "+ pathFile.getText() + message + "\n");
 
 		}
 	}

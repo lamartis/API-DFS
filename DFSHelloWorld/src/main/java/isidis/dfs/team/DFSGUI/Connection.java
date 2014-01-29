@@ -2,7 +2,9 @@ package isidis.dfs.team.DFSGUI;
 
 import isidis.dfs.team.tools.DFSProvider;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URISyntaxException;
@@ -39,7 +41,9 @@ public class Connection extends JFrame implements ActionListener {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(panel);
 		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
+		//frame.setLocationRelativeTo(null);
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		frame.setLocation(dim.width/2 - frame.getWidth()/2, dim.height/2 - frame.getHeight()/2);
 		frame.setVisible(true);
 		frame.pack();
 	}
