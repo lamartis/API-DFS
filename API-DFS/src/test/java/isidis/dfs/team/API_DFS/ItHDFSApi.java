@@ -16,17 +16,15 @@ import isidis.dfs.team.api.dfs.interfaces.API_HDFS;
 public class ItHDFSApi {
 
 	@Test
-	public void testAPI_HDFS_Impl() {
+	public void testAPI_HDFS_Impl() throws URISyntaxException {
 		String hdfsURL = "hdfs://192.168.0.41:9000/";
 		String systemUserName = "hduser";
+		API_HDFS IT_api = new API_HDFS_Impl(hdfsURL, systemUserName);
 		try {
-			API_HDFS IT_api = new API_HDFS_Impl(hdfsURL, systemUserName);
+			
 			IT_api.writeFile("This is a test".getBytes(), "test.txt");
 			IT_api.readFile("test.txt");
 			IT_api.deleteFile("test.txt");
-			IT_api.readFile("test.txt");
-		} catch (URISyntaxException e) {
-			Assert.fail("URISyntaxException");
 		} catch (SystemUserPermissionException e) {
 			Assert.fail("SystemUserPermissionException");
 		} catch (FileAlreadyExistsException e) {
@@ -36,7 +34,15 @@ public class ItHDFSApi {
 		} catch (FileNotFoundException e) {
 			Assert.fail("FileNotFoundException");
 		}
-		
+		try {
+			IT_api.readFile("test.txt");
+		} catch (SystemUserPermissionException e) {
+			Assert.fail("SystemUserPermissionException");
+		} catch (FileNotFoundException e) {
+			Assert.fail("Integration work fine");
+		} catch (EndpointNotReacheableException e) {
+			Assert.fail("EndpointNotReacheableException");
+		}
 	}
 
 }
