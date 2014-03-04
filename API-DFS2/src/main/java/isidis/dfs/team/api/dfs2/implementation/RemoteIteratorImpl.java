@@ -8,10 +8,10 @@ import org.apache.hadoop.hdfs.DFSClient;
 import org.apache.hadoop.hdfs.DFSInputStream;
 
 public class RemoteIteratorImpl implements RemoteIterator<byte[]> {
-/**
- * à terminer.
- * 
- */
+	/**
+	 * à terminer.
+	 * 
+	 */
 	public BlockLocation[] blocks;
 	public String fileLocation = null;
 	public int position = 0;
@@ -27,21 +27,26 @@ public class RemoteIteratorImpl implements RemoteIterator<byte[]> {
 
 	public boolean hasNext() throws IOException {
 		if (position < blocks.length) {
-			position++;
 			return true;
 		}
 		return false;
 	}
 
 	public byte[] next() throws IOException {
-		//Terminer.
-		byte[] arr = new byte[(int)512L];
+		BlockLocation blockLocation = blocks[position];
+		byte[] arr = new byte[(int)blockLocation.getLength()] ;
 
-		DFSInputStream dfsInputStream = client.open("/user/file0");
-		dfsInputStream.read(5, arr, 0, 10);
-		System.out.println(new String(arr));
-		
+		System.out.println("["+ (int)blockLocation.getOffset() +" , "+(int)blockLocation.getLength()+" ]");
+		DFSInputStream dfsInputStream = client.open(fileLocation);
+		dfsInputStream.read((int)blockLocation.getOffset(), arr, 0, (int)blockLocation.getLength());
+
+		position++;
 		return arr;
+		/*arr = new byte[220] ;
+		DFSInputStream dfsInputStream = client.open("/user/file0");
+		dfsInputStream.read(5, arr, 0, 21);
+		System.out.println(new String(arr));
+		return arr;*/
 	}
 
 }

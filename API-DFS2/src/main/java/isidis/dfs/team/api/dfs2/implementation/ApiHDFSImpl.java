@@ -1,6 +1,7 @@
 package isidis.dfs.team.api.dfs2.implementation;
 
 import isidis.dfs.team.api.dfs2.interfaces.ApiHDFS;
+import isidis.dfs.team.api.dfs2.tools.ByteTools;
 
 import java.io.IOException;
 import java.net.URI;
@@ -31,15 +32,21 @@ public class ApiHDFSImpl implements ApiHDFS {
 	
 	public static void main(String[] args) throws IOException{
 		ApiHDFS api = new ApiHDFSImpl();
+		ByteTools byteTools = new ByteTools();
+		
 		RemoteIterator<byte[]> ri = null;
 		
 		//Récupération du RemoteIterator.
 		ri = api.readFile("/user/film0");
 		
+		int i = 1;
 		while (ri.hasNext()) {
-			// Il va falloir récupérer partie par partie et les stocker.
-			ri.next();
+			byteTools.concatenate(ri.next());
+			System.out.println(i++);
 		}
+		
+		byteTools.writeToFile("film0");
+		System.out.println("OK");
 	}
-
+	
 }
