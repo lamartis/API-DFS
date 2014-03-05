@@ -42,11 +42,6 @@ public class RemoteIteratorImpl implements RemoteIterator<byte[]> {
 
 		position++;
 		return arr;
-		/*arr = new byte[220] ;
-		DFSInputStream dfsInputStream = client.open("/user/file0");
-		dfsInputStream.read(5, arr, 0, 21);
-		System.out.println(new String(arr));
-		return arr;*/
 	}
 
 }
