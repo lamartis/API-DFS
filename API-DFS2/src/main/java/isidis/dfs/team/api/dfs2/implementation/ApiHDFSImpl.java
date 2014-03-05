@@ -3,9 +3,14 @@ package isidis.dfs.team.api.dfs2.implementation;
 import isidis.dfs.team.api.dfs2.interfaces.ApiHDFS;
 import isidis.dfs.team.api.dfs2.tools.ByteTools;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.RemoteIterator;
@@ -40,12 +45,16 @@ public class ApiHDFSImpl implements ApiHDFS {
 		ri = api.readFile("/user/film0");
 		
 		int i = 1;
+		File file = new File("outputfile.txt");
+		FileOutputStream fos = null;
+		
+		fos = new FileOutputStream(file);
+		
 		while (ri.hasNext()) {
-			byteTools.concatenate(ri.next());
+			fos.write(ri.next());
 			System.out.println(i++);
 		}
-		
-		byteTools.writeToFile("film0");
+		fos.close();
 		System.out.println("OK");
 	}
 	
