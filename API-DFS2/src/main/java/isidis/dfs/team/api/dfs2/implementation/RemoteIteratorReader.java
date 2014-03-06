@@ -7,14 +7,11 @@ import org.apache.hadoop.fs.UnresolvedLinkException;
 import org.apache.hadoop.hdfs.DFSInputStream;
 
 public class RemoteIteratorReader extends RemoteIterator<byte[]> {
-	/**
-	 * 
-	 */
+	
 	public BlockLocation[] blocks;
 
 	public RemoteIteratorReader(String fileLocation) throws UnresolvedLinkException, IOException{
 		this.fileLocation = fileLocation;
-		client = MyHdfsClient.getInstance();
 
 		//Getting all BlockLocations' File.
 		blocks = client.getBlockLocations(fileLocation, 0, Long.MAX_VALUE);
