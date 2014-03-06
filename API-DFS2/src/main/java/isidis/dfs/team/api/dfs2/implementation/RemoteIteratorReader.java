@@ -1,23 +1,18 @@
 package isidis.dfs.team.api.dfs2.implementation;
 
+import isidis.dfs.team.api.dfs2.interfaces.RemoteIterator;
 import java.io.IOException;
 import org.apache.hadoop.fs.BlockLocation;
-import org.apache.hadoop.fs.RemoteIterator;
 import org.apache.hadoop.fs.UnresolvedLinkException;
-import org.apache.hadoop.hdfs.DFSClient;
 import org.apache.hadoop.hdfs.DFSInputStream;
 
-public class RemoteIteratorImpl implements RemoteIterator<byte[]> {
+public class RemoteIteratorReader extends RemoteIterator<byte[]> {
 	/**
-	 * à terminer.
 	 * 
 	 */
 	public BlockLocation[] blocks;
-	public String fileLocation = null;
-	public int position = 0;
-	private DFSClient client = null;
 
-	public RemoteIteratorImpl(String fileLocation) throws UnresolvedLinkException, IOException{
+	public RemoteIteratorReader(String fileLocation) throws UnresolvedLinkException, IOException{
 		this.fileLocation = fileLocation;
 		client = MyHdfsClient.getInstance();
 
