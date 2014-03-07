@@ -19,7 +19,10 @@ public abstract class RemoteIterator<E> implements org.apache.hadoop.fs.RemoteIt
 	protected DFSClient client = MyHdfsClient.getInstance();
 	protected static Logger logger = Logger.getLogger(RemoteIterator.class);
 	
-
+	public long getNumberOfBlocks() {
+		return numberOfBlocks;
+	}
+	
 	public boolean hasNext() throws IOException {
 		if (position < numberOfBlocks) {
 			return true;
