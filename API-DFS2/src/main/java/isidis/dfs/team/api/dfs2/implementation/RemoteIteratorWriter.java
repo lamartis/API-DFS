@@ -64,6 +64,9 @@ public class RemoteIteratorWriter extends RemoteIterator<byte[]>{
 
 		System.out.println("Getting block N° " + (position+1) + "/" + numberOfBlocks + " from localy with success");
 		
+		if (position == numberOfBlocks-1)
+			inputStream.close();
+			
 		position++;
 		return bytes;
 	}

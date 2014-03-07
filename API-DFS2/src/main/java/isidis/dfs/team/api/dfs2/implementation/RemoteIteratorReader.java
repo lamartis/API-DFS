@@ -1,39 +1,72 @@
 package isidis.dfs.team.api.dfs2.implementation;
 
 import isidis.dfs.team.api.dfs2.interfaces.RemoteIterator;
+
 import java.io.IOException;
-import org.apache.hadoop.fs.BlockLocation;
+
 import org.apache.hadoop.fs.UnresolvedLinkException;
 import org.apache.hadoop.hdfs.DFSInputStream;
 
 public class RemoteIteratorReader extends RemoteIterator<byte[]> {
-	
-	public BlockLocation[] blocks;
 
+	public final static long Mo = 64;
+	public static long blockSizeInOctet = Mo * 1024 * 1024;
+
+	private long numberOfBlocks = -1;
+	private long lastBlockSize = -1;
+	private DFSInputStream dfsInputStream = null;
+	byte[] bytes = null;
+	
 	public RemoteIteratorReader(String fileLocation) throws UnresolvedLinkException, IOException{
 		this.fileLocation = fileLocation;
+		dfsInputStream = client.open(fileLocation);
+		
+		/**
+		 * Getting file size.
+		 */
+		long fileSize = client.getFileInfo(fileLocation).getLen();
+		System.out.println("File size: " + fileSize + " Octets, which can be devised by: " + blockSizeInOctet + " Octets");
 
-		//Getting all BlockLocations' File.
-		blocks = client.getBlockLocations(fileLocation, 0, Long.MAX_VALUE);
+		/**
+		 * Tracking size number of file's blocks
+		 */
+		this.numberOfBlocks = fileSize / blockSizeInOctet;
+
+		/**
+		 * Getting last block's size.
+		 */
+		lastBlockSize = fileSize % blockSizeInOctet;
+		
+		if (lastBlockSize != 0)
+			numberOfBlocks++;
+		
+		System.out.println("Number of blocks: " + this.numberOfBlocks);
+		System.out.println("Lastest block size: " + lastBlockSize + " Octets \n");
 	}
 
 	public boolean hasNext() throws IOException {
-		if (position < blocks.length) {
+		if (position < numberOfBlocks) {
 			return true;
 		}
 		return false;
 	}
 
 	public byte[] next() throws IOException {
-		BlockLocation blockLocation = blocks[position];
-		byte[] arr = new byte[(int)blockLocation.getLength()] ;
+		
+		if ((lastBlockSize != 0) && (position == numberOfBlocks-1)) 
+			blockSizeInOctet = lastBlockSize;
 
-		System.out.println("["+ (int)blockLocation.getOffset() +" , "+(int)blockLocation.getLength()+" ]");
-		DFSInputStream dfsInputStream = client.open(fileLocation);
-		dfsInputStream.read((int)blockLocation.getOffset(), arr, 0, (int)blockLocation.getLength());
+		bytes = new byte[(int)blockSizeInOctet];
 
+		System.out.println("Try to get: " + blockSizeInOctet + " Octets");
+		dfsInputStream.read(bytes, 0, (int)blockSizeInOctet);
+		System.out.println("Getting block N° " + (position+1) + "/" + numberOfBlocks + " remotely with success");
+		
+		if (position == numberOfBlocks-1)
+			dfsInputStream.close();
+			
 		position++;
-		return arr;
+		return bytes;
 	}
 
 }
