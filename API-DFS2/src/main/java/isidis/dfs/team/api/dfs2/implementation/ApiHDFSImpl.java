@@ -4,53 +4,34 @@ import isidis.dfs.team.api.dfs2.interfaces.ApiHDFS;
 import isidis.dfs.team.api.dfs2.interfaces.RemoteIterator;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
 import org.apache.hadoop.fs.UnresolvedLinkException;
-import org.apache.hadoop.hdfs.DFSClient;
 
 public class ApiHDFSImpl implements ApiHDFS {
 	
-	DFSClient client = MyHdfsClient.getInstance();
-	
-	public ApiHDFSImpl() throws IOException{
+	public ApiHDFSImpl() {
 
 	}
 
 	public RemoteIterator<byte[]> readFile(String fileLocation) {
-		RemoteIterator<byte[]> ri = null;
+		RemoteIterator<byte[]> remoteIterator = null;
 		try {
-			ri = new RemoteIteratorReader(fileLocation);
+			remoteIterator = new RemoteIteratorReader(fileLocation);
 		} catch (UnresolvedLinkException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return ri;
+		return remoteIterator;
 	}
 
-	public void writeFile(File file, String destinationFileLocation) throws IOException {
-		/**
-		 * Instantiation Of OutputStream Object
-		 */
-		OutputStream outputStream = client.create(destinationFileLocation, true);
-		
+	public RemoteIterator<Void> writeFile(File file, String destinationFileLocation) throws IOException {
+
 		/**
 		 * Instantiation of distributed iterator which save each block on the OutputStream object.
 		 */
-		RemoteIterator<byte[]> remoteIterator = new RemoteIteratorWriter(file, destinationFileLocation);
-		
-		/**
-		 * Saving each block on the OutputStream object.
-		 */
-		while (remoteIterator.hasNext()) {
-			outputStream.write(remoteIterator.next());
-		}
-
-		outputStream.close();
+		RemoteIterator<Void> remoteIterator = new RemoteIteratorWriter(file, destinationFileLocation);
+		return remoteIterator;
 	}
 
 }

@@ -13,23 +13,35 @@ import org.apache.hadoop.fs.RemoteIterator;
  *
  */
 public class Main {
+	
+	public final static String localFile = "/home/dfs-one/Téléchargements/Trauma.2013.FRENCH.DVDRiP.avi";
+	public final static String remoteFile = "/user/tauraFilmwriten2";
+			
 	public static void main(String[] args) throws IOException{
+		
+		ApiHDFS api = new ApiHDFSImpl();
+		
 		/**
 		 * Lecture de fichier de grande taille.
-		 */
-		ApiHDFS api = new ApiHDFSImpl();
-		RemoteIterator<byte[]> ri = null;
+		 *
 		
-		//Récupération du RemoteIterator.
-		ri = api.readFile("/user/tauraFilmwriten2");
+		RemoteIterator<byte[]> ri = api.readFile(remoteFile);
 		
-		File file = new File("traumaS");
-		FileOutputStream fos = new FileOutputStream(file);
+		FileOutputStream fos = new FileOutputStream(new File("traumaS"));
 		
 		while (ri.hasNext()) {
 			fos.write(ri.next());
 		}
 		fos.close();
+		
+		/**
+		 * Ecriture de fichier de grande taille.
+		 */
+		RemoteIterator<Void> ri = api.writeFile(new File(localFile), "/user/halima");
+		while (ri.hasNext()) {
+			ri.next();
+		}
+
 		System.out.println("OK");
 	}
 }

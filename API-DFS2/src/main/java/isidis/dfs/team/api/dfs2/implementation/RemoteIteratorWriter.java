@@ -2,26 +2,31 @@ package isidis.dfs.team.api.dfs2.implementation;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
 import isidis.dfs.team.api.dfs2.interfaces.RemoteIterator;
 
-public class RemoteIteratorWriter extends RemoteIterator<byte[]>{
+public class RemoteIteratorWriter extends RemoteIterator<Void>{
 	public final static long Mo = 64;
 	public static long blockSizeInOctet = Mo * 1024 * 1024;
 
 	private long numberOfBlocks = -1;
 	private long lastBlockSize = -1;
 	private InputStream inputStream = null;
+	private OutputStream outputStream = null;
 	byte[] bytes = null;
 
 	public RemoteIteratorWriter(File file, String destinationFileLocation) throws IOException {
 		this.fileLocation = destinationFileLocation;
 		this.inputStream = new FileInputStream(file);
 
+		/**
+		 * Instantiation Of OutputStream Object
+		 */
+		outputStream = client.create(this.fileLocation, true);
+		
 		/**
 		 * Getting file size.
 		 */
@@ -52,23 +57,27 @@ public class RemoteIteratorWriter extends RemoteIterator<byte[]>{
 		return false;
 	}
 
-	public byte[] next() throws IOException {
+	public Void next() throws IOException {
 		
 		if ((lastBlockSize != 0) && (position == numberOfBlocks-1)) 
 			blockSizeInOctet = lastBlockSize;
 
 		bytes = new byte[(int)blockSizeInOctet];
 
-		System.out.println("Try to get: " + blockSizeInOctet + " Octets");
 		inputStream.read(bytes, 0, (int)blockSizeInOctet);
-
-		System.out.println("Getting block N° " + (position+1) + "/" + numberOfBlocks + " from localy with success");
+		System.out.println("Getting block: " + blockSizeInOctet + " Octets");
 		
-		if (position == numberOfBlocks-1)
+		outputStream.write(bytes);
+		System.out.println("Saving block N° " + (position+1) + "/" + numberOfBlocks + " from localy with success");
+		
+		if (position == numberOfBlocks-1) {
 			inputStream.close();
+			outputStream.close();
+		}
 			
 		position++;
-		return bytes;
+		
+		return null;
 	}
 
 
