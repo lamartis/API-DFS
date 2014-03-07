@@ -39,13 +39,6 @@ public class RemoteIteratorReader extends RemoteIterator<byte[]> {
 		System.out.println("Lastest block size: " + lastBlockSize + " Octets \n");
 	}
 
-	public boolean hasNext() throws IOException {
-		if (position < numberOfBlocks) {
-			return true;
-		}
-		return false;
-	}
-
 	public byte[] next() throws IOException {
 		
 		if ((lastBlockSize != 0) && (position == numberOfBlocks-1)) 

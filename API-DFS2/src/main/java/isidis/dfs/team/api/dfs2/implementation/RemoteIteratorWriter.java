@@ -46,13 +46,6 @@ public class RemoteIteratorWriter extends RemoteIterator<Void>{
 		System.out.println("Lastest block size: " + lastBlockSize + " Octets \n");
 	}
 
-	public boolean hasNext() throws IOException {
-		if (position < numberOfBlocks) {
-			return true;
-		}
-		return false;
-	}
-
 	public Void next() throws IOException {
 		
 		if ((lastBlockSize != 0) && (position == numberOfBlocks-1)) 

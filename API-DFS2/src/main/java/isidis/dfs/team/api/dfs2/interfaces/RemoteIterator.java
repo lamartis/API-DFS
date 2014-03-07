@@ -1,5 +1,7 @@
 package isidis.dfs.team.api.dfs2.interfaces;
 
+import java.io.IOException;
+
 import isidis.dfs.team.api.dfs2.implementation.MyHdfsClient;
 
 import org.apache.hadoop.hdfs.DFSClient;
@@ -16,4 +18,12 @@ public abstract class RemoteIterator<E> implements org.apache.hadoop.fs.RemoteIt
 	protected int position = 0;
 	protected DFSClient client = MyHdfsClient.getInstance();
 	protected static Logger logger = Logger.getLogger(RemoteIterator.class);
+	
+
+	public boolean hasNext() throws IOException {
+		if (position < numberOfBlocks) {
+			return true;
+		}
+		return false;
+	}
 }
