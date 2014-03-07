@@ -9,15 +9,10 @@ import org.apache.hadoop.hdfs.DFSInputStream;
 
 public class RemoteIteratorReader extends RemoteIterator<byte[]> {
 
-	public final static long Mo = 64;
-	public static long blockSizeInOctet = Mo * 1024 * 1024;
-
-	private long numberOfBlocks = -1;
-	private long lastBlockSize = -1;
 	private DFSInputStream dfsInputStream = null;
-	byte[] bytes = null;
 	
 	public RemoteIteratorReader(String fileLocation) throws UnresolvedLinkException, IOException{
+		
 		this.fileLocation = fileLocation;
 		dfsInputStream = client.open(fileLocation);
 		

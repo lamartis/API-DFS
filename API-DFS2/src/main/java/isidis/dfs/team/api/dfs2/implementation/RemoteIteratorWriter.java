@@ -9,16 +9,12 @@ import java.io.OutputStream;
 import isidis.dfs.team.api.dfs2.interfaces.RemoteIterator;
 
 public class RemoteIteratorWriter extends RemoteIterator<Void>{
-	public final static long Mo = 64;
-	public static long blockSizeInOctet = Mo * 1024 * 1024;
-
-	private long numberOfBlocks = -1;
-	private long lastBlockSize = -1;
+	
 	private InputStream inputStream = null;
 	private OutputStream outputStream = null;
-	byte[] bytes = null;
 
 	public RemoteIteratorWriter(File file, String destinationFileLocation) throws IOException {
+		
 		this.fileLocation = destinationFileLocation;
 		this.inputStream = new FileInputStream(file);
 
