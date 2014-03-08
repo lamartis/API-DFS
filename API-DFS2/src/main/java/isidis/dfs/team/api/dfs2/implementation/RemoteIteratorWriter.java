@@ -51,7 +51,7 @@ public class RemoteIteratorWriter extends RemoteIterator<Void>{
 		if ((lastBlockSize != 0) && (position == numberOfBlocks-1)) 
 			blockSizeInOctet = lastBlockSize;
 
-		bytes = new byte[(int)blockSizeInOctet];
+		byte[] bytes = new byte[(int)blockSizeInOctet];
 
 		inputStream.read(bytes, 0, (int)blockSizeInOctet);
 		System.out.println("Getting block: " + blockSizeInOctet + " Octets");

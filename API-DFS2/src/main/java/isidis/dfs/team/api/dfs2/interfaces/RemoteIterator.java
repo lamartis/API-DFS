@@ -1,6 +1,7 @@
 package isidis.dfs.team.api.dfs2.interfaces;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import isidis.dfs.team.api.dfs2.implementation.MyHdfsClient;
 
@@ -11,13 +12,13 @@ public abstract class RemoteIterator<E> implements org.apache.hadoop.fs.RemoteIt
 	protected final long Mo = 64;
 	protected long blockSizeInOctet = Mo * 1024 * 1024;
 	
-	protected byte[] bytes = null;
 	protected long numberOfBlocks = -1;
 	protected long lastBlockSize = -1;
 	protected String fileLocation = null;
 	protected int position = 0;
 	protected DFSClient client = MyHdfsClient.getInstance();
 	protected static Logger logger = Logger.getLogger(RemoteIterator.class);
+	protected InputStream inputStream = null;
 	
 	public long getNumberOfBlocks() {
 		return numberOfBlocks;

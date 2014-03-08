@@ -5,16 +5,13 @@ import isidis.dfs.team.api.dfs2.interfaces.RemoteIterator;
 import java.io.IOException;
 
 import org.apache.hadoop.fs.UnresolvedLinkException;
-import org.apache.hadoop.hdfs.DFSInputStream;
 
 public class RemoteIteratorReader extends RemoteIterator<byte[]> {
-
-	private DFSInputStream dfsInputStream = null;
 	
 	public RemoteIteratorReader(String fileLocation) throws UnresolvedLinkException, IOException{
 		
 		this.fileLocation = fileLocation;
-		dfsInputStream = client.open(fileLocation);
+		inputStream = client.open(fileLocation);
 		
 		/**
 		 * Getting file size.
@@ -44,14 +41,14 @@ public class RemoteIteratorReader extends RemoteIterator<byte[]> {
 		if ((lastBlockSize != 0) && (position == numberOfBlocks-1)) 
 			blockSizeInOctet = lastBlockSize;
 
-		bytes = new byte[(int)blockSizeInOctet];
+		byte[] bytes = new byte[(int)blockSizeInOctet];
 
 		System.out.println("Try to get: " + blockSizeInOctet + " Octets");
-		dfsInputStream.read(bytes, 0, (int)blockSizeInOctet);
+		inputStream.read(bytes, 0, (int)blockSizeInOctet);
 		System.out.println("Getting block N° " + (position+1) + "/" + numberOfBlocks + " remotely with success");
 		
 		if (position == numberOfBlocks-1)
-			dfsInputStream.close();
+			inputStream.close();
 			
 		position++;
 		return bytes;
