@@ -2,12 +2,10 @@ package isidis.dfs.team.api.dfs2.main;
 
 import isidis.dfs.team.api.dfs2.implementation.ApiHDFSImpl;
 import isidis.dfs.team.api.dfs2.interfaces.ApiHDFS;
+import isidis.dfs.team.api.dfs2.interfaces.RemoteIterator;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-
-import org.apache.hadoop.fs.RemoteIterator;
 
 /**
  *
