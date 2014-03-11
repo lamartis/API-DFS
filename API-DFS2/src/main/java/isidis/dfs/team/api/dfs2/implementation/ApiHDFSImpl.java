@@ -2,7 +2,6 @@ package isidis.dfs.team.api.dfs2.implementation;
 
 import isidis.dfs.team.api.dfs2.interfaces.ApiHDFS;
 import isidis.dfs.team.api.dfs2.interfaces.RemoteIterator;
-
 import java.io.File;
 import java.io.IOException;
 import org.apache.hadoop.fs.UnresolvedLinkException;

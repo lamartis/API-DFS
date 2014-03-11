@@ -1,13 +1,11 @@
 package isidis.dfs.team.api.dfs2.main;
-import isidis.dfs.team.api.dfs2.implementation.MyHdfsClient;
 
+import isidis.dfs.team.api.dfs2.implementation.MyHdfsClient;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.hadoop.hdfs.DFSClient;
 import org.apache.log4j.Logger;
 

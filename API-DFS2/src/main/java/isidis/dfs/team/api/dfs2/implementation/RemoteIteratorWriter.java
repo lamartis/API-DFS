@@ -6,9 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import isidis.dfs.team.api.dfs2.interfaces.RemoteIterator;
-
-public class RemoteIteratorWriter extends RemoteIterator<Void>{
+public class RemoteIteratorWriter extends RemoteIteratorAbstract<Void>{
 	
 	private InputStream inputStream = null;
 	private OutputStream outputStream = null;

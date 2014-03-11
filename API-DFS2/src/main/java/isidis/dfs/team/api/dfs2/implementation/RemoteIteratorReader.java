@@ -1,13 +1,10 @@
 package isidis.dfs.team.api.dfs2.implementation;
 
-import isidis.dfs.team.api.dfs2.interfaces.RemoteIterator;
-
 import java.io.IOException;
-
 import org.apache.hadoop.fs.UnresolvedLinkException;
 import org.apache.hadoop.hdfs.DFSInputStream;
 
-public class RemoteIteratorReader extends RemoteIterator<byte[]> {
+public class RemoteIteratorReader extends RemoteIteratorAbstract<byte[]> {
 
 	private DFSInputStream dfsInputStream = null;
 	
