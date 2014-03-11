@@ -4,31 +4,23 @@ import isidis.dfs.team.api.dfs.exceptions.EndpointNotReacheableException;
 import isidis.dfs.team.api.dfs.exceptions.FileNotFoundException;
 import isidis.dfs.team.api.dfs.implementation.API_HDFS_Impl;
 import isidis.dfs.team.api.dfs.interfaces.API_HDFS;
-
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.Timer;
-
-import org.apache.hadoop.fs.RemoteIterator;
 
 /**
  * 
- * @author dfs-one
+ * @author saad
  *
  */
 
 public class DebitPerSecondTest {
-	private final static String hdfsURL = "hdfs://192.168.0.41:9000/";
-	private final static String systemUserName = "hduser";
-    
+	
 	public static void main(String[] args) throws IOException, URISyntaxException, FileNotFoundException, EndpointNotReacheableException{
 		/**
 		 * 
 		 * Télécharger un fichier de 128Mo.
 		 */
-		API_HDFS api = new API_HDFS_Impl(hdfsURL, systemUserName);
+		API_HDFS api = new API_HDFS_Impl();
 		long start = System.currentTimeMillis();
 		api.readFile("/user/beck");
 		long elapsedTimeMillis = System.currentTimeMillis()-start;

@@ -21,10 +21,8 @@ public class IT_API_HDFS {
 	public static boolean check_IT()
 	{
 		boolean rep =  false;
-		String hdfsURL = "hdfs://192.168.0.41:9000/";
-		String systemUserName = "hduser";
 		try {
-			API_HDFS IT_api = new API_HDFS_Impl(hdfsURL, systemUserName);
+			API_HDFS IT_api = new API_HDFS_Impl();
 			IT_api.writeFile("This is a test".getBytes(), "test.txt");
 			IT_api.readFile("test.txt");
 			IT_api.deleteFile("test.txt");

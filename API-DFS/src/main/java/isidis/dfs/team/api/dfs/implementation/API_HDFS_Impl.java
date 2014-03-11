@@ -5,12 +5,10 @@ import isidis.dfs.team.api.dfs.interfaces.API_HDFS;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.URI;
 import java.net.URISyntaxException;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileAlreadyExistsException;
 import org.apache.hadoop.hdfs.DFSClient;
 import org.apache.hadoop.hdfs.DFSInputStream;
@@ -23,30 +21,17 @@ import org.apache.hadoop.security.AccessControlException;
  */
 public class API_HDFS_Impl implements API_HDFS{
 
-	private URI hdfsURI = null;
 	private long fileLenght = 512L;
-	Configuration conf = null;
 	DFSClient client = null;
 	private static final Logger logger = Logger.getLogger(API_HDFS_Impl.class);
+	
 	/**
 	 * Creating a HDFS Provider
-	 * @param hdfsURL
-	 * URL of the HDFS targeted
-	 * @param systemUserName
-	 * Name of User in the HDFS
 	 * @throws URISyntaxException
+	 * @throws EndpointNotReacheableException 
 	 */
-	public API_HDFS_Impl(String hdfsURL, String systemUserName) throws URISyntaxException {
-
-		this.hdfsURI = new URI(hdfsURL);
-		if((this.hdfsURI.getHost() == null) || (this.hdfsURI.getPort()==-1) || (!this.hdfsURI.getScheme().equals("hdfs"))){
-			logger.log(Level.ERROR, "URISyntaxException reached");
-			throw new URISyntaxException("", "");}
-
-		conf = new Configuration();
-		conf.set("fs.defaultFS", hdfsURL);
-		System.setProperty("HADOOP_USER_NAME", systemUserName);
-		logger.log(Level.INFO,"Connection to the HDFS successful");
+	public API_HDFS_Impl() throws URISyntaxException, EndpointNotReacheableException {
+		client = MyHdfsClient.getInstance();
 	}
 
 
@@ -55,14 +40,14 @@ public class API_HDFS_Impl implements API_HDFS{
 		DFSInputStream dfsInputStream = null;
 
 		try {
-			client = new DFSClient(this.hdfsURI, conf);
 			if (!client.exists(sourceFileName)){ 
 				logger.log(Level.ERROR, "FileNotFoundException reached");
 				throw new FileNotFoundException();}
 
 			dfsInputStream = client.open(sourceFileName);
 			dfsInputStream.read(arr, 0, (int)fileLenght);
-			logger.log(Level.INFO,"File found");
+			logger.log(Level.INFO,"File found and readed with success");
+			
 		} catch (AccessControlException e){
 			logger.log(Level.ERROR, "SystemUserPermissionException reached");
 			throw new SystemUserPermissionException();
@@ -73,9 +58,6 @@ public class API_HDFS_Impl implements API_HDFS{
 			try {
 				if (dfsInputStream != null)
 					dfsInputStream.close();
-
-				if (client != null)
-					client.close();
 			} catch (IOException e) {
 				logger.log(Level.ERROR, "EndpointNotReacheableException reached");
 				throw new EndpointNotReacheableException();
@@ -89,10 +71,9 @@ public class API_HDFS_Impl implements API_HDFS{
 	public void writeFile(byte[] content, String destinationFileName) throws SystemUserPermissionException, EndpointNotReacheableException, FileAlreadyExistsException {
 		OutputStream outputStream = null;
 		try {
-			client = new DFSClient(this.hdfsURI, conf);
 			outputStream = client.create(destinationFileName, false);
 			outputStream.write(content);
-			logger.log(Level.INFO,"File wrote");
+			logger.log(Level.INFO,"File wroten with success");
 		} catch (FileAlreadyExistsException e){
 			logger.log(Level.ERROR, "FileAlreadyExistsException reached");
 			throw new FileAlreadyExistsException();
@@ -106,9 +87,6 @@ public class API_HDFS_Impl implements API_HDFS{
 			try {
 				if (outputStream != null)
 					outputStream.close();
-
-				if (client != null)
-					client.close();
 			} catch (IOException e) {
 				logger.log(Level.ERROR, "EndpointNotReacheableException reached");
 				throw new EndpointNotReacheableException();
@@ -121,27 +99,28 @@ public class API_HDFS_Impl implements API_HDFS{
 
 	public void deleteFile(String sourceFileName) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException{
 		try {
-			client = new DFSClient(this.hdfsURI, conf);
 			if (!client.exists(sourceFileName)){
 				logger.log(Level.ERROR, "FileNotFoundException reached");
 				throw new FileNotFoundException();
 			}
 			client.delete(sourceFileName);
-			logger.log(Level.INFO,"File deleted");
+			logger.log(Level.INFO,"File deleted with success");
 		} catch (RemoteException e){
 			logger.log(Level.ERROR, "SystemUserPermissionException reached");
 			throw new SystemUserPermissionException();
 		} catch (IOException | IllegalArgumentException e) {
 			logger.log(Level.ERROR, "EndpointNotReacheableException reached");
 			throw new EndpointNotReacheableException();
-		} finally {
-			try{
-				if (client != null)
-					client.close();
-			} catch (IOException e) {
-				logger.log(Level.ERROR, "EndpointNotReacheableException reached");
-				throw new EndpointNotReacheableException();
-			}
+		}
+	}
+
+
+	@Override
+	public void close() throws EndpointNotReacheableException {
+		try {
+			client.close();
+		} catch (IOException e) {
+			throw new EndpointNotReacheableException();
 		}
 	}
 

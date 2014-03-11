@@ -20,11 +20,9 @@ import org.apache.hadoop.fs.RemoteIterator;
  */
 
 public class Main {
-	private final static String hdfsURL = "hdfs://192.168.0.41:9000/";
-	private final static String systemUserName = "hduser";
     
 	public static void main(String[] args) throws IOException, URISyntaxException, FileNotFoundException, EndpointNotReacheableException{
-		API_HDFS api = new API_HDFS_Impl(hdfsURL, systemUserName);
+		API_HDFS api = new API_HDFS_Impl();
 		long start = System.currentTimeMillis();
 		api.readFile("/user/beck");
 		long elapsedTimeMillis = System.currentTimeMillis()-start;

@@ -38,14 +38,10 @@ public interface API_HDFS {
 	 */
 	public void deleteFile(String sourceFileName) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException;
 	
-	/***
-	 * 
-	 * //new idea for interface fonctions
-	public void copyfileIntoHDFS(String filetocopy, String destinationPath)throws IOException;
-	public void copyfileFromHDFS(String filename, String destinationPath)throws FileNotFoundException, IOException;
-	public void createDirectory(String directoryPath);
-	public void deleteDirectory(String directoryPath, boolean suppressContent)throws IOException;
-	public String[] getfileInfo(String filename)throws FileNotFoundException, IOException;
-	
-	*/
+	/**
+	 * Closing connection with DFS.
+	 * @throws EndpointNotReacheableException
+	 */
+	public void close() throws EndpointNotReacheableException;
+
 }
