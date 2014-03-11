@@ -2,8 +2,10 @@ package isidis.dfs.team.API_DFS;
 
 import isidis.dfs.team.api.dfs.exceptions.EndpointNotReacheableException;
 import isidis.dfs.team.api.dfs.exceptions.FileNotFoundException;
+import isidis.dfs.team.api.dfs.exceptions.FileSizeExceedsFixedThreshold;
 import isidis.dfs.team.api.dfs.implementation.API_HDFS_Impl;
 import isidis.dfs.team.api.dfs.interfaces.API_HDFS;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -22,7 +24,12 @@ public class DebitPerSecondTest {
 		 */
 		API_HDFS api = new API_HDFS_Impl();
 		long start = System.currentTimeMillis();
-		api.readFile("/user/beck");
+		try {
+			api.readFile("/user/beck");
+		} catch (FileSizeExceedsFixedThreshold e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		long elapsedTimeMillis = System.currentTimeMillis()-start;
 		System.out.println("OK | Realized: " + elapsedTimeMillis/1000F + "s");
 	}

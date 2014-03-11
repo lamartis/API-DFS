@@ -2,6 +2,7 @@ package isidis.dfs.team.api.dfs.implementation;
 
 import isidis.dfs.team.api.dfs.exceptions.*;
 import isidis.dfs.team.api.dfs.interfaces.API_HDFS;
+import isidis.dfs.team.api.dfs.tools.SecurityChecker;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -21,7 +22,8 @@ import org.apache.hadoop.security.AccessControlException;
  */
 public class API_HDFS_Impl implements API_HDFS{
 
-	private long fileLenght = 512L;
+	private SecurityChecker securityChecker = SecurityChecker.getInstance();
+	private long fileLenght = securityChecker.blockSizeInOctet;
 	DFSClient client = null;
 	private static final Logger logger = Logger.getLogger(API_HDFS_Impl.class);
 	
@@ -34,8 +36,11 @@ public class API_HDFS_Impl implements API_HDFS{
 		client = MyHdfsClient.getInstance();
 	}
 
-
-	public byte[] readFile(String sourceFileName) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException {
+	public byte[] readFile(String sourceFileName) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException, FileSizeExceedsFixedThreshold {
+		
+		if (securityChecker.isNormalFile(sourceFileName)) 
+			throw new FileSizeExceedsFixedThreshold();
+		
 		byte[] arr = new byte[(int)fileLenght];
 		DFSInputStream dfsInputStream = null;
 
@@ -68,7 +73,11 @@ public class API_HDFS_Impl implements API_HDFS{
 	}
 
 
-	public void writeFile(byte[] content, String destinationFileName) throws SystemUserPermissionException, EndpointNotReacheableException, FileAlreadyExistsException {
+	public void writeFile(byte[] content, String destinationFileName) throws SystemUserPermissionException, EndpointNotReacheableException, FileAlreadyExistsException, FileSizeExceedsFixedThreshold {
+		
+		if (content.length < securityChecker.blockSizeInOctet) 
+			throw new FileSizeExceedsFixedThreshold();
+		
 		OutputStream outputStream = null;
 		try {
 			outputStream = client.create(destinationFileName, false);

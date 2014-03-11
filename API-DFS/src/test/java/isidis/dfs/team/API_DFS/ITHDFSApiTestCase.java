@@ -38,7 +38,10 @@ public class ITHDFSApiTestCase extends TestCase {
             Assert.fail("file already exist error");
         } catch (EndpointNotReacheableException e) {
             Assert.fail("Endpoint not reachable");
-        }
+        } catch (FileSizeExceedsFixedThreshold e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         /***
          * Testing ReadFile method
@@ -52,7 +55,10 @@ public class ITHDFSApiTestCase extends TestCase {
             Assert.fail("file not found");
         } catch (EndpointNotReacheableException e1) {
             Assert.fail("endpoint not reachbear");
-        }
+        } catch (FileSizeExceedsFixedThreshold e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
 
         /***
@@ -83,7 +89,10 @@ public class ITHDFSApiTestCase extends TestCase {
             System.out.println("Exception is throwen");
         } catch (EndpointNotReacheableException e1) {
             Assert.fail("endpoint not reachbear");
-        }
+        } catch (FileSizeExceedsFixedThreshold e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         
     }

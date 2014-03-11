@@ -6,6 +6,7 @@ import org.apache.hadoop.fs.FileAlreadyExistsException;
 
 import isidis.dfs.team.api.dfs.exceptions.EndpointNotReacheableException;
 import isidis.dfs.team.api.dfs.exceptions.FileNotFoundException;
+import isidis.dfs.team.api.dfs.exceptions.FileSizeExceedsFixedThreshold;
 import isidis.dfs.team.api.dfs.exceptions.SystemUserPermissionException;
 import isidis.dfs.team.api.dfs.implementation.API_HDFS_Impl;
 import isidis.dfs.team.api.dfs.interfaces.API_HDFS;
@@ -41,6 +42,9 @@ public class IT_API_HDFS {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FileSizeExceedsFixedThreshold e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

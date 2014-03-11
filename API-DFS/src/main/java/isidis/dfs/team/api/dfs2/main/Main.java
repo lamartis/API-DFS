@@ -2,6 +2,7 @@ package isidis.dfs.team.api.dfs2.main;
 
 import isidis.dfs.team.api.dfs.exceptions.EndpointNotReacheableException;
 import isidis.dfs.team.api.dfs.exceptions.FileNotFoundException;
+import isidis.dfs.team.api.dfs.exceptions.FileSizeExceedsFixedThreshold;
 import isidis.dfs.team.api.dfs.implementation.API_HDFS_Impl;
 import isidis.dfs.team.api.dfs.interfaces.API_HDFS;
 
@@ -21,7 +22,7 @@ import org.apache.hadoop.fs.RemoteIterator;
 
 public class Main {
     
-	public static void main(String[] args) throws IOException, URISyntaxException, FileNotFoundException, EndpointNotReacheableException{
+	public static void main(String[] args) throws IOException, URISyntaxException, FileNotFoundException, EndpointNotReacheableException, FileSizeExceedsFixedThreshold{
 		API_HDFS api = new API_HDFS_Impl();
 		long start = System.currentTimeMillis();
 		api.readFile("/user/beck");

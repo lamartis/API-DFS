@@ -1,8 +1,10 @@
 package isidis.dfs.team.api.dfs.interfaces;
 
 import org.apache.hadoop.fs.FileAlreadyExistsException;
+
 import isidis.dfs.team.api.dfs.exceptions.EndpointNotReacheableException;
 import isidis.dfs.team.api.dfs.exceptions.FileNotFoundException;
+import isidis.dfs.team.api.dfs.exceptions.FileSizeExceedsFixedThreshold;
 import isidis.dfs.team.api.dfs.exceptions.SystemUserPermissionException;
 
 public interface API_HDFS {
@@ -15,8 +17,9 @@ public interface API_HDFS {
 	 * @throws FileNotFoundException
 	 * @throws EndpointNotReacheableException
 	 * @throws SystemUserPermissionException
+	 * @throws FileSizeExceedsFixedThreshold
 	 */
-	public byte[] readFile(String sourceFileName) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException;
+	public byte[] readFile(String sourceFileName) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException, FileSizeExceedsFixedThreshold;
 	/**
 	 * Writing a file
 	 * @param content
@@ -26,8 +29,9 @@ public interface API_HDFS {
 	 * @throws SystemUserPermissionException
 	 * @throws EndpointNotReacheableException
 	 * @throws FileAlreadyExistsException
+	 * @throws FileSizeExceedsFixedThreshold
 	 */
-	public void writeFile(byte[] content, String destinationFileName) throws SystemUserPermissionException, EndpointNotReacheableException, FileAlreadyExistsException;
+	public void writeFile(byte[] content, String destinationFileName) throws SystemUserPermissionException, EndpointNotReacheableException, FileAlreadyExistsException, FileSizeExceedsFixedThreshold;
 	/**
 	 * Deleting a file
 	 * @param sourceFileName

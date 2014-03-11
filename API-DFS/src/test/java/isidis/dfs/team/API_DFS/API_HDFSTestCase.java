@@ -2,8 +2,11 @@ package isidis.dfs.team.API_DFS;
 
 import isidis.dfs.team.api.dfs.exceptions.*;
 import isidis.dfs.team.api.dfs.interfaces.API_HDFS;
+
 import java.io.IOException;
+
 import org.apache.hadoop.fs.FileAlreadyExistsException;
+
 import static org.mockito.Mockito.*;
 import junit.framework.Assert;
 import junit.framework.TestCase;
@@ -21,6 +24,9 @@ public class API_HDFSTestCase extends TestCase {
 			e.printStackTrace();
 		} catch (EndpointNotReacheableException e) {
 			e.printStackTrace();
+		} catch (FileSizeExceedsFixedThreshold e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -33,6 +39,9 @@ public class API_HDFSTestCase extends TestCase {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (EndpointNotReacheableException e) {
+			e.printStackTrace();
+		} catch (FileSizeExceedsFixedThreshold e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
