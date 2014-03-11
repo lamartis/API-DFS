@@ -1,40 +1,40 @@
 Manifest-Version: 1.0
-Built-By: dfs-one
+Built-By: saad
 Build-Jdk: 1.7.0_51
 Class-Path: ../conf/ ../lib/api-dfs-0.0.1-20140128.165355-1.jar ../lib
- /hadoop-client-2.2.0.jar ../lib/hadoop-common-2.2.0.jar ../lib/guava-
- 11.0.2.jar ../lib/jsr305-1.3.9.jar ../lib/commons-cli-1.2.jar ../lib/
- commons-math-2.1.jar ../lib/xmlenc-0.52.jar ../lib/commons-httpclient
- -3.1.jar ../lib/commons-codec-1.4.jar ../lib/commons-io-2.1.jar ../li
- b/commons-net-3.1.jar ../lib/commons-logging-1.1.1.jar ../lib/commons
- -lang-2.5.jar ../lib/commons-configuration-1.6.jar ../lib/commons-col
- lections-3.2.1.jar ../lib/commons-digester-1.8.jar ../lib/commons-bea
- nutils-1.7.0.jar ../lib/commons-beanutils-core-1.8.0.jar ../lib/slf4j
- -api-1.7.5.jar ../lib/slf4j-log4j12-1.7.5.jar ../lib/jackson-core-asl
- -1.8.8.jar ../lib/jackson-mapper-asl-1.8.8.jar ../lib/avro-1.7.4.jar 
- ../lib/paranamer-2.3.jar ../lib/snappy-java-1.0.4.1.jar ../lib/protob
- uf-java-2.5.0.jar ../lib/hadoop-auth-2.2.0.jar ../lib/zookeeper-3.4.5
- .jar ../lib/commons-compress-1.4.1.jar ../lib/xz-1.0.jar ../lib/hadoo
- p-hdfs-2.2.0.jar ../lib/jetty-util-6.1.26.jar ../lib/hadoop-mapreduce
- -client-app-2.2.0.jar ../lib/hadoop-mapreduce-client-common-2.2.0.jar
-  ../lib/hadoop-yarn-client-2.2.0.jar ../lib/guice-3.0.jar ../lib/java
- x.inject-1.jar ../lib/aopalliance-1.0.jar ../lib/jersey-test-framewor
- k-grizzly2-1.9.jar ../lib/jersey-test-framework-core-1.9.jar ../lib/j
- avax.servlet-api-3.0.1.jar ../lib/jersey-client-1.9.jar ../lib/jersey
- -grizzly2-1.9.jar ../lib/grizzly-http-2.1.2.jar ../lib/grizzly-framew
- ork-2.1.2.jar ../lib/gmbal-api-only-3.0.0-b023.jar ../lib/management-
- api-3.0.0-b012.jar ../lib/grizzly-http-server-2.1.2.jar ../lib/grizzl
- y-rcm-2.1.2.jar ../lib/grizzly-http-servlet-2.1.2.jar ../lib/javax.se
- rvlet-3.1.jar ../lib/jersey-server-1.9.jar ../lib/asm-3.1.jar ../lib/
- jersey-core-1.9.jar ../lib/jersey-json-1.9.jar ../lib/jettison-1.1.ja
- r ../lib/stax-api-1.0.1.jar ../lib/jaxb-impl-2.2.3-1.jar ../lib/jaxb-
- api-2.2.2.jar ../lib/activation-1.1.jar ../lib/jackson-jaxrs-1.8.3.ja
- r ../lib/jackson-xc-1.8.3.jar ../lib/jersey-guice-1.9.jar ../lib/hado
- op-yarn-server-common-2.2.0.jar ../lib/hadoop-mapreduce-client-shuffl
- e-2.2.0.jar ../lib/hadoop-yarn-api-2.2.0.jar ../lib/hadoop-mapreduce-
- client-core-2.2.0.jar ../lib/hadoop-yarn-common-2.2.0.jar ../lib/hado
- op-mapreduce-client-jobclient-2.2.0.jar ../lib/hadoop-annotations-2.2
- .0.jar ../lib/log4j-1.2.16.jar
+ /common-0.0.1-SNAPSHOT.jar ../lib/hadoop-client-2.2.0.jar ../lib/hado
+ op-common-2.2.0.jar ../lib/guava-11.0.2.jar ../lib/jsr305-1.3.9.jar .
+ ./lib/commons-cli-1.2.jar ../lib/commons-math-2.1.jar ../lib/xmlenc-0
+ .52.jar ../lib/commons-httpclient-3.1.jar ../lib/commons-codec-1.4.ja
+ r ../lib/commons-io-2.1.jar ../lib/commons-net-3.1.jar ../lib/commons
+ -logging-1.1.1.jar ../lib/commons-lang-2.5.jar ../lib/commons-configu
+ ration-1.6.jar ../lib/commons-collections-3.2.1.jar ../lib/commons-di
+ gester-1.8.jar ../lib/commons-beanutils-1.7.0.jar ../lib/commons-bean
+ utils-core-1.8.0.jar ../lib/slf4j-api-1.7.5.jar ../lib/slf4j-log4j12-
+ 1.7.5.jar ../lib/jackson-core-asl-1.8.8.jar ../lib/jackson-mapper-asl
+ -1.8.8.jar ../lib/avro-1.7.4.jar ../lib/paranamer-2.3.jar ../lib/snap
+ py-java-1.0.4.1.jar ../lib/protobuf-java-2.5.0.jar ../lib/hadoop-auth
+ -2.2.0.jar ../lib/zookeeper-3.4.5.jar ../lib/commons-compress-1.4.1.j
+ ar ../lib/xz-1.0.jar ../lib/hadoop-hdfs-2.2.0.jar ../lib/jetty-util-6
+ .1.26.jar ../lib/hadoop-mapreduce-client-app-2.2.0.jar ../lib/hadoop-
+ mapreduce-client-common-2.2.0.jar ../lib/hadoop-yarn-client-2.2.0.jar
+  ../lib/guice-3.0.jar ../lib/javax.inject-1.jar ../lib/aopalliance-1.
+ 0.jar ../lib/jersey-test-framework-grizzly2-1.9.jar ../lib/jersey-tes
+ t-framework-core-1.9.jar ../lib/javax.servlet-api-3.0.1.jar ../lib/je
+ rsey-client-1.9.jar ../lib/jersey-grizzly2-1.9.jar ../lib/grizzly-htt
+ p-2.1.2.jar ../lib/grizzly-framework-2.1.2.jar ../lib/gmbal-api-only-
+ 3.0.0-b023.jar ../lib/management-api-3.0.0-b012.jar ../lib/grizzly-ht
+ tp-server-2.1.2.jar ../lib/grizzly-rcm-2.1.2.jar ../lib/grizzly-http-
+ servlet-2.1.2.jar ../lib/javax.servlet-3.1.jar ../lib/jersey-server-1
+ .9.jar ../lib/asm-3.1.jar ../lib/jersey-core-1.9.jar ../lib/jersey-js
+ on-1.9.jar ../lib/jettison-1.1.jar ../lib/stax-api-1.0.1.jar ../lib/j
+ axb-impl-2.2.3-1.jar ../lib/jaxb-api-2.2.2.jar ../lib/activation-1.1.
+ jar ../lib/jackson-jaxrs-1.8.3.jar ../lib/jackson-xc-1.8.3.jar ../lib
+ /jersey-guice-1.9.jar ../lib/hadoop-yarn-server-common-2.2.0.jar ../l
+ ib/hadoop-mapreduce-client-shuffle-2.2.0.jar ../lib/hadoop-yarn-api-2
+ .2.0.jar ../lib/hadoop-mapreduce-client-core-2.2.0.jar ../lib/hadoop-
+ yarn-common-2.2.0.jar ../lib/hadoop-mapreduce-client-jobclient-2.2.0.
+ jar ../lib/hadoop-annotations-2.2.0.jar ../lib/log4j-1.2.16.jar
 Main-Class: isidis.dfs.team.DFSGUI.Connection
 Created-By: Maven Integration for Eclipse
 

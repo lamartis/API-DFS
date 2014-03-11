@@ -1,7 +1,7 @@
-package isidis.dfs.team.api.dfs.tools;
+package isidis.dfs.team.api.dfs.common.tools;
 
 import isidis.dfs.team.api.dfs.common.exceptions.*;
-import isidis.dfs.team.api.dfs.implementation.MyHdfsClient;
+import isidis.dfs.team.api.dfs.common.implementation.MyHdfsClient;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -14,7 +14,6 @@ import org.apache.log4j.Logger;
  * @author saad
  *
  */
-
 public class SecurityChecker {
 	protected final long Mo = 64;
 	public long blockSizeInOctet = Mo * 1024 * 1024;

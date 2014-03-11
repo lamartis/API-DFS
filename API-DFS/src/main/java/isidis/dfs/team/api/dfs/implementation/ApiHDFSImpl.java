@@ -1,8 +1,9 @@
 package isidis.dfs.team.api.dfs.implementation;
 
 import isidis.dfs.team.api.dfs.common.exceptions.*;
+import isidis.dfs.team.api.dfs.common.implementation.MyHdfsClient;
+import isidis.dfs.team.api.dfs.common.tools.SecurityChecker;
 import isidis.dfs.team.api.dfs.interfaces.ApiHDFS;
-import isidis.dfs.team.api.dfs.tools.SecurityChecker;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -16,9 +17,7 @@ import org.apache.hadoop.hdfs.DFSInputStream;
 import org.apache.hadoop.ipc.RemoteException;
 import org.apache.hadoop.security.AccessControlException;
 /***
- * 
  * @author saad
- * 
  */
 public class ApiHDFSImpl implements ApiHDFS{
 
