@@ -1,6 +1,6 @@
 package isidis.dfs.team.api.dfs.tools;
 
-import isidis.dfs.team.api.dfs.exceptions.EndpointNotReacheableException;
+import isidis.dfs.team.api.dfs.common.exceptions.*;
 import isidis.dfs.team.api.dfs.implementation.MyHdfsClient;
 import java.io.IOException;
 import java.net.URI;

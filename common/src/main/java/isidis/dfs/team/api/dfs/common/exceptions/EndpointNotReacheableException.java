@@ -1,4 +1,4 @@
-package isidis.dfs.team.api.dfs.exceptions;
+package isidis.dfs.team.api.dfs.common.exceptions;
 /**
  * Not Enable to connect to the HDFS
  *

@@ -4,12 +4,9 @@ import java.net.URISyntaxException;
 
 import org.apache.hadoop.fs.FileAlreadyExistsException;
 
-import isidis.dfs.team.api.dfs.exceptions.EndpointNotReacheableException;
-import isidis.dfs.team.api.dfs.exceptions.FileNotFoundException;
-import isidis.dfs.team.api.dfs.exceptions.FileSizeExceedsFixedThreshold;
-import isidis.dfs.team.api.dfs.exceptions.SystemUserPermissionException;
-import isidis.dfs.team.api.dfs.implementation.API_HDFS_Impl;
-import isidis.dfs.team.api.dfs.interfaces.API_HDFS;
+import isidis.dfs.team.api.dfs.common.exceptions.*;
+import isidis.dfs.team.api.dfs.implementation.ApiHDFSImpl;
+import isidis.dfs.team.api.dfs.interfaces.ApiHDFS;
 
 public class IT_API_HDFS {
 
@@ -23,7 +20,7 @@ public class IT_API_HDFS {
 	{
 		boolean rep =  false;
 		try {
-			API_HDFS IT_api = new API_HDFS_Impl();
+			ApiHDFS IT_api = new ApiHDFSImpl();
 			IT_api.writeFile("This is a test".getBytes(), "test.txt");
 			IT_api.readFile("test.txt");
 			IT_api.deleteFile("test.txt");

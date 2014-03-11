@@ -1,7 +1,7 @@
 package isidis.dfs.team.api.dfs.implementation;
 
-import isidis.dfs.team.api.dfs.exceptions.*;
-import isidis.dfs.team.api.dfs.interfaces.API_HDFS;
+import isidis.dfs.team.api.dfs.common.exceptions.*;
+import isidis.dfs.team.api.dfs.interfaces.ApiHDFS;
 import isidis.dfs.team.api.dfs.tools.SecurityChecker;
 
 import java.io.IOException;
@@ -20,19 +20,19 @@ import org.apache.hadoop.security.AccessControlException;
  * @author saad
  * 
  */
-public class API_HDFS_Impl implements API_HDFS{
+public class ApiHDFSImpl implements ApiHDFS{
 
 	private SecurityChecker securityChecker = SecurityChecker.getInstance();
 	private long fileLenght = securityChecker.blockSizeInOctet;
 	DFSClient client = null;
-	private static final Logger logger = Logger.getLogger(API_HDFS_Impl.class);
+	private static final Logger logger = Logger.getLogger(ApiHDFSImpl.class);
 	
 	/**
 	 * Creating a HDFS Provider
 	 * @throws URISyntaxException
 	 * @throws EndpointNotReacheableException 
 	 */
-	public API_HDFS_Impl() throws URISyntaxException, EndpointNotReacheableException {
+	public ApiHDFSImpl() throws URISyntaxException, EndpointNotReacheableException {
 		client = MyHdfsClient.getInstance();
 	}
 

@@ -1,11 +1,9 @@
-package isidis.dfs.team.api.dfs.implementation;
+package isidis.dfs.team.api.dfs.common.implementation;
 
 import isidis.dfs.team.api.dfs.common.exceptions.*;
 import isidis.dfs.team.api.dfs.tools.SecurityChecker;
-
 import java.io.IOException;
 import java.net.URISyntaxException;
-
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hdfs.DFSClient;
 

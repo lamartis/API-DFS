@@ -1,7 +1,7 @@
 package isidis.dfs.team.API_DFS;
 
-import isidis.dfs.team.api.dfs.exceptions.*;
-import isidis.dfs.team.api.dfs.interfaces.API_HDFS;
+import isidis.dfs.team.api.dfs.common.exceptions.*;
+import isidis.dfs.team.api.dfs.interfaces.ApiHDFS;
 
 import java.io.IOException;
 
@@ -12,7 +12,7 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 
 public class API_HDFSTestCase extends TestCase {
-	API_HDFS spyapi = mock(API_HDFS.class);
+	ApiHDFS spyapi = mock(ApiHDFS.class);
 	
 	public void testWriteFile() {
 		try {
@@ -36,11 +36,12 @@ public class API_HDFSTestCase extends TestCase {
 			Assert.assertTrue("This is a test".equals(new String(spyapi.readFile( "test.txt")).trim()));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
 		} catch (EndpointNotReacheableException e) {
 			e.printStackTrace();
 		} catch (FileSizeExceedsFixedThreshold e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SystemUserPermissionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -51,9 +52,10 @@ public class API_HDFSTestCase extends TestCase {
 			verify(spyapi).deleteFile("test.txt");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
 		} catch (EndpointNotReacheableException e) {
+			e.printStackTrace();
+		} catch (SystemUserPermissionException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

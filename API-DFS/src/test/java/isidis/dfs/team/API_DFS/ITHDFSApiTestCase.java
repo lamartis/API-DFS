@@ -3,13 +3,13 @@ package isidis.dfs.team.API_DFS;
 import java.net.URISyntaxException;
 
 import junit.framework.TestCase;
-import isidis.dfs.team.api.dfs.exceptions.*;
+import isidis.dfs.team.api.dfs.common.exceptions.*;
 
 import org.apache.hadoop.fs.FileAlreadyExistsException;
 import org.junit.Assert;
 
-import isidis.dfs.team.api.dfs.implementation.API_HDFS_Impl;
-import isidis.dfs.team.api.dfs.interfaces.API_HDFS;
+import isidis.dfs.team.api.dfs.implementation.ApiHDFSImpl;
+import isidis.dfs.team.api.dfs.interfaces.ApiHDFS;
 
 public class ITHDFSApiTestCase extends TestCase {
     
@@ -18,9 +18,9 @@ public class ITHDFSApiTestCase extends TestCase {
     
     public void testAPI_HDFS_Impl() {
         
-        API_HDFS api = null;
+        ApiHDFS api = null;
         try {
-            api = new API_HDFS_Impl();
+            api = new ApiHDFSImpl();
         } catch (URISyntaxException e1) {
             Assert.fail("URI Syntax Error");
         } catch (EndpointNotReacheableException e) {

@@ -1,10 +1,8 @@
 package isidis.dfs.team.API_DFS;
 
-import isidis.dfs.team.api.dfs.exceptions.EndpointNotReacheableException;
-import isidis.dfs.team.api.dfs.exceptions.FileNotFoundException;
-import isidis.dfs.team.api.dfs.exceptions.FileSizeExceedsFixedThreshold;
-import isidis.dfs.team.api.dfs.implementation.API_HDFS_Impl;
-import isidis.dfs.team.api.dfs.interfaces.API_HDFS;
+import isidis.dfs.team.api.dfs.common.exceptions.*;
+import isidis.dfs.team.api.dfs.implementation.ApiHDFSImpl;
+import isidis.dfs.team.api.dfs.interfaces.ApiHDFS;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -22,11 +20,14 @@ public class DebitPerSecondTest {
 		 * 
 		 * Télécharger un fichier de 128Mo.
 		 */
-		API_HDFS api = new API_HDFS_Impl();
+		ApiHDFS api = new ApiHDFSImpl();
 		long start = System.currentTimeMillis();
 		try {
 			api.readFile("/user/beck");
 		} catch (FileSizeExceedsFixedThreshold e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SystemUserPermissionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

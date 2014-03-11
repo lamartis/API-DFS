@@ -3,8 +3,8 @@ package isidis.dfs.team.DFSHelloWorld;
 import isidis.dfs.team.api.dfs.exceptions.EndpointNotReacheableException;
 import isidis.dfs.team.api.dfs.exceptions.FileNotFoundException;
 import isidis.dfs.team.api.dfs.exceptions.SystemUserPermissionException;
-import isidis.dfs.team.api.dfs.implementation.API_HDFS_Impl;
-import isidis.dfs.team.api.dfs.interfaces.API_HDFS;
+import isidis.dfs.team.api.dfs.implementation.ApiHDFSImpl;
+import isidis.dfs.team.api.dfs.interfaces.ApiHDFS;
 
 import java.net.URISyntaxException;
 
@@ -16,9 +16,9 @@ public class Client {
 	public final static String systemUserName = "hduser";
 
 	public static void main(String[] args){
-		API_HDFS api = null;
+		ApiHDFS api = null;
 		try {
-			api = new API_HDFS_Impl(Client.hdfsURL, systemUserName);
+			api = new ApiHDFSImpl(Client.hdfsURL, systemUserName);
 		} catch (URISyntaxException e1) {
 			System.out.println("URL format not correct");
 			System.exit(0);

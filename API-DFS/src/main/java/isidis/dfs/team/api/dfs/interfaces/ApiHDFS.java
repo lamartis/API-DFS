@@ -2,12 +2,12 @@ package isidis.dfs.team.api.dfs.interfaces;
 
 import org.apache.hadoop.fs.FileAlreadyExistsException;
 
-import isidis.dfs.team.api.dfs.exceptions.EndpointNotReacheableException;
-import isidis.dfs.team.api.dfs.exceptions.FileNotFoundException;
-import isidis.dfs.team.api.dfs.exceptions.FileSizeExceedsFixedThreshold;
-import isidis.dfs.team.api.dfs.exceptions.SystemUserPermissionException;
+import isidis.dfs.team.api.dfs.common.exceptions.EndpointNotReacheableException;
+import isidis.dfs.team.api.dfs.common.exceptions.FileNotFoundException;
+import isidis.dfs.team.api.dfs.common.exceptions.FileSizeExceedsFixedThreshold;
+import isidis.dfs.team.api.dfs.common.exceptions.SystemUserPermissionException;
 
-public interface API_HDFS {
+public interface ApiHDFS {
 	/**
 	 * Reading the file with the URL in param
 	 * @param sourceFileName
