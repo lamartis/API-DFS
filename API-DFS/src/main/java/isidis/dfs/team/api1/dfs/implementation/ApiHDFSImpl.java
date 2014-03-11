@@ -1,37 +1,28 @@
-package isidis.dfs.team.api.dfs.implementation;
+package isidis.dfs.team.api1.dfs.implementation;
 
 import isidis.dfs.team.api.dfs.common.exceptions.*;
+import isidis.dfs.team.api.dfs.common.implementation.ApiGenericImpl;
 import isidis.dfs.team.api.dfs.common.implementation.MyHdfsClient;
-import isidis.dfs.team.api.dfs.common.tools.SecurityChecker;
-import isidis.dfs.team.api.dfs.interfaces.ApiHDFS;
-
+import isidis.dfs.team.api1.dfs.interfaces.ApiHDFS;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URISyntaxException;
-
 import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 import org.apache.hadoop.fs.FileAlreadyExistsException;
-import org.apache.hadoop.hdfs.DFSClient;
 import org.apache.hadoop.hdfs.DFSInputStream;
-import org.apache.hadoop.ipc.RemoteException;
 import org.apache.hadoop.security.AccessControlException;
 /***
  * @author saad
  */
-public class ApiHDFSImpl implements ApiHDFS{
+public class ApiHDFSImpl extends ApiGenericImpl implements ApiHDFS{
 
-	private SecurityChecker securityChecker = SecurityChecker.getInstance();
-	private long fileLenght = securityChecker.blockSizeInOctet;
-	DFSClient client = null;
-	private static final Logger logger = Logger.getLogger(ApiHDFSImpl.class);
-	
 	/**
 	 * Creating a HDFS Provider
 	 * @throws URISyntaxException
 	 * @throws EndpointNotReacheableException 
 	 */
 	public ApiHDFSImpl() throws URISyntaxException, EndpointNotReacheableException {
+		super();
 		client = MyHdfsClient.getInstance();
 	}
 
@@ -103,35 +94,5 @@ public class ApiHDFSImpl implements ApiHDFS{
 
 
 	}
-
-
-	public void deleteFile(String sourceFileName) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException{
-		try {
-			if (!client.exists(sourceFileName)){
-				logger.log(Level.ERROR, "FileNotFoundException reached");
-				throw new FileNotFoundException();
-			}
-			client.delete(sourceFileName);
-			logger.log(Level.INFO,"File deleted with success");
-		} catch (RemoteException e){
-			logger.log(Level.ERROR, "SystemUserPermissionException reached");
-			throw new SystemUserPermissionException();
-		} catch (IOException | IllegalArgumentException e) {
-			logger.log(Level.ERROR, "EndpointNotReacheableException reached");
-			throw new EndpointNotReacheableException();
-		}
-	}
-
-
-	@Override
-	public void close() throws EndpointNotReacheableException {
-		try {
-			client.close();
-		} catch (IOException e) {
-			throw new EndpointNotReacheableException();
-		}
-	}
-
-
 
 }

@@ -3,8 +3,8 @@ package isidis.dfs.team.DFSHelloWorld;
 import isidis.dfs.team.api.dfs.exceptions.EndpointNotReacheableException;
 import isidis.dfs.team.api.dfs.exceptions.FileNotFoundException;
 import isidis.dfs.team.api.dfs.exceptions.SystemUserPermissionException;
-import isidis.dfs.team.api.dfs.implementation.ApiHDFSImpl;
-import isidis.dfs.team.api.dfs.interfaces.ApiHDFS;
+import isidis.dfs.team.api1.dfs.implementation.ApiHDFSImpl;
+import isidis.dfs.team.api1.dfs.interfaces.ApiHDFS;
 
 import java.net.URISyntaxException;
 

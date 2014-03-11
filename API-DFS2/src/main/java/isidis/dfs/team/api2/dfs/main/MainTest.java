@@ -1,11 +1,15 @@
-package isidis.dfs.team.api.dfs2.main;
+package isidis.dfs.team.api2.dfs.main;
 
-import isidis.dfs.team.api.dfs2.implementation.MyHdfsClient;
+import isidis.dfs.team.api.dfs.common.exceptions.EndpointNotReacheableException;
+import isidis.dfs.team.api.dfs.common.implementation.MyHdfsClient;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
+
 import org.apache.hadoop.hdfs.DFSClient;
 import org.apache.log4j.Logger;
 
@@ -17,7 +21,7 @@ public class MainTest {
 	//public final static String fileLocation2 = "/home/dfs-one/Téléchargements/file0";
 	public static final Logger logger = Logger.getLogger(MainTest.class);
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, EndpointNotReacheableException, URISyntaxException {
 		/**
 		 * Getting file size.
 		 */

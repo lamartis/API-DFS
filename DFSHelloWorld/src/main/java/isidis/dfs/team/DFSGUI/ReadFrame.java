@@ -3,7 +3,7 @@ package isidis.dfs.team.DFSGUI;
 import isidis.dfs.team.api.dfs.exceptions.EndpointNotReacheableException;
 import isidis.dfs.team.api.dfs.exceptions.FileNotFoundException;
 import isidis.dfs.team.api.dfs.exceptions.SystemUserPermissionException;
-import isidis.dfs.team.api.dfs.interfaces.API_HDFS;
+import isidis.dfs.team.api1.dfs.interfaces.API_HDFS;
 import isidis.dfs.team.tools.DFSProvider;
 
 import java.awt.BorderLayout;

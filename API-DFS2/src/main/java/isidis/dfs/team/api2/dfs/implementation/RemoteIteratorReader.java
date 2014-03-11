@@ -1,6 +1,10 @@
-package isidis.dfs.team.api.dfs2.implementation;
+package isidis.dfs.team.api2.dfs.implementation;
+
+import isidis.dfs.team.api.dfs.common.exceptions.EndpointNotReacheableException;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
+
 import org.apache.hadoop.fs.UnresolvedLinkException;
 import org.apache.hadoop.hdfs.DFSInputStream;
 
@@ -8,7 +12,8 @@ public class RemoteIteratorReader extends RemoteIteratorAbstract<byte[]> {
 
 	private DFSInputStream dfsInputStream = null;
 	
-	public RemoteIteratorReader(String fileLocation) throws UnresolvedLinkException, IOException{
+	public RemoteIteratorReader(String fileLocation) throws UnresolvedLinkException, IOException, EndpointNotReacheableException, URISyntaxException{
+		super();
 		
 		this.fileLocation = fileLocation;
 		dfsInputStream = client.open(fileLocation);

@@ -1,8 +1,8 @@
-package isidis.dfs.team.API_DFS;
+package isidis.dfs.team.api1.dfs;
 
 import isidis.dfs.team.api.dfs.common.exceptions.*;
-import isidis.dfs.team.api.dfs.implementation.ApiHDFSImpl;
-import isidis.dfs.team.api.dfs.interfaces.ApiHDFS;
+import isidis.dfs.team.api1.dfs.implementation.ApiHDFSImpl;
+import isidis.dfs.team.api1.dfs.interfaces.ApiHDFS;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

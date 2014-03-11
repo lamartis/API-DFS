@@ -1,12 +1,12 @@
-package isidis.dfs.team.API_DFS;
+package isidis.dfs.team.api1.dfs;
 
 import java.net.URISyntaxException;
 
 import org.apache.hadoop.fs.FileAlreadyExistsException;
 
 import isidis.dfs.team.api.dfs.common.exceptions.*;
-import isidis.dfs.team.api.dfs.implementation.ApiHDFSImpl;
-import isidis.dfs.team.api.dfs.interfaces.ApiHDFS;
+import isidis.dfs.team.api1.dfs.implementation.ApiHDFSImpl;
+import isidis.dfs.team.api1.dfs.interfaces.ApiHDFS;
 
 public class IT_API_HDFS {
 

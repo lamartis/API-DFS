@@ -1,9 +1,11 @@
-package isidis.dfs.team.api.dfs2.implementation;
+package isidis.dfs.team.api2.dfs.implementation;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
-import isidis.dfs.team.api.dfs2.implementation.MyHdfsClient;
-import isidis.dfs.team.api.dfs2.interfaces.RemoteIterator;
+import isidis.dfs.team.api.dfs.common.exceptions.EndpointNotReacheableException;
+import isidis.dfs.team.api.dfs.common.implementation.MyHdfsClient;
+import isidis.dfs.team.api2.dfs.interfaces.RemoteIterator;
 
 import org.apache.hadoop.hdfs.DFSClient;
 import org.apache.log4j.Logger;
@@ -18,8 +20,12 @@ public abstract class RemoteIteratorAbstract<E> implements RemoteIterator<E> {
 	protected String fileLocation = null;
 	protected int position = 0;
 	protected long fileSize = -1;	
-	protected DFSClient client = MyHdfsClient.getInstance();
+	protected DFSClient client = null;
 	protected static Logger logger = Logger.getLogger(RemoteIteratorAbstract.class);
+	
+	public RemoteIteratorAbstract() throws EndpointNotReacheableException, URISyntaxException {
+		client = MyHdfsClient.getInstance();
+	}
 	
 	public long getNumberOfBlocks() {
 		return numberOfBlocks;

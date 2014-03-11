@@ -1,17 +1,21 @@
-package isidis.dfs.team.api.dfs2.implementation;
+package isidis.dfs.team.api2.dfs.implementation;
+
+import isidis.dfs.team.api.dfs.common.exceptions.EndpointNotReacheableException;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
 
 public class RemoteIteratorWriter extends RemoteIteratorAbstract<Void>{
 	
 	private InputStream inputStream = null;
 	private OutputStream outputStream = null;
 
-	public RemoteIteratorWriter(File file, String destinationFileLocation) throws IOException {
+	public RemoteIteratorWriter(File file, String destinationFileLocation) throws IOException, EndpointNotReacheableException, URISyntaxException {
+		super();
 		
 		this.fileLocation = destinationFileLocation;
 		this.inputStream = new FileInputStream(file);
