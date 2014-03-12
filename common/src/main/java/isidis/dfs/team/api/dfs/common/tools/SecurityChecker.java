@@ -2,9 +2,14 @@ package isidis.dfs.team.api.dfs.common.tools;
 
 import isidis.dfs.team.api.dfs.common.exceptions.*;
 import isidis.dfs.team.api.dfs.common.implementation.MyHdfsClient;
+
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.Properties;
+
 import org.apache.hadoop.hdfs.DFSClient;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -15,8 +20,7 @@ import org.apache.log4j.Logger;
  *
  */
 public class SecurityChecker {
-	protected final long Mo = 64;
-	public long blockSizeInOctet = Mo * 1024 * 1024;
+	public long blockSizeInOctet = MyHdfsClient.Mo * 1024 * 1024;
 
 	public static Logger logger = Logger.getLogger(SecurityChecker.class);
 
@@ -24,7 +28,7 @@ public class SecurityChecker {
 	private static SecurityChecker instance = null;
 
 	private SecurityChecker() {
-		
+
 	}
 
 	public static SecurityChecker getInstance() throws EndpointNotReacheableException, URISyntaxException{

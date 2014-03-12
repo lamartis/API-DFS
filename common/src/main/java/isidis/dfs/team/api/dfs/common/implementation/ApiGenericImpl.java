@@ -24,9 +24,10 @@ public class ApiGenericImpl implements ApiGeneric {
 	
 	public ApiGenericImpl() throws EndpointNotReacheableException, URISyntaxException {
 		PropertyConfigurator.configure(ApiGenericImpl.class.getClassLoader().getResource("log4j.properties"));
+		client = MyHdfsClient.getInstance();
+		
 		securityChecker = SecurityChecker.getInstance();
 		fileLenght = securityChecker.blockSizeInOctet;
-		client = MyHdfsClient.getInstance();
 	}
 	
 	@Override

@@ -3,8 +3,15 @@ package isidis.dfs.team.api.dfs.common.implementation;
 import isidis.dfs.team.api.dfs.common.exceptions.*;
 import isidis.dfs.team.api.dfs.common.tools.SecurityChecker;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.Properties;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hdfs.DFSClient;
@@ -20,22 +27,37 @@ import org.apache.log4j.PropertyConfigurator;
 
 public class MyHdfsClient {
 	public static MyHdfsClient myHdfsClient = null;
-
-	private final static String hdfsURL = "hdfs://192.168.0.41:9000/";
-	private final static String systemUserName = "hduser";
+	public static Long Mo = null;
+	public static String hdfsURL = null;
+	public static String systemUserName = null;
 
 	public SecurityChecker securityChecker = null;
 	public Configuration conf = null;
 	public static DFSClient client = null;
 	public static Logger logger = Logger.getLogger(MyHdfsClient.class);
-	
+
 	private MyHdfsClient() throws EndpointNotReacheableException, URISyntaxException {
+
+		/**
+		 * Getting hdfsUrl & systemUserName from properties file.
+		 */
+		Properties properties = new Properties();
+		URL url = MyHdfsClient.class.getClassLoader().getResource("config.properties");
+		try {
+			InputStream istream = url.openConnection().getInputStream();
+			properties.load(istream);
+		} catch (IOException e1) {
+			logger.error("Error reading config.properties");
+		}
+		hdfsURL = properties.getProperty("hdfsURL");
+		systemUserName = properties.getProperty("systemUserName");
+		Mo = Long.parseLong(properties.getProperty("Mo"));
 		
 		securityChecker = SecurityChecker.getInstance();
-		
+
 		if (!securityChecker.urlSyntaxIsCorrect(hdfsURL))
 			throw new URISyntaxException("", "");
-		
+
 		conf = new Configuration();
 		conf.set("fs.defaultFS", hdfsURL);
 		System.setProperty("HADOOP_USER_NAME", systemUserName);
@@ -47,7 +69,7 @@ public class MyHdfsClient {
 			throw new EndpointNotReacheableException();
 		}
 	}
-	
+
 	public static DFSClient getInstance() throws EndpointNotReacheableException, URISyntaxException{
 		if (client == null) {
 			myHdfsClient = new MyHdfsClient();
@@ -55,5 +77,5 @@ public class MyHdfsClient {
 		}
 		return client; 
 	}
-	
+
 }
