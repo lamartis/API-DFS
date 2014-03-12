@@ -4,10 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
-
 import isidis.dfs.team.api.dfs.common.exceptions.EndpointNotReacheableException;
-import isidis.dfs.team.api.dfs.common.exceptions.FileNotFoundException;
-import isidis.dfs.team.api.dfs.common.exceptions.SystemUserPermissionException;
 import isidis.dfs.team.api2.dfs.implementation.ApiHDFSImpl;
 import isidis.dfs.team.api2.dfs.interfaces.ApiHDFS;
 import isidis.dfs.team.api2.dfs.interfaces.RemoteIterator;

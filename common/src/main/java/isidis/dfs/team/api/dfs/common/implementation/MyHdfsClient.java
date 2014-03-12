@@ -15,7 +15,6 @@ import org.apache.log4j.PropertyConfigurator;
 /**
  *
  * @author saad
- * I have to replace hdfsURL, systemUserName to variables on propreties file.
  *
  */
 

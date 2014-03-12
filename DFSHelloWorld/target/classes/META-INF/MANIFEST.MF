@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Built-By: dfs-one
+Built-By: saad
 Build-Jdk: 1.7.0_51
 Class-Path: ../conf/ ../lib/api-dfs-0.0.1-SNAPSHOT.jar ../lib/common-0
  .0.1-SNAPSHOT.jar ../lib/hadoop-client-2.2.0.jar ../lib/hadoop-common
