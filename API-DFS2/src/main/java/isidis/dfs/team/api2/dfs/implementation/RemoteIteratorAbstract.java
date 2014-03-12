@@ -1,18 +1,19 @@
 package isidis.dfs.team.api2.dfs.implementation;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 
 import isidis.dfs.team.api.dfs.common.exceptions.EndpointNotReacheableException;
 import isidis.dfs.team.api.dfs.common.implementation.MyHdfsClient;
+import isidis.dfs.team.api.dfs.common.tools.SecurityChecker;
 import isidis.dfs.team.api2.dfs.interfaces.RemoteIterator;
 
 import org.apache.hadoop.hdfs.DFSClient;
 import org.apache.log4j.Logger;
 
 public abstract class RemoteIteratorAbstract<E> implements RemoteIterator<E> {
-	protected final long Mo = 64;
-	protected long blockSizeInOctet = Mo * 1024 * 1024;
+	protected SecurityChecker securityChecker = null;
 	
 	protected byte[] bytes = null;
 	protected long numberOfBlocks = -1;
@@ -21,10 +22,12 @@ public abstract class RemoteIteratorAbstract<E> implements RemoteIterator<E> {
 	protected int position = 0;
 	protected long fileSize = -1;	
 	protected DFSClient client = null;
+	protected InputStream inputStream = null;
 	protected static Logger logger = Logger.getLogger(RemoteIteratorAbstract.class);
 	
 	public RemoteIteratorAbstract() throws EndpointNotReacheableException, URISyntaxException {
 		client = MyHdfsClient.getInstance();
+		securityChecker = SecurityChecker.getInstance();
 	}
 	
 	public long getNumberOfBlocks() {
@@ -32,11 +35,11 @@ public abstract class RemoteIteratorAbstract<E> implements RemoteIterator<E> {
 	}
 	
 	public void calculNumberOfBlocks() {
-		this.numberOfBlocks = fileSize / blockSizeInOctet;
+		this.numberOfBlocks = fileSize / securityChecker.blockSizeInOctet;
 	}
 	
 	public void calculSizeOfLatestBlock() {
-		lastBlockSize = fileSize % blockSizeInOctet;
+		lastBlockSize = fileSize % securityChecker.blockSizeInOctet;
 	}
 	
 	public boolean hasNext() throws IOException {

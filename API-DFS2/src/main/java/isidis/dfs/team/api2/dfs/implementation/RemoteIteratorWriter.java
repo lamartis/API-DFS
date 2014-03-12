@@ -11,7 +11,6 @@ import java.net.URISyntaxException;
 
 public class RemoteIteratorWriter extends RemoteIteratorAbstract<Void>{
 	
-	private InputStream inputStream = null;
 	private OutputStream outputStream = null;
 
 	public RemoteIteratorWriter(File file, String destinationFileLocation) throws IOException, EndpointNotReacheableException, URISyntaxException {
@@ -29,7 +28,7 @@ public class RemoteIteratorWriter extends RemoteIteratorAbstract<Void>{
 		 * Getting file size.
 		 */
 		fileSize = file.length();
-		System.out.println("File size: " + fileSize + " Octets, which can be devised by: " + blockSizeInOctet + " Octets");
+		System.out.println("File size: " + fileSize + " Octets, which can be devised by: " + securityChecker.blockSizeInOctet + " Octets");
 
 		/**
 		 * Tracking size number of file's blocks
@@ -51,12 +50,12 @@ public class RemoteIteratorWriter extends RemoteIteratorAbstract<Void>{
 	public Void next() throws IOException {
 		
 		if ((lastBlockSize != 0) && (position == numberOfBlocks-1)) 
-			blockSizeInOctet = lastBlockSize;
+			securityChecker.blockSizeInOctet = lastBlockSize;
 
-		bytes = new byte[(int)blockSizeInOctet];
+		bytes = new byte[(int)securityChecker.blockSizeInOctet];
 
-		inputStream.read(bytes, 0, (int)blockSizeInOctet);
-		System.out.println("Getting block: " + blockSizeInOctet + " Octets");
+		inputStream.read(bytes, 0, (int)securityChecker.blockSizeInOctet);
+		System.out.println("Getting block: " + securityChecker.blockSizeInOctet + " Octets");
 		
 		outputStream.write(bytes);
 		System.out.println("Saving block N° " + (position+1) + "/" + numberOfBlocks + " from localy with success");

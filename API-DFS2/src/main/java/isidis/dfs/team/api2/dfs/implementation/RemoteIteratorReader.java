@@ -3,26 +3,25 @@ package isidis.dfs.team.api2.dfs.implementation;
 import isidis.dfs.team.api.dfs.common.exceptions.EndpointNotReacheableException;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 
 import org.apache.hadoop.fs.UnresolvedLinkException;
 import org.apache.hadoop.hdfs.DFSInputStream;
 
 public class RemoteIteratorReader extends RemoteIteratorAbstract<byte[]> {
-
-	private DFSInputStream dfsInputStream = null;
 	
 	public RemoteIteratorReader(String fileLocation) throws UnresolvedLinkException, IOException, EndpointNotReacheableException, URISyntaxException{
 		super();
 		
 		this.fileLocation = fileLocation;
-		dfsInputStream = client.open(fileLocation);
+		inputStream = client.open(fileLocation);
 		
 		/**
 		 * Getting file size.
 		 */
 		fileSize = client.getFileInfo(fileLocation).getLen();
-		System.out.println("File size: " + fileSize + " Octets, which can be devised by: " + blockSizeInOctet + " Octets");
+		System.out.println("File size: " + fileSize + " Octets, which can be devised by: " + securityChecker.blockSizeInOctet + " Octets");
 		
 		/**
 		 * Tracking size number of file's blocks
@@ -44,16 +43,16 @@ public class RemoteIteratorReader extends RemoteIteratorAbstract<byte[]> {
 	public byte[] next() throws IOException {
 		
 		if ((lastBlockSize != 0) && (position == numberOfBlocks-1)) 
-			blockSizeInOctet = lastBlockSize;
+			securityChecker.blockSizeInOctet = lastBlockSize;
 
-		bytes = new byte[(int)blockSizeInOctet];
+		bytes = new byte[(int)securityChecker.blockSizeInOctet];
 
-		System.out.println("Try to get: " + blockSizeInOctet + " Octets");
-		dfsInputStream.read(bytes, 0, (int)blockSizeInOctet);
+		System.out.println("Try to get: " + securityChecker.blockSizeInOctet + " Octets");
+		inputStream.read(bytes, 0, (int)securityChecker.blockSizeInOctet);
 		System.out.println("Getting block N° " + (position+1) + "/" + numberOfBlocks + " remotely with success");
 		
 		if (position == numberOfBlocks-1)
-			dfsInputStream.close();
+			inputStream.close();
 			
 		position++;
 		return bytes;

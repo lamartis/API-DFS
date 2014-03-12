@@ -8,7 +8,7 @@ import java.io.IOException;
  * 
  * @author saad
  * Interface describes all methods which can be used to interact with HDFS EndPoint.
- * 
+ * 	
  * Constraints:
  * This API can treat just big files which their size exceed 128Mo
  *
