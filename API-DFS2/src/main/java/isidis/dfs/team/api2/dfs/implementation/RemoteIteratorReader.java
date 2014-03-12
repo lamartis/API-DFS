@@ -1,18 +1,16 @@
 package isidis.dfs.team.api2.dfs.implementation;
 
 import isidis.dfs.team.api.dfs.common.exceptions.EndpointNotReacheableException;
-
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URISyntaxException;
-
 import org.apache.hadoop.fs.UnresolvedLinkException;
-import org.apache.hadoop.hdfs.DFSInputStream;
+import org.apache.log4j.Logger;
 
 public class RemoteIteratorReader extends RemoteIteratorAbstract<byte[]> {
 	
 	public RemoteIteratorReader(String fileLocation) throws UnresolvedLinkException, IOException, EndpointNotReacheableException, URISyntaxException{
 		super();
+		logger = Logger.getLogger(RemoteIteratorWriter.class);
 		
 		this.fileLocation = fileLocation;
 		inputStream = client.open(fileLocation);
@@ -21,7 +19,7 @@ public class RemoteIteratorReader extends RemoteIteratorAbstract<byte[]> {
 		 * Getting file size.
 		 */
 		fileSize = client.getFileInfo(fileLocation).getLen();
-		System.out.println("File size: " + fileSize + " Octets, which can be devised by: " + securityChecker.blockSizeInOctet + " Octets");
+		logger.info("File size: " + fileSize + " Octets, which can be devised by: " + securityChecker.blockSizeInOctet + " Octets");
 		
 		/**
 		 * Tracking size number of file's blocks
@@ -36,8 +34,8 @@ public class RemoteIteratorReader extends RemoteIteratorAbstract<byte[]> {
 		if (lastBlockSize != 0)
 			numberOfBlocks++;
 		
-		System.out.println("Number of blocks: " + this.numberOfBlocks);
-		System.out.println("Lastest block size: " + lastBlockSize + " Octets \n");
+		logger.info("Number of blocks: " + this.numberOfBlocks);
+		logger.info("Lastest block size: " + lastBlockSize + " Octets \n");
 	}
 
 	public byte[] next() throws IOException {
@@ -47,9 +45,9 @@ public class RemoteIteratorReader extends RemoteIteratorAbstract<byte[]> {
 
 		bytes = new byte[(int)securityChecker.blockSizeInOctet];
 
-		System.out.println("Try to get: " + securityChecker.blockSizeInOctet + " Octets");
+		logger.info("Try to get: " + securityChecker.blockSizeInOctet + " Octets");
 		inputStream.read(bytes, 0, (int)securityChecker.blockSizeInOctet);
-		System.out.println("Getting block N° " + (position+1) + "/" + numberOfBlocks + " remotely with success");
+		logger.info("Getting block N° " + (position+1) + "/" + numberOfBlocks + " remotely with success");
 		
 		if (position == numberOfBlocks-1)
 			inputStream.close();

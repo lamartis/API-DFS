@@ -1,7 +1,5 @@
 package isidis.dfs.team.DFSGUI;
 
-import isidis.dfs.team.api.dfs.exceptions.EndpointNotReacheableException;
-import isidis.dfs.team.api.dfs.exceptions.SystemUserPermissionException;
 import isidis.dfs.team.tools.DFSProvider;
 
 import java.awt.Dimension;
@@ -71,7 +69,7 @@ public class WriteFrame extends JComponent implements ActionListener  {
 
 	public void actionPerformed(ActionEvent e) {
 
-		if	(e.getSource() == buttonWrite)	{
+		/*if	(e.getSource() == buttonWrite)	{
 			int returnVal = fc.showOpenDialog(this);
 			file = fc.getSelectedFile();
 			if	(file != null){
@@ -94,6 +92,6 @@ public class WriteFrame extends JComponent implements ActionListener  {
 				}
 				supervisor.getScrenSupervisor().append("Write File  :  " + file.getName() + " to " + pathFile.getText() + " " + message +newline);
 			}
-		}
+		}*/
 	}
 }

@@ -1,9 +1,5 @@
 package isidis.dfs.team.DFSGUI;
 
-import isidis.dfs.team.api.dfs.exceptions.EndpointNotReacheableException;
-import isidis.dfs.team.api.dfs.exceptions.FileNotFoundException;
-import isidis.dfs.team.api.dfs.exceptions.SystemUserPermissionException;
-import isidis.dfs.team.api1.dfs.interfaces.API_HDFS;
 import isidis.dfs.team.tools.DFSProvider;
 
 import java.awt.BorderLayout;
@@ -25,7 +21,6 @@ import javax.swing.JTextField;
 public class ReadFrame implements ActionListener {
 
 	private static final String newline = "\n";
-	private API_HDFS api = null;
 	private JPanel panel;
 	private JTextField pathFile;
 	private JLabel labelPathFile;
@@ -72,7 +67,7 @@ public class ReadFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		String message = null;
+	/*	String message = null;
 		api = DFSProvider.getInstance();
 		area.setText("");
 		if	(e.getSource() == buttonRead) {
@@ -89,7 +84,7 @@ public class ReadFrame implements ActionListener {
 			}
 			supervisor.getScrenSupervisor().append("Read File : " + pathFile.getText() + message + "\n");
 
-		}
+		}*/
 	}
 
 }

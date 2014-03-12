@@ -1,8 +1,5 @@
 package isidis.dfs.team.DFSGUI;
 
-import isidis.dfs.team.api.dfs.exceptions.EndpointNotReacheableException;
-import isidis.dfs.team.api.dfs.exceptions.FileNotFoundException;
-import isidis.dfs.team.api.dfs.exceptions.SystemUserPermissionException;
 import isidis.dfs.team.tools.DFSProvider;
 
 import java.awt.Dimension;
@@ -63,7 +60,7 @@ public class DeleteFile implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		String message = null;
+	/*	String message = null;
 		if	(e.getSource() == buttonDelete)	{
 			try {
 				DFSProvider.getInstance().deleteFile(pathFile.getText());
@@ -77,7 +74,7 @@ public class DeleteFile implements ActionListener {
 			}
 			supervisor.getScrenSupervisor().append("Delete File: "+ pathFile.getText() + message + "\n");
 
-		}
+		}*/
 	}
 
 }

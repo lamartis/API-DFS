@@ -23,7 +23,7 @@ public abstract class RemoteIteratorAbstract<E> implements RemoteIterator<E> {
 	protected long fileSize = -1;	
 	protected DFSClient client = null;
 	protected InputStream inputStream = null;
-	protected static Logger logger = Logger.getLogger(RemoteIteratorAbstract.class);
+	protected static Logger logger = null;
 	
 	public RemoteIteratorAbstract() throws EndpointNotReacheableException, URISyntaxException {
 		client = MyHdfsClient.getInstance();

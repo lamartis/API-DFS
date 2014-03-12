@@ -8,6 +8,9 @@ import java.net.URISyntaxException;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hdfs.DFSClient;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 /**
  *
@@ -22,11 +25,15 @@ public class MyHdfsClient {
 	private final static String hdfsURL = "hdfs://192.168.0.41:9000/";
 	private final static String systemUserName = "hduser";
 
-	private SecurityChecker securityChecker = SecurityChecker.getInstance();
-	private Configuration conf = null;
+	public SecurityChecker securityChecker = null;
+	public Configuration conf = null;
 	public static DFSClient client = null;
+	public static Logger logger = Logger.getLogger(MyHdfsClient.class);
 	
 	private MyHdfsClient() throws EndpointNotReacheableException, URISyntaxException {
+		
+		securityChecker = SecurityChecker.getInstance();
+		
 		if (!securityChecker.urlSyntaxIsCorrect(hdfsURL))
 			throw new URISyntaxException("", "");
 		
@@ -35,6 +42,8 @@ public class MyHdfsClient {
 		System.setProperty("HADOOP_USER_NAME", systemUserName);
 		try {
 			client = new DFSClient(conf);
+			logger.info("New connection established to DFS");
+			//System.out.println("New connection to DFS");
 		} catch (IOException e) {
 			throw new EndpointNotReacheableException();
 		}

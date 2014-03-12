@@ -23,9 +23,8 @@ public class SecurityChecker {
 	public DFSClient client = null;
 	private static SecurityChecker instance = null;
 
-	private SecurityChecker() throws EndpointNotReacheableException, URISyntaxException {
-		instance = new SecurityChecker();
-		client = MyHdfsClient.getInstance();
+	private SecurityChecker() {
+		
 	}
 
 	public static SecurityChecker getInstance() throws EndpointNotReacheableException, URISyntaxException{
@@ -55,7 +54,13 @@ public class SecurityChecker {
 	}
 
 	public boolean isNormalFile(String sourceFileName) throws EndpointNotReacheableException {
-
+		
+		try {
+			client = MyHdfsClient.getInstance();
+		} catch (URISyntaxException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		try {
 			if (client.getFileInfo(sourceFileName).getLen() < blockSizeInOctet)
 				return false;

@@ -10,8 +10,11 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import org.apache.hadoop.fs.UnresolvedLinkException;
+import org.apache.log4j.Logger;
 
 public class ApiHDFSImpl extends ApiGenericImpl implements ApiHDFS {
+	
+	public static final Logger logger = Logger.getLogger(ApiHDFSImpl.class);
 	
 	public ApiHDFSImpl() throws EndpointNotReacheableException, URISyntaxException {
 		super();

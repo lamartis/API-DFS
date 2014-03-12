@@ -4,10 +4,14 @@ import isidis.dfs.team.api.dfs.common.exceptions.*;
 import isidis.dfs.team.api.dfs.common.implementation.ApiGenericImpl;
 import isidis.dfs.team.api.dfs.common.implementation.MyHdfsClient;
 import isidis.dfs.team.api1.dfs.interfaces.ApiHDFS;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URISyntaxException;
+
 import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.apache.hadoop.fs.FileAlreadyExistsException;
 import org.apache.hadoop.hdfs.DFSInputStream;
 import org.apache.hadoop.security.AccessControlException;
@@ -15,7 +19,8 @@ import org.apache.hadoop.security.AccessControlException;
  * @author saad
  */
 public class ApiHDFSImpl extends ApiGenericImpl implements ApiHDFS{
-
+	
+	public static final Logger logger = Logger.getLogger(ApiHDFSImpl.class);
 	/**
 	 * Creating a HDFS Provider
 	 * @throws URISyntaxException
@@ -23,7 +28,6 @@ public class ApiHDFSImpl extends ApiGenericImpl implements ApiHDFS{
 	 */
 	public ApiHDFSImpl() throws URISyntaxException, EndpointNotReacheableException {
 		super();
-		client = MyHdfsClient.getInstance();
 	}
 
 	public byte[] readFile(String sourceFileName) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException, FileSizeExceedsFixedThreshold {
@@ -31,7 +35,7 @@ public class ApiHDFSImpl extends ApiGenericImpl implements ApiHDFS{
 		if (securityChecker.isNormalFile(sourceFileName)) 
 			throw new FileSizeExceedsFixedThreshold();
 		
-		byte[] arr = new byte[(int)fileLenght];
+		byte[] arr = new byte[(int)512L];
 		DFSInputStream dfsInputStream = null;
 
 		try {
@@ -41,8 +45,7 @@ public class ApiHDFSImpl extends ApiGenericImpl implements ApiHDFS{
 
 			dfsInputStream = client.open(sourceFileName);
 			dfsInputStream.read(arr, 0, (int)fileLenght);
-			logger.log(Level.INFO,"File found and readed with success");
-			
+			logger.log(Level.INFO,"File found and readed with success [" + sourceFileName + "]");
 		} catch (AccessControlException e){
 			logger.log(Level.ERROR, "SystemUserPermissionException reached");
 			throw new SystemUserPermissionException();
@@ -65,14 +68,14 @@ public class ApiHDFSImpl extends ApiGenericImpl implements ApiHDFS{
 
 	public void writeFile(byte[] content, String destinationFileName) throws SystemUserPermissionException, EndpointNotReacheableException, FileAlreadyExistsException, FileSizeExceedsFixedThreshold {
 		
-		if (content.length < securityChecker.blockSizeInOctet) 
+		if (content.length > securityChecker.blockSizeInOctet) 
 			throw new FileSizeExceedsFixedThreshold();
 		
 		OutputStream outputStream = null;
 		try {
 			outputStream = client.create(destinationFileName, false);
 			outputStream.write(content);
-			logger.log(Level.INFO,"File wroten with success");
+			logger.log(Level.INFO,"File wroten with success [" + destinationFileName + "]");
 		} catch (FileAlreadyExistsException e){
 			logger.log(Level.ERROR, "FileAlreadyExistsException reached");
 			throw new FileAlreadyExistsException();

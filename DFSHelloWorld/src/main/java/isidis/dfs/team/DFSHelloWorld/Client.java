@@ -1,8 +1,5 @@
 package isidis.dfs.team.DFSHelloWorld;
 
-import isidis.dfs.team.api.dfs.exceptions.EndpointNotReacheableException;
-import isidis.dfs.team.api.dfs.exceptions.FileNotFoundException;
-import isidis.dfs.team.api.dfs.exceptions.SystemUserPermissionException;
 import isidis.dfs.team.api1.dfs.implementation.ApiHDFSImpl;
 import isidis.dfs.team.api1.dfs.interfaces.ApiHDFS;
 
@@ -16,7 +13,7 @@ public class Client {
 	public final static String systemUserName = "hduser";
 
 	public static void main(String[] args){
-		ApiHDFS api = null;
+	/*	ApiHDFS api = null;
 		try {
 			api = new ApiHDFSImpl(Client.hdfsURL, systemUserName);
 		} catch (URISyntaxException e1) {
@@ -26,7 +23,7 @@ public class Client {
 
 		/***
 		 * Testing ReadFile method
-		 **/
+		 *
 
 		try {
 			System.out.println(new String(api.readFile("/user/file1")));

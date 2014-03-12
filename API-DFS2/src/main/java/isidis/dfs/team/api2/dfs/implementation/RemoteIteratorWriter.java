@@ -5,9 +5,10 @@ import isidis.dfs.team.api.dfs.common.exceptions.EndpointNotReacheableException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URISyntaxException;
+
+import org.apache.log4j.Logger;
 
 public class RemoteIteratorWriter extends RemoteIteratorAbstract<Void>{
 	
@@ -15,6 +16,7 @@ public class RemoteIteratorWriter extends RemoteIteratorAbstract<Void>{
 
 	public RemoteIteratorWriter(File file, String destinationFileLocation) throws IOException, EndpointNotReacheableException, URISyntaxException {
 		super();
+		logger = Logger.getLogger(RemoteIteratorWriter.class);
 		
 		this.fileLocation = destinationFileLocation;
 		this.inputStream = new FileInputStream(file);
@@ -28,8 +30,7 @@ public class RemoteIteratorWriter extends RemoteIteratorAbstract<Void>{
 		 * Getting file size.
 		 */
 		fileSize = file.length();
-		System.out.println("File size: " + fileSize + " Octets, which can be devised by: " + securityChecker.blockSizeInOctet + " Octets");
-
+		logger.info("File size: " + fileSize + " Octets, which can be devised by: " + securityChecker.blockSizeInOctet + " Octets");
 		/**
 		 * Tracking size number of file's blocks
 		 */
@@ -43,8 +44,8 @@ public class RemoteIteratorWriter extends RemoteIteratorAbstract<Void>{
 		if (lastBlockSize != 0)
 			numberOfBlocks++;
 		
-		System.out.println("Number of blocks: " + this.numberOfBlocks);
-		System.out.println("Lastest block size: " + lastBlockSize + " Octets \n");
+		logger.info("Number of blocks: " + this.numberOfBlocks);
+		logger.info("Lastest block size: " + lastBlockSize + " Octets \n");
 	}
 
 	public Void next() throws IOException {
@@ -55,10 +56,10 @@ public class RemoteIteratorWriter extends RemoteIteratorAbstract<Void>{
 		bytes = new byte[(int)securityChecker.blockSizeInOctet];
 
 		inputStream.read(bytes, 0, (int)securityChecker.blockSizeInOctet);
-		System.out.println("Getting block: " + securityChecker.blockSizeInOctet + " Octets");
+		logger.info("Getting block: " + securityChecker.blockSizeInOctet + " Octets");
 		
 		outputStream.write(bytes);
-		System.out.println("Saving block N° " + (position+1) + "/" + numberOfBlocks + " from localy with success");
+		logger.info("Saving block N° " + (position+1) + "/" + numberOfBlocks + " from localy with success");
 		
 		if (position == numberOfBlocks-1) {
 			inputStream.close();

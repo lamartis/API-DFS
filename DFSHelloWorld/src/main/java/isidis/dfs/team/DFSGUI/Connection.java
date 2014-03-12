@@ -17,6 +17,10 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+/**
+ * @author dfs-one
+ *
+ */
 public class Connection extends JFrame implements ActionListener {
 
 	private JTextField URL = new JTextField("hdfs://192.168.0.41:9000", 30);
@@ -51,7 +55,7 @@ public class Connection extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
-		if	(e.getSource() == press)	{
+	/*	if	(e.getSource() == press)	{
 			try {
 				DFSProvider.getInstance(URL.getText(), user.getText());
 				new MainFrame().createAndShowGUI();
@@ -59,7 +63,7 @@ public class Connection extends JFrame implements ActionListener {
 			} catch (URISyntaxException e1) {
 				URL.setText("URI Syntax Exception");
 			}
-		}
+		}*/
 	}
 	public static void main(String[] args) {
 		// Schedule a job for the event dispatch thread:
