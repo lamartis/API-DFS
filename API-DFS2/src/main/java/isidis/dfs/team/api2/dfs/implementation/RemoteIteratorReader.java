@@ -19,7 +19,7 @@ public class RemoteIteratorReader extends RemoteIteratorAbstract<byte[]> {
 		 * Getting file size.
 		 */
 		fileSize = client.getFileInfo(fileLocation).getLen();
-		logger.info("File size: " + fileSize + " Octets, which can be devised by: " + securityChecker.blockSizeInOctet + " Octets");
+		logger.info("File size: " + fileSize + " Octets, which can be devised by: " + blockSizeInOctet + " Octets");
 		
 		/**
 		 * Tracking size number of file's blocks
@@ -41,12 +41,12 @@ public class RemoteIteratorReader extends RemoteIteratorAbstract<byte[]> {
 	public byte[] next() throws IOException {
 		
 		if ((lastBlockSize != 0) && (position == numberOfBlocks-1)) 
-			securityChecker.blockSizeInOctet = lastBlockSize;
+			blockSizeInOctet = lastBlockSize;
 
-		bytes = new byte[(int)securityChecker.blockSizeInOctet];
+		bytes = new byte[(int)blockSizeInOctet];
 
-		logger.info("Try to get: " + securityChecker.blockSizeInOctet + " Octets");
-		inputStream.read(bytes, 0, (int)securityChecker.blockSizeInOctet);
+		logger.info("Try to get: " + blockSizeInOctet + " Octets");
+		inputStream.read(bytes, 0, (int)blockSizeInOctet);
 		logger.info("Getting block N° " + (position+1) + "/" + numberOfBlocks + " remotely with success");
 		
 		if (position == numberOfBlocks-1)

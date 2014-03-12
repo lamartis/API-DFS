@@ -18,26 +18,24 @@ import isidis.dfs.team.api.dfs.common.tools.SecurityChecker;
 public class ApiGenericImpl implements ApiGeneric {
 
 	public SecurityChecker securityChecker = null;
-	public DFSClient client = null;
-	public long fileLenght = -1;
+	public MyHdfsClient myHdfsClient = null;
 	public static final Logger logger = Logger.getLogger(ApiGenericImpl.class);
 	
 	public ApiGenericImpl() throws EndpointNotReacheableException, URISyntaxException {
 		PropertyConfigurator.configure(ApiGenericImpl.class.getClassLoader().getResource("log4j.properties"));
-		client = MyHdfsClient.getInstance();
+		myHdfsClient = MyHdfsClient.getInstance();
 		
 		securityChecker = SecurityChecker.getInstance();
-		fileLenght = securityChecker.blockSizeInOctet;
 	}
 	
 	@Override
 	public void deleteFile(String sourceFileName) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException{
 		try {
-			if (!client.exists(sourceFileName)){
+			if (!myHdfsClient.getDFSClient().exists(sourceFileName)){
 				logger.log(Level.ERROR, "FileNotFoundException reached");
 				throw new FileNotFoundException();
 			}
-			client.delete(sourceFileName);
+			myHdfsClient.getDFSClient().delete(sourceFileName);
 			logger.log(Level.INFO,"File deleted with success [" + sourceFileName + "]");
 		} catch (RemoteException e){
 			logger.log(Level.ERROR, "SystemUserPermissionException reached");
@@ -51,7 +49,7 @@ public class ApiGenericImpl implements ApiGeneric {
 	@Override
 	public void close() throws EndpointNotReacheableException {
 		try {
-			client.close();
+			myHdfsClient.getDFSClient().close();
 			logger.info("Connection is closed");
 		} catch (IOException e) {
 			throw new EndpointNotReacheableException();

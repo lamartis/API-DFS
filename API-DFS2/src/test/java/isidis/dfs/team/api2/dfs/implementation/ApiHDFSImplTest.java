@@ -20,8 +20,8 @@ public class ApiHDFSImplTest {
 		api.writeFile(new File(file), "/user/tauraFilmwriten2");
 	}
 	
-	public void testreadFile() throws IOException, EndpointNotReacheableException, URISyntaxException {
+	/*public void testreadFile() throws IOException, EndpointNotReacheableException, URISyntaxException {
 		DFSClient client = MyHdfsClient.getInstance();
 		System.out.println(client.getFileInfo("/user/tauraFilmwriten2").getLen());
-	}
+	}*/
 }

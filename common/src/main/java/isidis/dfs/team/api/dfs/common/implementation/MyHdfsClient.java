@@ -82,5 +82,13 @@ public class MyHdfsClient {
 		return myHdfsClient; 
 	}
 	
+	public DFSClient getDFSClient() {
+		return client;
+	}
+	
+	public long getBlockSizeInOctet() {
+		return blockSizeInOctet;
+	}
+	
 
 }

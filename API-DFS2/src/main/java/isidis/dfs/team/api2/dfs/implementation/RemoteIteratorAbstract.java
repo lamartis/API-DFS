@@ -21,12 +21,14 @@ public abstract class RemoteIteratorAbstract<E> implements RemoteIterator<E> {
 	protected String fileLocation = null;
 	protected int position = 0;
 	protected long fileSize = -1;	
-	protected DFSClient client = null;
 	protected InputStream inputStream = null;
 	protected static Logger logger = null;
+	protected long blockSizeInOctet = -1;
+	protected DFSClient client = null;
 	
 	public RemoteIteratorAbstract() throws EndpointNotReacheableException, URISyntaxException {
-		client = MyHdfsClient.getInstance();
+		client = MyHdfsClient.getInstance().getDFSClient();
+		blockSizeInOctet = MyHdfsClient.getInstance().getBlockSizeInOctet();
 		securityChecker = SecurityChecker.getInstance();
 	}
 	
@@ -35,11 +37,11 @@ public abstract class RemoteIteratorAbstract<E> implements RemoteIterator<E> {
 	}
 	
 	public void calculNumberOfBlocks() {
-		this.numberOfBlocks = fileSize / securityChecker.blockSizeInOctet;
+		this.numberOfBlocks = fileSize / blockSizeInOctet;
 	}
 	
 	public void calculSizeOfLatestBlock() {
-		lastBlockSize = fileSize % securityChecker.blockSizeInOctet;
+		lastBlockSize = fileSize % blockSizeInOctet;
 	}
 	
 	public boolean hasNext() throws IOException {

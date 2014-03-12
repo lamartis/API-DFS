@@ -39,12 +39,12 @@ public class ApiHDFSImpl extends ApiGenericImpl implements ApiHDFS{
 		DFSInputStream dfsInputStream = null;
 
 		try {
-			if (!client.exists(sourceFileName)){ 
+			if (!myHdfsClient.getDFSClient().exists(sourceFileName)){ 
 				logger.log(Level.ERROR, "FileNotFoundException reached");
 				throw new FileNotFoundException();}
 
-			dfsInputStream = client.open(sourceFileName);
-			dfsInputStream.read(arr, 0, (int)fileLenght);
+			dfsInputStream = myHdfsClient.getDFSClient().open(sourceFileName);
+			dfsInputStream.read(arr, 0, (int)myHdfsClient.getBlockSizeInOctet());
 			logger.log(Level.INFO,"File found and readed with success [" + sourceFileName + "]");
 		} catch (AccessControlException e){
 			logger.log(Level.ERROR, "SystemUserPermissionException reached");
@@ -68,13 +68,13 @@ public class ApiHDFSImpl extends ApiGenericImpl implements ApiHDFS{
 
 	public void writeFile(byte[] content, String destinationFileName) throws SystemUserPermissionException, EndpointNotReacheableException, FileAlreadyExistsException, FileSizeExceedsFixedThreshold {
 		
-		if (content.length > MyHdfsClient.getInstance().blockSizeInOctet) {
-			logger.info(content.length + " > " + MyHdfsClient.getInstance().blockSizeInOctet);
+		if (content.length > myHdfsClient.getBlockSizeInOctet()) {
+			logger.info(content.length + " > " + myHdfsClient.getBlockSizeInOctet());
 			throw new FileSizeExceedsFixedThreshold();
 		}
 		OutputStream outputStream = null;
 		try {
-			outputStream = client.create(destinationFileName, false);
+			outputStream = myHdfsClient.getDFSClient().create(destinationFileName, false);
 			outputStream.write(content);
 			logger.log(Level.INFO,"File wroten with success [" + destinationFileName + "]");
 		} catch (FileAlreadyExistsException e){
