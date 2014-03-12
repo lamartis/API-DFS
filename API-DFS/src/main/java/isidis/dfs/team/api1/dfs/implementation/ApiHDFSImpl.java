@@ -68,8 +68,8 @@ public class ApiHDFSImpl extends ApiGenericImpl implements ApiHDFS{
 
 	public void writeFile(byte[] content, String destinationFileName) throws SystemUserPermissionException, EndpointNotReacheableException, FileAlreadyExistsException, FileSizeExceedsFixedThreshold {
 		
-		if (content.length > securityChecker.blockSizeInOctet) {
-			logger.info(content.length + " > " + securityChecker.blockSizeInOctet);
+		if (content.length > MyHdfsClient.getInstance().blockSizeInOctet) {
+			logger.info(content.length + " > " + MyHdfsClient.getInstance().blockSizeInOctet);
 			throw new FileSizeExceedsFixedThreshold();
 		}
 		OutputStream outputStream = null;

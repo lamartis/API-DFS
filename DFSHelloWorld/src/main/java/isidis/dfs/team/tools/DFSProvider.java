@@ -1,17 +1,20 @@
 package isidis.dfs.team.tools;
 
+import isidis.dfs.team.api.dfs.common.exceptions.EndpointNotReacheableException;
+import isidis.dfs.team.api1.dfs.implementation.ApiHDFSImpl;
+
 import java.net.URISyntaxException;
 
 public class DFSProvider {
-	/*public static API_HDFS_Impl instance = null;
+	public static ApiHDFSImpl instance = null;
 
-	public static API_HDFS_Impl getInstance(String hdfsURL, String user) throws URISyntaxException{
-		instance = new API_HDFS_Impl(hdfsURL, user);
+	public static ApiHDFSImpl getInstance() throws URISyntaxException, EndpointNotReacheableException{
+		if (instance == null) {
+			instance = new ApiHDFSImpl();
+			return instance;
+		}
 		return instance;
 
 	}
 
-	public static API_HDFS_Impl getInstance(){
-		return instance;
-	}*/
 }

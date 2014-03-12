@@ -1,5 +1,9 @@
 package isidis.dfs.team.DFSGUI;
 
+import isidis.dfs.team.api.dfs.common.exceptions.EndpointNotReacheableException;
+import isidis.dfs.team.api.dfs.common.exceptions.FileNotFoundException;
+import isidis.dfs.team.api.dfs.common.exceptions.FileSizeExceedsFixedThreshold;
+import isidis.dfs.team.api.dfs.common.exceptions.SystemUserPermissionException;
 import isidis.dfs.team.tools.DFSProvider;
 
 import java.awt.BorderLayout;
@@ -67,13 +71,12 @@ public class ReadFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-	/*	String message = null;
-		api = DFSProvider.getInstance();
+		String message = null;
 		area.setText("");
 		if	(e.getSource() == buttonRead) {
 			try {
 				System.out.println("reading " + pathFile.getText());
-				area.setText(new String(api.readFile(pathFile.getText())));
+				area.setText(new String(DFSProvider.getInstance().readFile(pathFile.getText())));
 				message = " with success !";
 			} catch (SystemUserPermissionException e1) {
 				message = " [system user permission Exception]";
@@ -81,10 +84,14 @@ public class ReadFrame implements ActionListener {
 				message = " [File Not Found]";
 			} catch (EndpointNotReacheableException e1) {
 				message = " [Endpoint not reacheable Exception]";
+			} catch (FileSizeExceedsFixedThreshold e1) {
+				message = " [File Size Exceeds Fixed Threshold]";
+			} catch (URISyntaxException e1) {
+				message = " [URI Syntax Exception]";
 			}
 			supervisor.getScrenSupervisor().append("Read File : " + pathFile.getText() + message + "\n");
 
-		}*/
+		}
 	}
 
 }

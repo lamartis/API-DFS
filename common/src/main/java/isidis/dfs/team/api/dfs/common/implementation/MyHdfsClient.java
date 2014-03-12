@@ -27,13 +27,15 @@ import org.apache.log4j.PropertyConfigurator;
 
 public class MyHdfsClient {
 	public static MyHdfsClient myHdfsClient = null;
-	public static Long Mo = null;
+	public Long Mo = null;
+	public Long blockSizeInOctet = null;
+	
 	public static String hdfsURL = null;
 	public static String systemUserName = null;
 
 	public SecurityChecker securityChecker = null;
 	public Configuration conf = null;
-	public static DFSClient client = null;
+	public DFSClient client = null;
 	public static Logger logger = Logger.getLogger(MyHdfsClient.class);
 
 	private MyHdfsClient() throws EndpointNotReacheableException, URISyntaxException {
@@ -51,7 +53,9 @@ public class MyHdfsClient {
 		}
 		hdfsURL = properties.getProperty("hdfsURL");
 		systemUserName = properties.getProperty("systemUserName");
+		
 		Mo = Long.parseLong(properties.getProperty("Mo"));
+		blockSizeInOctet = Mo * 1024 * 1024;
 		
 		securityChecker = SecurityChecker.getInstance();
 
@@ -70,12 +74,13 @@ public class MyHdfsClient {
 		}
 	}
 
-	public static DFSClient getInstance() throws EndpointNotReacheableException, URISyntaxException{
-		if (client == null) {
+	public static MyHdfsClient getInstance() throws EndpointNotReacheableException, URISyntaxException{
+		if (myHdfsClient == null) {
 			myHdfsClient = new MyHdfsClient();
-			return client; 
+			return myHdfsClient; 
 		}
-		return client; 
+		return myHdfsClient; 
 	}
+	
 
 }

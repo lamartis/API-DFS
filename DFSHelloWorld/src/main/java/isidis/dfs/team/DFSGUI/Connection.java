@@ -1,5 +1,6 @@
 package isidis.dfs.team.DFSGUI;
 
+import isidis.dfs.team.api.dfs.common.exceptions.EndpointNotReacheableException;
 import isidis.dfs.team.tools.DFSProvider;
 
 import java.awt.Dimension;
@@ -55,15 +56,19 @@ public class Connection extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
-	/*	if	(e.getSource() == press)	{
+		if	(e.getSource() == press)	{
 			try {
-				DFSProvider.getInstance(URL.getText(), user.getText());
-				new MainFrame().createAndShowGUI();
-				frame.dispose();
+				DFSProvider.getInstance();
 			} catch (URISyntaxException e1) {
-				URL.setText("URI Syntax Exception");
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (EndpointNotReacheableException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
-		}*/
+			new MainFrame().createAndShowGUI();
+			frame.dispose();
+		}
 	}
 	public static void main(String[] args) {
 		// Schedule a job for the event dispatch thread:

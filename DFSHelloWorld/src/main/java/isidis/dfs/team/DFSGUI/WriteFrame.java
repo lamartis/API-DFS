@@ -1,5 +1,8 @@
 package isidis.dfs.team.DFSGUI;
 
+import isidis.dfs.team.api.dfs.common.exceptions.EndpointNotReacheableException;
+import isidis.dfs.team.api.dfs.common.exceptions.FileSizeExceedsFixedThreshold;
+import isidis.dfs.team.api.dfs.common.exceptions.SystemUserPermissionException;
 import isidis.dfs.team.tools.DFSProvider;
 
 import java.awt.Dimension;
@@ -9,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -69,7 +73,7 @@ public class WriteFrame extends JComponent implements ActionListener  {
 
 	public void actionPerformed(ActionEvent e) {
 
-		/*if	(e.getSource() == buttonWrite)	{
+		if	(e.getSource() == buttonWrite)	{
 			int returnVal = fc.showOpenDialog(this);
 			file = fc.getSelectedFile();
 			if	(file != null){
@@ -89,9 +93,13 @@ public class WriteFrame extends JComponent implements ActionListener  {
 					message = " [File Already Exists Exception]";
 				} catch (EndpointNotReacheableException e1) {
 					message = " [Endpoint Not Reacheable]";
+				} catch (FileSizeExceedsFixedThreshold e1) {
+					message = " [File Size Exceeds Fixed Threshold]";
+				} catch (URISyntaxException e1) {
+					message = " [URI Syntax Exception]";
 				}
 				supervisor.getScrenSupervisor().append("Write File  :  " + file.getName() + " to " + pathFile.getText() + " " + message +newline);
 			}
-		}*/
+		}
 	}
 }

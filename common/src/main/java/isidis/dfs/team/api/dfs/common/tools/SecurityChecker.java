@@ -20,7 +20,6 @@ import org.apache.log4j.Logger;
  *
  */
 public class SecurityChecker {
-	public long blockSizeInOctet = MyHdfsClient.Mo * 1024 * 1024;
 
 	public static Logger logger = Logger.getLogger(SecurityChecker.class);
 
@@ -60,14 +59,12 @@ public class SecurityChecker {
 	public boolean isNormalFile(String sourceFileName) throws EndpointNotReacheableException {
 		
 		try {
-			client = MyHdfsClient.getInstance();
+			client = MyHdfsClient.getInstance().client;
+			if (client.getFileInfo(sourceFileName).getLen() > MyHdfsClient.getInstance().blockSizeInOctet)
+				return false;
 		} catch (URISyntaxException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
-		try {
-			if (client.getFileInfo(sourceFileName).getLen() < blockSizeInOctet)
-				return false;
 		} catch (IOException e) {
 			throw new EndpointNotReacheableException();
 		}

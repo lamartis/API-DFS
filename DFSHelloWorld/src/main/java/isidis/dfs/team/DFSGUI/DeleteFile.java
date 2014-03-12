@@ -1,5 +1,8 @@
 package isidis.dfs.team.DFSGUI;
 
+import isidis.dfs.team.api.dfs.common.exceptions.EndpointNotReacheableException;
+import isidis.dfs.team.api.dfs.common.exceptions.FileNotFoundException;
+import isidis.dfs.team.api.dfs.common.exceptions.SystemUserPermissionException;
 import isidis.dfs.team.tools.DFSProvider;
 
 import java.awt.Dimension;
@@ -60,7 +63,7 @@ public class DeleteFile implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-	/*	String message = null;
+		String message = null;
 		if	(e.getSource() == buttonDelete)	{
 			try {
 				DFSProvider.getInstance().deleteFile(pathFile.getText());
@@ -71,10 +74,12 @@ public class DeleteFile implements ActionListener {
 				message =  " [File not found Exception]";
 			} catch (EndpointNotReacheableException e1) {
 				message =  " [Endpoint Not Reacheable Exception]";
+			} catch (URISyntaxException e1) {
+				message = " [URI Syntax Exception]";
 			}
 			supervisor.getScrenSupervisor().append("Delete File: "+ pathFile.getText() + message + "\n");
 
-		}*/
+		}
 	}
 
 }
