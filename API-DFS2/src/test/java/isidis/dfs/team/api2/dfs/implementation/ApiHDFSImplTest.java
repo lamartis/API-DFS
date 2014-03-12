@@ -12,7 +12,7 @@ import isidis.dfs.team.api2.dfs.implementation.ApiHDFSImpl;
 import isidis.dfs.team.api2.dfs.interfaces.ApiHDFS;
 import junit.framework.TestCase;
 
-public class ApiHDFSImplTest extends TestCase {
+public class ApiHDFSImplTest {
 	
 	public final static String file = "/home/dfs-one/Téléchargements/Trauma.2013.FRENCH.DVDRiP.avi";
 	public void testWriteFile() throws IOException, EndpointNotReacheableException, URISyntaxException {

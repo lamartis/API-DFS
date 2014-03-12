@@ -11,7 +11,7 @@ import org.junit.Assert;
 import isidis.dfs.team.api1.dfs.implementation.ApiHDFSImpl;
 import isidis.dfs.team.api1.dfs.interfaces.ApiHDFS;
 
-public class ITHDFSApiTestCase extends TestCase {
+public class ITHDFSApiTestCase {
     
     public static final String fileName = "/user/fileForIntegration7";
     public static final String texte = "This is a test";
@@ -48,7 +48,7 @@ public class ITHDFSApiTestCase extends TestCase {
          **/
 
         try {
-            assertTrue(texte.equals(new String(api.readFile(fileName)).trim()));
+            Assert.assertTrue(texte.equals(new String(api.readFile(fileName)).trim()));
         } catch (SystemUserPermissionException e1) {
             Assert.fail("permession error");
         } catch (FileNotFoundException e1) {
@@ -81,7 +81,7 @@ public class ITHDFSApiTestCase extends TestCase {
          **/
 
         try {
-            assertEquals(texte,(new String(api.readFile(fileName))));
+            Assert.assertEquals(texte,(new String(api.readFile(fileName))));
             Assert.fail("File have to not exist [Exception not thrown]");
         } catch (SystemUserPermissionException e1) {
             Assert.fail("permession error");

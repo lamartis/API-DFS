@@ -11,7 +11,7 @@ import static org.mockito.Mockito.*;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
-public class API_HDFSTestCase extends TestCase {
+public class API_HDFSTestCase {
 	ApiHDFS spyapi = mock(ApiHDFS.class);
 	
 	public void testWriteFile() {
