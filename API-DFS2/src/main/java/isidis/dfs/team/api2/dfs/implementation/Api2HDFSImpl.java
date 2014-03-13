@@ -5,11 +5,14 @@ import isidis.dfs.team.api.dfs.common.exceptions.FileNotFoundException;
 import isidis.dfs.team.api.dfs.common.exceptions.FileSizeThresholdNotRespected;
 import isidis.dfs.team.api.dfs.common.exceptions.SystemUserPermissionException;
 import isidis.dfs.team.api.dfs.common.implementation.ApiGenericImpl;
+import isidis.dfs.team.api.dfs.common.tools.SecurityChecker;
 import isidis.dfs.team.api2.dfs.interfaces.Api2HDFS;
 import isidis.dfs.team.api2.dfs.interfaces.RemoteIterator;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+
 import org.apache.hadoop.fs.FileAlreadyExistsException;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -35,7 +38,7 @@ public class Api2HDFSImpl extends ApiGenericImpl implements Api2HDFS {
 				throw new FileNotFoundException();
 			}
 
-			if (!securityChecker.isNormalFile(fileLocation)) {
+			if (securityChecker.isNormalFile(fileLocation)) {
 				logger.log(Level.ERROR, "FileSizeExceedsFixedThreshold reached");
 				throw new FileSizeThresholdNotRespected();
 			}
@@ -61,8 +64,8 @@ public class Api2HDFSImpl extends ApiGenericImpl implements Api2HDFS {
 				throw new FileAlreadyExistsException();
 			}
 
-			if (securityChecker.isNormalFile(destinationFileLocation)) {
-				logger.log(Level.ERROR, "FileSizeExceedsFixedThreshold reached");
+			if (file.length() < SecurityChecker.maximumThresholdForAPI1) {
+				logger.log(Level.ERROR, "FileSizeThresholdNotRespected reached");
 				throw new FileSizeThresholdNotRespected();
 			}
 

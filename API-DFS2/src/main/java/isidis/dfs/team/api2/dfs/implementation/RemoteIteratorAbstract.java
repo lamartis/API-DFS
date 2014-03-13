@@ -43,6 +43,7 @@ public abstract class RemoteIteratorAbstract<E> implements RemoteIterator<E> {
 	
 	public void calculNumberOfBlocks() {
 		this.numberOfBlocks = fileSize / blockSizeInOctet;
+		System.out.println("number of blocks = " + getNumberOfBlocks());
 	}
 	
 	public void calculSizeOfLatestBlock() {

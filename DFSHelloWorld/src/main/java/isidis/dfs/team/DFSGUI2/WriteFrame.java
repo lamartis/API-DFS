@@ -12,8 +12,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
+
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
@@ -22,6 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
 import org.apache.hadoop.fs.FileAlreadyExistsException;
 
 public class WriteFrame extends JComponent implements ActionListener  {
@@ -37,7 +40,8 @@ public class WriteFrame extends JComponent implements ActionListener  {
 	private Supervisor supervisor;
 	private static final String newline = "\n";
 	private byte[] byteFile;
-
+	StringBuffer message = new StringBuffer();
+	
 	private JPanel panel1;
 
 	public WriteFrame()	{
@@ -74,11 +78,12 @@ public class WriteFrame extends JComponent implements ActionListener  {
 			int returnVal = fc.showOpenDialog(this);
 			file = fc.getSelectedFile();
 			if	(file != null){
-				
-				StringBuffer message = new StringBuffer();
+
+				System.out.println(file.getAbsolutePath());
 				try {
 					remoteIterator = DFSProvider.getInstance2().writeFile(new File(file.getAbsolutePath()), pathFile.getText());
 					message.append(" with success !");
+					new Thread(new MyThread()).start();
 				} catch (SystemUserPermissionException e1) {
 					message.append("  [System User Permission denied]");
 				} catch (FileAlreadyExistsException e1) {
@@ -90,19 +95,37 @@ public class WriteFrame extends JComponent implements ActionListener  {
 				} catch (URISyntaxException e1) {
 					message.append("  [URI Syntax Exception]");
 				}
+				supervisor.getScrenSupervisor().setText(supervisor.getScrenSupervisor().getText() + "\n" + message );
 				
-				long numberOfBlocks = remoteIterator.getNumberOfBlocks();
-				int i = 0;
-				try {
-					while (remoteIterator.hasNext()) {
-						remoteIterator.next();
-						message.append("\n downloading " + i + "/" + numberOfBlocks); 
-					}
-				} catch (IOException e1) {
-					message.append(" [IOException Exception]");
-				}
-				supervisor.getScrenSupervisor().append("Write File  :  " + file.getName() + " to " + pathFile.getText() + " " + message +newline);
 			}
 		}
 	}
+	
+	public class MyThread implements Runnable{
+
+		String m = null;
+				
+		public MyThread() {
+		}
+		
+		@Override
+		public void run() {
+			int i = 1;
+
+			long numberOfBlocks = remoteIterator.getNumberOfBlocks();
+			
+			try {
+				while (remoteIterator.hasNext()) {
+					String m = " \n Writing " + i++ + "/" + numberOfBlocks;
+					supervisor.getScrenSupervisor().setText(supervisor.getScrenSupervisor().getText() + m);
+					remoteIterator.next();
+				}
+			} catch (IOException e1) {
+				message.append(" [IOException Exception]");
+			}
+			
+		}
+		
+	}
+	
 }

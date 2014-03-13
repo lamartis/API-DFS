@@ -24,7 +24,6 @@ import javax.swing.JTextField;
 public class DeleteFile implements ActionListener {
 
 	private static final String newline = "\n";
-
 	private JPanel panel;
 	private JTextField pathFile;
 	private JLabel labelNameFile;
@@ -77,7 +76,7 @@ public class DeleteFile implements ActionListener {
 			} catch (URISyntaxException e1) {
 				message = " [URI Syntax Exception]";
 			}
-			supervisor.getScrenSupervisor().append("Delete File: "+ pathFile.getText() + message + "\n");
+			supervisor.getScrenSupervisor().append("\nDelete File: "+ pathFile.getText() + message + "\n");
 
 		}
 	}

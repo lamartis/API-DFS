@@ -78,24 +78,44 @@ public class ReadFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		StringBuffer message = new StringBuffer();
+		String message = "";
 		area.setText("");
 		if	(e.getSource() == buttonRead) {
 			try {
-				System.out.println("reading " + pathFile.getText());
 				remoteIterator2 = DFSProvider.getInstance2().readFile(pathFile.getText());
-				message.append(" with success !");
+				supervisor.getScrenSupervisor().setText(supervisor.getScrenSupervisor().getText() + "\n" + "Starting downloading file " + pathFile.getText() );
+				
+				new Thread(new MyThread()).start();
+				
 			} catch (SystemUserPermissionException e1) {
-				message.append("[system user permission Exception]");
+				message = ("reading " + pathFile.getText() + " [system user permission Exception]");
 			} catch (FileNotFoundException e1) {
-				message.append("[File Not Found]");
+				message = ("reading " + pathFile.getText() + " [File Not Found]");
 			} catch (EndpointNotReacheableException e1) {
-				message.append("[Endpoint not reacheable Exception]");
+				message = ("reading " + pathFile.getText() + " [Endpoint not reacheable Exception]");
 			} catch (FileSizeThresholdNotRespected e1) {
-				message.append("[File Size Exceeds Fixed Threshold]");
+				message = ("reading " + pathFile.getText() + " [File Size Threshold Not Respected]");
 			} catch (URISyntaxException e1) {
-				message.append("[URI Syntax Exception]");
+				message = ("reading " + pathFile.getText() +  " [URI Syntax Exception]");
 			}
+			supervisor.getScrenSupervisor().setText(supervisor.getScrenSupervisor().getText() + "\n" + message );
+			
+			
+		}
+	}
+	
+	public class MyThread implements Runnable{
+
+		String m = null;
+				
+		public MyThread() {
+		}
+		
+		@Override
+		public void run() {
+			int i = 1;
+
+			long numberOfBlocks = remoteIterator2.getNumberOfBlocks();
 			
 			FileOutputStream fos = null;
 			try {
@@ -103,21 +123,26 @@ public class ReadFrame implements ActionListener {
 			} catch (java.io.FileNotFoundException e1) {
 				e1.printStackTrace();
 			}
-
-			long numberOfBlocks = remoteIterator2.getNumberOfBlocks();
-			int i = 1;
+			
 			try {
 				while (remoteIterator2.hasNext()) {
+					String m = " \n downloading " + i++ + "/" + numberOfBlocks;
+					supervisor.getScrenSupervisor().setText(supervisor.getScrenSupervisor().getText() + m);
 					fos.write(remoteIterator2.next());
-					message.append(" \n downloading " + i + "/" + numberOfBlocks); 
 				}
 				fos.close();
+
+				String message = ("reading " + pathFile.getText() + " with success !");
+				supervisor.getScrenSupervisor().setText(supervisor.getScrenSupervisor().getText() + "\n" + message );
+				
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-			supervisor.getScrenSupervisor().append("Read File : " + pathFile.getText() + message + "\n");
 
 		}
+		
 	}
 
 }
+
+
