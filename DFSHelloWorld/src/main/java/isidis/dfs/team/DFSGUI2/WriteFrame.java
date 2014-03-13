@@ -1,8 +1,9 @@
-package isidis.dfs.team.DFSGUI;
+package isidis.dfs.team.DFSGUI2;
 
 import isidis.dfs.team.api.dfs.common.exceptions.EndpointNotReacheableException;
 import isidis.dfs.team.api.dfs.common.exceptions.FileSizeThresholdNotRespected;
 import isidis.dfs.team.api.dfs.common.exceptions.SystemUserPermissionException;
+import isidis.dfs.team.api2.dfs.interfaces.RemoteIterator;
 import isidis.dfs.team.tools.DFSProvider;
 
 import java.awt.Dimension;
@@ -13,10 +14,6 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
@@ -25,11 +22,11 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
 import org.apache.hadoop.fs.FileAlreadyExistsException;
 
 public class WriteFrame extends JComponent implements ActionListener  {
 
+	RemoteIterator<Void> remoteIterator = null;
 	private JPanel panel;
 	private JTextField pathFile;
 	private JLabel labelPathFile;
@@ -77,26 +74,32 @@ public class WriteFrame extends JComponent implements ActionListener  {
 			int returnVal = fc.showOpenDialog(this);
 			file = fc.getSelectedFile();
 			if	(file != null){
-				Path path = Paths.get(file.getAbsolutePath());
+				
+				StringBuffer message = new StringBuffer();
 				try {
-					byteFile = Files.readAllBytes(path);	
-				} catch (IOException e1) {
-					supervisor.getScrenSupervisor().append("Write File  : [Error reading file] "+newline);
-				}
-				String message = null;
-				try {
-					DFSProvider.getInstance1().writeFile(byteFile, pathFile.getText());
-					message = " with success !";
+					remoteIterator = DFSProvider.getInstance2().writeFile(new File(file.getAbsolutePath()), pathFile.getText());
+					message.append(" with success !");
 				} catch (SystemUserPermissionException e1) {
-					message = " [System User Permission denied]";
+					message.append("  [System User Permission denied]");
 				} catch (FileAlreadyExistsException e1) {
-					message = " [File Already Exists Exception]";
+					message.append("  [File Already Exists Exception]");
 				} catch (EndpointNotReacheableException e1) {
-					message = " [Endpoint Not Reacheable]";
+					message.append("  [Endpoint Not Reacheable]");
 				} catch (FileSizeThresholdNotRespected e1) {
-					message = " [File Size Exceeds Fixed Threshold]";
+					message.append("  [File Size Exceeds Fixed Threshold]");
 				} catch (URISyntaxException e1) {
-					message = " [URI Syntax Exception]";
+					message.append("  [URI Syntax Exception]");
+				}
+				
+				long numberOfBlocks = remoteIterator.getNumberOfBlocks();
+				int i = 0;
+				try {
+					while (remoteIterator.hasNext()) {
+						remoteIterator.next();
+						message.append("\n downloading " + i + "/" + numberOfBlocks); 
+					}
+				} catch (IOException e1) {
+					message.append(" [IOException Exception]");
 				}
 				supervisor.getScrenSupervisor().append("Write File  :  " + file.getName() + " to " + pathFile.getText() + " " + message +newline);
 			}

@@ -1,4 +1,4 @@
-package isidis.dfs.team.DFSGUI;
+package isidis.dfs.team.DFSGUI2;
 
 import isidis.dfs.team.api.dfs.common.exceptions.EndpointNotReacheableException;
 import isidis.dfs.team.tools.DFSProvider;
@@ -24,7 +24,7 @@ import javax.swing.UIManager;
  */
 public class Connection extends JFrame implements ActionListener {
 
-	private JTextField URL = new JTextField("hdfs://192.168.0.41:9000", 30);
+	private JTextField URL = new JTextField("", 30);
 	private JLabel lebel = new JLabel("URL to Connect : ");
 	private static JButton press = new JButton("Connexion");
 	private JPanel panel = new JPanel(new FlowLayout());
@@ -58,7 +58,7 @@ public class Connection extends JFrame implements ActionListener {
 		
 		if	(e.getSource() == press)	{
 			try {
-				DFSProvider.getInstance1();
+				DFSProvider.getInstance2();
 			} catch (URISyntaxException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

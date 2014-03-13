@@ -1,4 +1,4 @@
-package isidis.dfs.team.DFSGUI;
+package isidis.dfs.team.DFSGUI2;
 
 import isidis.dfs.team.api.dfs.common.exceptions.EndpointNotReacheableException;
 import isidis.dfs.team.api.dfs.common.exceptions.FileNotFoundException;
@@ -66,7 +66,7 @@ public class DeleteFile implements ActionListener {
 		String message = null;
 		if	(e.getSource() == buttonDelete)	{
 			try {
-				DFSProvider.getInstance1().deleteFile(pathFile.getText());
+				DFSProvider.getInstance2().deleteFile(pathFile.getText());
 				message =  " with success";
 			} catch (SystemUserPermissionException e1) {
 				message =  " [System user permission exception]";

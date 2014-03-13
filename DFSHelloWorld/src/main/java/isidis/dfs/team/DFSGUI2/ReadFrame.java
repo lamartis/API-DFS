@@ -1,9 +1,10 @@
-package isidis.dfs.team.DFSGUI;
+package isidis.dfs.team.DFSGUI2;
 
 import isidis.dfs.team.api.dfs.common.exceptions.EndpointNotReacheableException;
 import isidis.dfs.team.api.dfs.common.exceptions.FileNotFoundException;
 import isidis.dfs.team.api.dfs.common.exceptions.FileSizeThresholdNotRespected;
 import isidis.dfs.team.api.dfs.common.exceptions.SystemUserPermissionException;
+import isidis.dfs.team.api2.dfs.interfaces.RemoteIterator;
 import isidis.dfs.team.tools.DFSProvider;
 
 import java.awt.BorderLayout;
@@ -12,6 +13,9 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URISyntaxException;
 
 import javax.swing.JButton;
@@ -22,8 +26,11 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import org.apache.hadoop.fs.Path;
+
 public class ReadFrame implements ActionListener {
 
+	RemoteIterator<byte[]> remoteIterator2 = null;
 	private static final String newline = "\n";
 	private JPanel panel;
 	private JTextField pathFile;
@@ -71,23 +78,42 @@ public class ReadFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		String message = null;
+		StringBuffer message = new StringBuffer();
 		area.setText("");
 		if	(e.getSource() == buttonRead) {
 			try {
 				System.out.println("reading " + pathFile.getText());
-				area.setText(new String(DFSProvider.getInstance1().readFile(pathFile.getText())));
-				message = " with success !";
+				remoteIterator2 = DFSProvider.getInstance2().readFile(pathFile.getText());
+				message.append(" with success !");
 			} catch (SystemUserPermissionException e1) {
-				message = " [system user permission Exception]";
+				message.append("[system user permission Exception]");
 			} catch (FileNotFoundException e1) {
-				message = " [File Not Found]";
+				message.append("[File Not Found]");
 			} catch (EndpointNotReacheableException e1) {
-				message = " [Endpoint not reacheable Exception]";
+				message.append("[Endpoint not reacheable Exception]");
 			} catch (FileSizeThresholdNotRespected e1) {
-				message = " [File Size Exceeds Fixed Threshold]";
+				message.append("[File Size Exceeds Fixed Threshold]");
 			} catch (URISyntaxException e1) {
-				message = " [URI Syntax Exception]";
+				message.append("[URI Syntax Exception]");
+			}
+			
+			FileOutputStream fos = null;
+			try {
+				fos = new FileOutputStream(new File(pathFile.getText().split("/")[pathFile.getText().split("/").length - 1]));
+			} catch (java.io.FileNotFoundException e1) {
+				e1.printStackTrace();
+			}
+
+			long numberOfBlocks = remoteIterator2.getNumberOfBlocks();
+			int i = 1;
+			try {
+				while (remoteIterator2.hasNext()) {
+					fos.write(remoteIterator2.next());
+					message.append(" \n downloading " + i + "/" + numberOfBlocks); 
+				}
+				fos.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
 			}
 			supervisor.getScrenSupervisor().append("Read File : " + pathFile.getText() + message + "\n");
 
