@@ -4,7 +4,7 @@ import org.apache.hadoop.fs.FileAlreadyExistsException;
 
 import isidis.dfs.team.api.dfs.common.exceptions.EndpointNotReacheableException;
 import isidis.dfs.team.api.dfs.common.exceptions.FileNotFoundException;
-import isidis.dfs.team.api.dfs.common.exceptions.FileSizeExceedsFixedThreshold;
+import isidis.dfs.team.api.dfs.common.exceptions.FileSizeThresholdNotRespected;
 import isidis.dfs.team.api.dfs.common.exceptions.SystemUserPermissionException;
 import isidis.dfs.team.api.dfs.common.interfaces.ApiGeneric;
 /**
@@ -27,9 +27,9 @@ public interface Api1HDFS extends ApiGeneric {
 	 * @throws FileNotFoundException
 	 * @throws EndpointNotReacheableException
 	 * @throws SystemUserPermissionException
-	 * @throws FileSizeExceedsFixedThreshold
+	 * @throws FileSizeThresholdNotRespected
 	 */
-	public byte[] readFile(String sourceFileName) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException, FileSizeExceedsFixedThreshold;
+	public byte[] readFile(String sourceFileName) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException, FileSizeThresholdNotRespected;
 	/**
 	 * Writing a file into HDFS
 	 * @param content
@@ -39,8 +39,8 @@ public interface Api1HDFS extends ApiGeneric {
 	 * @throws SystemUserPermissionException
 	 * @throws EndpointNotReacheableException
 	 * @throws FileAlreadyExistsException
-	 * @throws FileSizeExceedsFixedThreshold
+	 * @throws FileSizeThresholdNotRespected
 	 */
-	public void writeFile(byte[] content, String destinationFileName) throws SystemUserPermissionException, EndpointNotReacheableException, FileAlreadyExistsException, FileSizeExceedsFixedThreshold;
+	public void writeFile(byte[] content, String destinationFileName) throws SystemUserPermissionException, EndpointNotReacheableException, FileAlreadyExistsException, FileSizeThresholdNotRespected;
 
 }

@@ -24,7 +24,7 @@ public class API_HDFSTestCase {
 			e.printStackTrace();
 		} catch (EndpointNotReacheableException e) {
 			e.printStackTrace();
-		} catch (FileSizeExceedsFixedThreshold e) {
+		} catch (FileSizeThresholdNotRespected e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -38,7 +38,7 @@ public class API_HDFSTestCase {
 			e.printStackTrace();
 		} catch (EndpointNotReacheableException e) {
 			e.printStackTrace();
-		} catch (FileSizeExceedsFixedThreshold e) {
+		} catch (FileSizeThresholdNotRespected e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SystemUserPermissionException e) {

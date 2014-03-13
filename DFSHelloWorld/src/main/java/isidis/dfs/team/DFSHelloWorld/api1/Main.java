@@ -4,7 +4,7 @@ import java.net.URISyntaxException;
 import org.apache.hadoop.fs.FileAlreadyExistsException;
 import isidis.dfs.team.api.dfs.common.exceptions.EndpointNotReacheableException;
 import isidis.dfs.team.api.dfs.common.exceptions.FileNotFoundException;
-import isidis.dfs.team.api.dfs.common.exceptions.FileSizeExceedsFixedThreshold;
+import isidis.dfs.team.api.dfs.common.exceptions.FileSizeThresholdNotRespected;
 import isidis.dfs.team.api.dfs.common.exceptions.SystemUserPermissionException;
 import isidis.dfs.team.api1.dfs.implementation.Api1HDFSImpl;
 import isidis.dfs.team.api1.dfs.interfaces.Api1HDFS;
@@ -39,7 +39,7 @@ public class Main {
 			e.printStackTrace();
 		} catch (EndpointNotReacheableException e) {
 			e.printStackTrace();
-		} catch (FileSizeExceedsFixedThreshold e) {
+		} catch (FileSizeThresholdNotRespected e) {
 			e.printStackTrace();
 		}
 		
@@ -54,7 +54,7 @@ public class Main {
 			e.printStackTrace();
 		} catch (SystemUserPermissionException e) {
 			e.printStackTrace();
-		} catch (FileSizeExceedsFixedThreshold e) {
+		} catch (FileSizeThresholdNotRespected e) {
 			e.printStackTrace();
 		}
 		

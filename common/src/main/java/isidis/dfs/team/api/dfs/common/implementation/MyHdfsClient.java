@@ -2,22 +2,14 @@ package isidis.dfs.team.api.dfs.common.implementation;
 
 import isidis.dfs.team.api.dfs.common.exceptions.*;
 import isidis.dfs.team.api.dfs.common.tools.SecurityChecker;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.Properties;
-
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hdfs.DFSClient;
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 
 /**
  *
@@ -29,7 +21,7 @@ public class MyHdfsClient {
 	public static MyHdfsClient myHdfsClient = null;
 	public Long Mo = null;
 	public Long blockSizeInOctet = null;
-	
+
 	public static String hdfsURL = null;
 	public static String systemUserName = null;
 
@@ -53,10 +45,12 @@ public class MyHdfsClient {
 		}
 		hdfsURL = properties.getProperty("hdfsURL");
 		systemUserName = properties.getProperty("systemUserName");
-		
-		Mo = Long.parseLong(properties.getProperty("Mo"));
-		blockSizeInOctet = Mo * 1024 * 1024;
-		
+
+		if (properties.containsKey("Mo")) {
+			Mo = Long.parseLong(properties.getProperty("Mo"));
+			blockSizeInOctet = Mo * 1024 * 1024;
+		}
+
 		securityChecker = SecurityChecker.getInstance();
 
 		if (!securityChecker.urlSyntaxIsCorrect(hdfsURL))
@@ -81,14 +75,14 @@ public class MyHdfsClient {
 		}
 		return myHdfsClient; 
 	}
-	
+
 	public DFSClient getDFSClient() {
 		return client;
 	}
-	
+
 	public long getBlockSizeInOctet() {
 		return blockSizeInOctet;
 	}
-	
+
 
 }

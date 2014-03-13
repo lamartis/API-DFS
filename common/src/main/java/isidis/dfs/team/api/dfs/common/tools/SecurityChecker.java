@@ -2,14 +2,9 @@ package isidis.dfs.team.api.dfs.common.tools;
 
 import isidis.dfs.team.api.dfs.common.exceptions.*;
 import isidis.dfs.team.api.dfs.common.implementation.MyHdfsClient;
-
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.Properties;
-
 import org.apache.hadoop.hdfs.DFSClient;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -22,7 +17,7 @@ import org.apache.log4j.Logger;
 public class SecurityChecker {
 
 	public static Logger logger = Logger.getLogger(SecurityChecker.class);
-	public static long maximumThresholdForAPI1 = 128 * 1024 * 1024;
+	public static long maximumThresholdForAPI1 = 64 * 1024 * 1024;
 	
 	public DFSClient client = null;
 	private static SecurityChecker instance = null;
@@ -66,7 +61,6 @@ public class SecurityChecker {
 		} catch (IOException e) {
 			throw new EndpointNotReacheableException();
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

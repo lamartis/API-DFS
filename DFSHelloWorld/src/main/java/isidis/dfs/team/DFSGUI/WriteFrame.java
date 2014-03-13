@@ -1,7 +1,7 @@
 package isidis.dfs.team.DFSGUI;
 
 import isidis.dfs.team.api.dfs.common.exceptions.EndpointNotReacheableException;
-import isidis.dfs.team.api.dfs.common.exceptions.FileSizeExceedsFixedThreshold;
+import isidis.dfs.team.api.dfs.common.exceptions.FileSizeThresholdNotRespected;
 import isidis.dfs.team.api.dfs.common.exceptions.SystemUserPermissionException;
 import isidis.dfs.team.tools.DFSProvider;
 
@@ -93,7 +93,7 @@ public class WriteFrame extends JComponent implements ActionListener  {
 					message = " [File Already Exists Exception]";
 				} catch (EndpointNotReacheableException e1) {
 					message = " [Endpoint Not Reacheable]";
-				} catch (FileSizeExceedsFixedThreshold e1) {
+				} catch (FileSizeThresholdNotRespected e1) {
 					message = " [File Size Exceeds Fixed Threshold]";
 				} catch (URISyntaxException e1) {
 					message = " [URI Syntax Exception]";

@@ -2,7 +2,7 @@ package isidis.dfs.team.DFSGUI;
 
 import isidis.dfs.team.api.dfs.common.exceptions.EndpointNotReacheableException;
 import isidis.dfs.team.api.dfs.common.exceptions.FileNotFoundException;
-import isidis.dfs.team.api.dfs.common.exceptions.FileSizeExceedsFixedThreshold;
+import isidis.dfs.team.api.dfs.common.exceptions.FileSizeThresholdNotRespected;
 import isidis.dfs.team.api.dfs.common.exceptions.SystemUserPermissionException;
 import isidis.dfs.team.tools.DFSProvider;
 
@@ -84,7 +84,7 @@ public class ReadFrame implements ActionListener {
 				message = " [File Not Found]";
 			} catch (EndpointNotReacheableException e1) {
 				message = " [Endpoint not reacheable Exception]";
-			} catch (FileSizeExceedsFixedThreshold e1) {
+			} catch (FileSizeThresholdNotRespected e1) {
 				message = " [File Size Exceeds Fixed Threshold]";
 			} catch (URISyntaxException e1) {
 				message = " [URI Syntax Exception]";

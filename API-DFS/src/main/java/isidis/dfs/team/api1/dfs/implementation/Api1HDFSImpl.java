@@ -2,17 +2,13 @@ package isidis.dfs.team.api1.dfs.implementation;
 
 import isidis.dfs.team.api.dfs.common.exceptions.*;
 import isidis.dfs.team.api.dfs.common.implementation.ApiGenericImpl;
-import isidis.dfs.team.api.dfs.common.implementation.MyHdfsClient;
 import isidis.dfs.team.api.dfs.common.tools.SecurityChecker;
 import isidis.dfs.team.api1.dfs.interfaces.Api1HDFS;
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URISyntaxException;
-
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 import org.apache.hadoop.fs.FileAlreadyExistsException;
 import org.apache.hadoop.hdfs.DFSInputStream;
 import org.apache.hadoop.security.AccessControlException;
@@ -31,8 +27,7 @@ public class Api1HDFSImpl extends ApiGenericImpl implements Api1HDFS{
 		super();
 	}
 
-	public byte[] readFile(String sourceFileName) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException, FileSizeExceedsFixedThreshold {
-		
+	public byte[] readFile(String sourceFileName) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException, FileSizeThresholdNotRespected {
 		
 		byte[] arr = new byte[(int)512L];
 		DFSInputStream dfsInputStream = null;
@@ -45,7 +40,7 @@ public class Api1HDFSImpl extends ApiGenericImpl implements Api1HDFS{
 			
 			if (!securityChecker.isNormalFile(sourceFileName)) {
 				logger.log(Level.ERROR, "FileSizeExceedsFixedThreshold reached");
-				throw new FileSizeExceedsFixedThreshold();
+				throw new FileSizeThresholdNotRespected();
 			}
 			
 			dfsInputStream = myHdfsClient.getDFSClient().open(sourceFileName);
@@ -71,11 +66,11 @@ public class Api1HDFSImpl extends ApiGenericImpl implements Api1HDFS{
 	}
 
 
-	public void writeFile(byte[] content, String destinationFileName) throws SystemUserPermissionException, EndpointNotReacheableException, FileAlreadyExistsException, FileSizeExceedsFixedThreshold {
+	public void writeFile(byte[] content, String destinationFileName) throws SystemUserPermissionException, EndpointNotReacheableException, FileAlreadyExistsException, FileSizeThresholdNotRespected {
 		
 		if (content.length > SecurityChecker.maximumThresholdForAPI1) {
 			logger.error(content.length + " > " + myHdfsClient.getBlockSizeInOctet());
-			throw new FileSizeExceedsFixedThreshold();
+			throw new FileSizeThresholdNotRespected();
 		}
 		
 		OutputStream outputStream = null;

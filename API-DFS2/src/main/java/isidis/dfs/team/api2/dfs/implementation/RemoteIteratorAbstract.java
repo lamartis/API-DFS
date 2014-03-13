@@ -26,10 +26,15 @@ public abstract class RemoteIteratorAbstract<E> implements RemoteIterator<E> {
 	protected long blockSizeInOctet = -1;
 	protected DFSClient client = null;
 	
-	public RemoteIteratorAbstract() throws EndpointNotReacheableException, URISyntaxException {
-		client = MyHdfsClient.getInstance().getDFSClient();
-		blockSizeInOctet = MyHdfsClient.getInstance().getBlockSizeInOctet();
-		securityChecker = SecurityChecker.getInstance();
+	public RemoteIteratorAbstract() throws EndpointNotReacheableException {
+		try {
+			client = MyHdfsClient.getInstance().getDFSClient();
+			blockSizeInOctet = MyHdfsClient.getInstance().getBlockSizeInOctet();
+			securityChecker = SecurityChecker.getInstance();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public long getNumberOfBlocks() {

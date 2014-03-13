@@ -17,7 +17,7 @@ public class ApiHDFSImplTest {
 	public final static String file = "/home/dfs-one/Téléchargements/Trauma.2013.FRENCH.DVDRiP.avi";
 	public void testWriteFile() throws IOException, EndpointNotReacheableException, URISyntaxException {
 		Api2HDFS api = new Api2HDFSImpl();
-		api.writeFile(new File(file), "/user/tauraFilmwriten2");
+		//api.writeFile(new File(file), "/user/tauraFilmwriten2");
 	}
 	
 	/*public void testreadFile() throws IOException, EndpointNotReacheableException, URISyntaxException {

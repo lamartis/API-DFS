@@ -24,7 +24,7 @@ public class DebitPerSecondTest {
 		long start = System.currentTimeMillis();
 		try {
 			api.readFile("/user/beck");
-		} catch (FileSizeExceedsFixedThreshold e) {
+		} catch (FileSizeThresholdNotRespected e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SystemUserPermissionException e) {

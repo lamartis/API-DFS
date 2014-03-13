@@ -41,7 +41,7 @@ public class IT_API_HDFS {
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (FileSizeExceedsFixedThreshold e) {
+		} catch (FileSizeThresholdNotRespected e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -1,8 +1,12 @@
 package isidis.dfs.team.api2.dfs.interfaces;
 
+import isidis.dfs.team.api.dfs.common.exceptions.EndpointNotReacheableException;
+import isidis.dfs.team.api.dfs.common.exceptions.FileNotFoundException;
+import isidis.dfs.team.api.dfs.common.exceptions.FileSizeThresholdNotRespected;
+import isidis.dfs.team.api.dfs.common.exceptions.SystemUserPermissionException;
 import isidis.dfs.team.api.dfs.common.interfaces.ApiGeneric;
 import java.io.File;
-import java.io.IOException;
+import org.apache.hadoop.fs.FileAlreadyExistsException;
 
 /**
  * 
@@ -21,8 +25,12 @@ public interface Api2HDFS extends ApiGeneric {
 	 * the path/name of the file you want to read from HDFS
 	 * @return
 	 * RemoteIterator which can be used to iterate between file's parts
+	 * @throws FileNotFoundException
+	 * @throws EndpointNotReacheableException
+	 * @throws SystemUserPermissionException
+	 * @throws FileSizeThresholdNotRespected
 	 */
-	RemoteIterator<byte[]> readFile(String fileLocation);
+	RemoteIterator<byte[]> readFile(String fileLocation) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException, FileSizeThresholdNotRespected;
 	
 	/**
 	 * Writing a file into HDFS
@@ -32,7 +40,10 @@ public interface Api2HDFS extends ApiGeneric {
 	 * The path where the file will be wrote on HDFS
 	 * @return
 	 * RemoteIterator which can be used to iterate to save all file's parts
-	 * @throws IOException
+	 * @throws SystemUserPermissionException
+	 * @throws EndpointNotReacheableException
+	 * @throws FileAlreadyExistsException
+	 * @throws FileSizeThresholdNotRespected
 	 */
-	RemoteIterator<Void> writeFile(File file, String destinationFileLocation) throws IOException;
+	RemoteIterator<Void> writeFile(File file, String destinationFileLocation) throws SystemUserPermissionException, EndpointNotReacheableException, FileAlreadyExistsException, FileSizeThresholdNotRespected;
 }
