@@ -22,17 +22,13 @@ import org.apache.log4j.Logger;
 public class SecurityChecker {
 
 	public static Logger logger = Logger.getLogger(SecurityChecker.class);
-	public long maximumThresholdForAPI1 = 128 * 1024 * 1024;
+	public static long maximumThresholdForAPI1 = 128 * 1024 * 1024;
 	
 	public DFSClient client = null;
 	private static SecurityChecker instance = null;
 
 	private SecurityChecker() {
-		try {
-			client = MyHdfsClient.getInstance().getDFSClient();
-		} catch (EndpointNotReacheableException | URISyntaxException e) {
-			e.printStackTrace();
-		}
+		
 	}
 
 	public static SecurityChecker getInstance() throws EndpointNotReacheableException, URISyntaxException{
@@ -64,10 +60,14 @@ public class SecurityChecker {
 	public boolean isNormalFile(String sourceFileName) throws EndpointNotReacheableException {
 		
 		try {
+			client = MyHdfsClient.getInstance().getDFSClient();
 			if (client.getFileInfo(sourceFileName).getLen() > maximumThresholdForAPI1)
 				return false;
 		} catch (IOException e) {
 			throw new EndpointNotReacheableException();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		return true;

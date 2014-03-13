@@ -3,6 +3,7 @@ package isidis.dfs.team.api1.dfs.implementation;
 import isidis.dfs.team.api.dfs.common.exceptions.*;
 import isidis.dfs.team.api.dfs.common.implementation.ApiGenericImpl;
 import isidis.dfs.team.api.dfs.common.implementation.MyHdfsClient;
+import isidis.dfs.team.api.dfs.common.tools.SecurityChecker;
 import isidis.dfs.team.api1.dfs.interfaces.ApiHDFS;
 
 import java.io.IOException;
@@ -32,8 +33,6 @@ public class ApiHDFSImpl extends ApiGenericImpl implements ApiHDFS{
 
 	public byte[] readFile(String sourceFileName) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException, FileSizeExceedsFixedThreshold {
 		
-		if (securityChecker.isNormalFile(sourceFileName)) 
-			throw new FileSizeExceedsFixedThreshold();
 		
 		byte[] arr = new byte[(int)512L];
 		DFSInputStream dfsInputStream = null;
@@ -41,8 +40,14 @@ public class ApiHDFSImpl extends ApiGenericImpl implements ApiHDFS{
 		try {
 			if (!myHdfsClient.getDFSClient().exists(sourceFileName)){ 
 				logger.log(Level.ERROR, "FileNotFoundException reached");
-				throw new FileNotFoundException();}
-
+				throw new FileNotFoundException();
+			}
+			
+			if (!securityChecker.isNormalFile(sourceFileName)) {
+				logger.log(Level.ERROR, "FileSizeExceedsFixedThreshold reached");
+				throw new FileSizeExceedsFixedThreshold();
+			}
+			
 			dfsInputStream = myHdfsClient.getDFSClient().open(sourceFileName);
 			dfsInputStream.read(arr, 0, (int)myHdfsClient.getBlockSizeInOctet());
 			logger.log(Level.INFO,"File found and readed with success [" + sourceFileName + "]");
@@ -68,10 +73,11 @@ public class ApiHDFSImpl extends ApiGenericImpl implements ApiHDFS{
 
 	public void writeFile(byte[] content, String destinationFileName) throws SystemUserPermissionException, EndpointNotReacheableException, FileAlreadyExistsException, FileSizeExceedsFixedThreshold {
 		
-		if (content.length > myHdfsClient.getBlockSizeInOctet()) {
-			logger.info(content.length + " > " + myHdfsClient.getBlockSizeInOctet());
+		if (content.length > SecurityChecker.maximumThresholdForAPI1) {
+			logger.error(content.length + " > " + myHdfsClient.getBlockSizeInOctet());
 			throw new FileSizeExceedsFixedThreshold();
 		}
+		
 		OutputStream outputStream = null;
 		try {
 			outputStream = myHdfsClient.getDFSClient().create(destinationFileName, false);
@@ -85,6 +91,7 @@ public class ApiHDFSImpl extends ApiGenericImpl implements ApiHDFS{
 			throw new SystemUserPermissionException();
 		} catch (IOException | IllegalArgumentException e) {
 			logger.log(Level.ERROR, "EndpointNotReacheableException reached");
+			e.getStackTrace();
 			throw new EndpointNotReacheableException();
 		} finally {
 			try {
