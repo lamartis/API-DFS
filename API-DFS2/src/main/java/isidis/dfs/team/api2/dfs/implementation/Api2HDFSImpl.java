@@ -2,7 +2,7 @@ package isidis.dfs.team.api2.dfs.implementation;
 
 import isidis.dfs.team.api.dfs.common.exceptions.EndpointNotReacheableException;
 import isidis.dfs.team.api.dfs.common.implementation.ApiGenericImpl;
-import isidis.dfs.team.api2.dfs.interfaces.ApiHDFS;
+import isidis.dfs.team.api2.dfs.interfaces.Api2HDFS;
 import isidis.dfs.team.api2.dfs.interfaces.RemoteIterator;
 
 import java.io.File;
@@ -12,11 +12,11 @@ import java.net.URISyntaxException;
 import org.apache.hadoop.fs.UnresolvedLinkException;
 import org.apache.log4j.Logger;
 
-public class ApiHDFSImpl extends ApiGenericImpl implements ApiHDFS {
+public class Api2HDFSImpl extends ApiGenericImpl implements Api2HDFS {
 	
-	public static final Logger logger = Logger.getLogger(ApiHDFSImpl.class);
+	public static final Logger logger = Logger.getLogger(Api2HDFSImpl.class);
 	
-	public ApiHDFSImpl() throws EndpointNotReacheableException, URISyntaxException {
+	public Api2HDFSImpl() throws EndpointNotReacheableException, URISyntaxException {
 		super();
 	}
 

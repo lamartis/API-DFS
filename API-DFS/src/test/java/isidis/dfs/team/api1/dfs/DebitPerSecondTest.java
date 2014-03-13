@@ -1,8 +1,8 @@
 package isidis.dfs.team.api1.dfs;
 
 import isidis.dfs.team.api.dfs.common.exceptions.*;
-import isidis.dfs.team.api1.dfs.implementation.ApiHDFSImpl;
-import isidis.dfs.team.api1.dfs.interfaces.ApiHDFS;
+import isidis.dfs.team.api1.dfs.implementation.Api1HDFSImpl;
+import isidis.dfs.team.api1.dfs.interfaces.Api1HDFS;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -20,7 +20,7 @@ public class DebitPerSecondTest {
 		 * 
 		 * Télécharger un fichier de 128Mo.
 		 */
-		ApiHDFS api = new ApiHDFSImpl();
+		Api1HDFS api = new Api1HDFSImpl();
 		long start = System.currentTimeMillis();
 		try {
 			api.readFile("/user/beck");

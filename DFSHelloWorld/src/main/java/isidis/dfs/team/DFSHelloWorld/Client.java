@@ -1,7 +1,7 @@
 package isidis.dfs.team.DFSHelloWorld;
 
-import isidis.dfs.team.api1.dfs.implementation.ApiHDFSImpl;
-import isidis.dfs.team.api1.dfs.interfaces.ApiHDFS;
+import isidis.dfs.team.api1.dfs.implementation.Api1HDFSImpl;
+import isidis.dfs.team.api1.dfs.interfaces.Api1HDFS;
 
 import java.net.URISyntaxException;
 

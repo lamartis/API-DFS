@@ -8,8 +8,8 @@ import isidis.dfs.team.api.dfs.common.exceptions.*;
 import org.apache.hadoop.fs.FileAlreadyExistsException;
 import org.junit.Assert;
 
-import isidis.dfs.team.api1.dfs.implementation.ApiHDFSImpl;
-import isidis.dfs.team.api1.dfs.interfaces.ApiHDFS;
+import isidis.dfs.team.api1.dfs.implementation.Api1HDFSImpl;
+import isidis.dfs.team.api1.dfs.interfaces.Api1HDFS;
 
 public class ITHDFSApiTestCase {
     
@@ -18,9 +18,9 @@ public class ITHDFSApiTestCase {
     
     public void testAPI_HDFS_Impl() {
         
-        ApiHDFS api = null;
+        Api1HDFS api = null;
         try {
-            api = new ApiHDFSImpl();
+            api = new Api1HDFSImpl();
         } catch (URISyntaxException e1) {
             Assert.fail("URI Syntax Error");
         } catch (EndpointNotReacheableException e) {

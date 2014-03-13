@@ -5,8 +5,8 @@ import java.net.URISyntaxException;
 import org.apache.hadoop.fs.FileAlreadyExistsException;
 
 import isidis.dfs.team.api.dfs.common.exceptions.*;
-import isidis.dfs.team.api1.dfs.implementation.ApiHDFSImpl;
-import isidis.dfs.team.api1.dfs.interfaces.ApiHDFS;
+import isidis.dfs.team.api1.dfs.implementation.Api1HDFSImpl;
+import isidis.dfs.team.api1.dfs.interfaces.Api1HDFS;
 
 public class IT_API_HDFS {
 
@@ -20,7 +20,7 @@ public class IT_API_HDFS {
 	{
 		boolean rep =  false;
 		try {
-			ApiHDFS IT_api = new ApiHDFSImpl();
+			Api1HDFS IT_api = new Api1HDFSImpl();
 			IT_api.writeFile("This is a test".getBytes(), "test.txt");
 			IT_api.readFile("test.txt");
 			IT_api.deleteFile("test.txt");

@@ -17,7 +17,7 @@ import isidis.dfs.team.api.dfs.common.interfaces.ApiGeneric;
  *
  */
 
-public interface ApiHDFS extends ApiGeneric {
+public interface Api1HDFS extends ApiGeneric {
 	/**
 	 * Reading the file from HDFS with the path in param
 	 * @param sourceFileName

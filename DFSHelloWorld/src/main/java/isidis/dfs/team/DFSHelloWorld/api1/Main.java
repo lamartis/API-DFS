@@ -6,8 +6,8 @@ import isidis.dfs.team.api.dfs.common.exceptions.EndpointNotReacheableException;
 import isidis.dfs.team.api.dfs.common.exceptions.FileNotFoundException;
 import isidis.dfs.team.api.dfs.common.exceptions.FileSizeExceedsFixedThreshold;
 import isidis.dfs.team.api.dfs.common.exceptions.SystemUserPermissionException;
-import isidis.dfs.team.api1.dfs.implementation.ApiHDFSImpl;
-import isidis.dfs.team.api1.dfs.interfaces.ApiHDFS;
+import isidis.dfs.team.api1.dfs.implementation.Api1HDFSImpl;
+import isidis.dfs.team.api1.dfs.interfaces.Api1HDFS;
 
 public class Main {
 
@@ -18,9 +18,9 @@ public class Main {
 		/**
 		 * Getting new instance.
 		 */
-		ApiHDFS api1 = null;
+		Api1HDFS api1 = null;
 		try {
-			api1 = new ApiHDFSImpl();
+			api1 = new Api1HDFSImpl();
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		} catch (EndpointNotReacheableException e) {

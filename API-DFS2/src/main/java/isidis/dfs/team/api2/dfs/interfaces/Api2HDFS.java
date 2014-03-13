@@ -14,7 +14,7 @@ import java.io.IOException;
  *
  */
 
-public interface ApiHDFS extends ApiGeneric {
+public interface Api2HDFS extends ApiGeneric {
 	/**
 	 * Reading the file from HDFS with the path in param
 	 * @param fileLocation

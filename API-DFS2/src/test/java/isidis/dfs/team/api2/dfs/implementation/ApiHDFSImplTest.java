@@ -8,15 +8,15 @@ import org.apache.hadoop.hdfs.DFSClient;
 
 import isidis.dfs.team.api.dfs.common.exceptions.EndpointNotReacheableException;
 import isidis.dfs.team.api.dfs.common.implementation.MyHdfsClient;
-import isidis.dfs.team.api2.dfs.implementation.ApiHDFSImpl;
-import isidis.dfs.team.api2.dfs.interfaces.ApiHDFS;
+import isidis.dfs.team.api2.dfs.implementation.Api2HDFSImpl;
+import isidis.dfs.team.api2.dfs.interfaces.Api2HDFS;
 import junit.framework.TestCase;
 
 public class ApiHDFSImplTest {
 	
 	public final static String file = "/home/dfs-one/Téléchargements/Trauma.2013.FRENCH.DVDRiP.avi";
 	public void testWriteFile() throws IOException, EndpointNotReacheableException, URISyntaxException {
-		ApiHDFS api = new ApiHDFSImpl();
+		Api2HDFS api = new Api2HDFSImpl();
 		api.writeFile(new File(file), "/user/tauraFilmwriten2");
 	}
 	

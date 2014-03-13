@@ -1,7 +1,7 @@
 package isidis.dfs.team.api1.dfs;
 
 import isidis.dfs.team.api.dfs.common.exceptions.*;
-import isidis.dfs.team.api1.dfs.interfaces.ApiHDFS;
+import isidis.dfs.team.api1.dfs.interfaces.Api1HDFS;
 
 import java.io.IOException;
 
@@ -12,7 +12,7 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 
 public class API_HDFSTestCase {
-	ApiHDFS spyapi = mock(ApiHDFS.class);
+	Api1HDFS spyapi = mock(Api1HDFS.class);
 	
 	public void testWriteFile() {
 		try {
