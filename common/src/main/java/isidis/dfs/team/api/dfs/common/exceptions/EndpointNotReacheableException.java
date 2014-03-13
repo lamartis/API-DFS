@@ -1,6 +1,7 @@
 package isidis.dfs.team.api.dfs.common.exceptions;
 /**
- * Not Enable to connect to the HDFS
+ * This exception is thrown when the connection with HDFS is interrupted, or if there is
+ * IOException.
  *
  */
 public class EndpointNotReacheableException extends Exception {

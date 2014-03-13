@@ -17,6 +17,13 @@ import org.apache.hadoop.fs.FileAlreadyExistsException;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
+/**
+ * 
+ * @author saad
+ * @see
+ * This class implements all methods exposed on Api2HDFS, and Heritates from ApiGenericImpl.
+ * 
+ */
 public class Api2HDFSImpl extends ApiGenericImpl implements Api2HDFS {
 
 	public static final Logger logger = Logger.getLogger(Api2HDFSImpl.class);

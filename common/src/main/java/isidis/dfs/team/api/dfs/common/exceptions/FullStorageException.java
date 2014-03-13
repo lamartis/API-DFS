@@ -1,6 +1,6 @@
 package isidis.dfs.team.api.dfs.common.exceptions;
 /**
- * The HDFS is on a full loaded
+ * This Exception is thrown when he HDFS is on a full loaded.
  *
  */
 public class FullStorageException extends Exception {

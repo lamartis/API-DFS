@@ -14,12 +14,14 @@ import org.apache.hadoop.hdfs.DFSInputStream;
 import org.apache.hadoop.security.AccessControlException;
 /***
  * @author saad
+ * @see
+ * This class implements all methods which are defined on Api1HDFS interface.
  */
 public class Api1HDFSImpl extends ApiGenericImpl implements Api1HDFS{
 	
 	public static final Logger logger = Logger.getLogger(Api1HDFSImpl.class);
 	/**
-	 * Creating a HDFS Provider
+	 * The constructor of this class
 	 * @throws URISyntaxException
 	 * @throws EndpointNotReacheableException 
 	 */
@@ -27,6 +29,7 @@ public class Api1HDFSImpl extends ApiGenericImpl implements Api1HDFS{
 		super();
 	}
 
+	@Override
 	public byte[] readFile(String sourceFileName) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException, FileSizeThresholdNotRespected {
 		
 		byte[] arr = new byte[(int)512L];
@@ -65,7 +68,7 @@ public class Api1HDFSImpl extends ApiGenericImpl implements Api1HDFS{
 		return arr;
 	}
 
-
+	@Override
 	public void writeFile(byte[] content, String destinationFileName) throws SystemUserPermissionException, EndpointNotReacheableException, FileAlreadyExistsException, FileSizeThresholdNotRespected {
 		
 		if (content.length > SecurityChecker.maximumThresholdForAPI1) {

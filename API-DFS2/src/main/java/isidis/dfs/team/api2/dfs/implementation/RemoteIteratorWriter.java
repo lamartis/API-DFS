@@ -7,10 +7,18 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+
 import org.apache.hadoop.fs.permission.AccessControlException;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
+/**
+ * 
+ * @author saad
+ * @see
+ * This class implements the way to write any BIG DATA block by block remotely, basing on Distributed Iterator.
+ * 
+ */
 public class RemoteIteratorWriter extends RemoteIteratorAbstract<Void>{
 
 	private OutputStream outputStream = null;
@@ -53,7 +61,10 @@ public class RemoteIteratorWriter extends RemoteIteratorAbstract<Void>{
 		logger.info("Number of blocks: " + this.numberOfBlocks);
 		logger.info("Lastest block size: " + lastBlockSize + " Octets \n");
 	}
-
+	
+	/**
+	 * Next() method allows client to iterate block by block.
+	 */
 	public Void next() throws IOException {
 
 		if ((lastBlockSize != 0) && (position == numberOfBlocks-1)) 

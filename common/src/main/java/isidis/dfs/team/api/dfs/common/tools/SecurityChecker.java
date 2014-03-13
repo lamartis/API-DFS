@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 /**
  * 
  * @author saad
- *
+ * This class allows to check some security stuff 
  */
 public class SecurityChecker {
 

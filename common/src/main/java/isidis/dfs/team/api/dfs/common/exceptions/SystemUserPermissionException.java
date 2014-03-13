@@ -1,7 +1,7 @@
 package isidis.dfs.team.api.dfs.common.exceptions;
 
 /**
- * Saad
+ * This exception is thrown when the system user permissions are missing. Like Read or write permission.
  */
 public class SystemUserPermissionException extends Exception {
 

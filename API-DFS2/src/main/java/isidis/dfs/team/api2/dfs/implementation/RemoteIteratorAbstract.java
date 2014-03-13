@@ -12,9 +12,16 @@ import isidis.dfs.team.api2.dfs.interfaces.RemoteIterator;
 import org.apache.hadoop.hdfs.DFSClient;
 import org.apache.log4j.Logger;
 
+/**
+ * 
+ * @author saad
+ * @see
+ * This class is used to organize the two remoteIterator, the writer et the reader one.
+ * @param <E>
+ * This parameter depends of what we would like to iterate.
+ */
 public abstract class RemoteIteratorAbstract<E> implements RemoteIterator<E> {
 	protected SecurityChecker securityChecker = null;
-	
 	protected byte[] bytes = null;
 	protected long numberOfBlocks = -1;
 	protected long lastBlockSize = -1;
@@ -26,6 +33,10 @@ public abstract class RemoteIteratorAbstract<E> implements RemoteIterator<E> {
 	protected long blockSizeInOctet = -1;
 	protected DFSClient client = null;
 	
+	/**
+	 * Constructor of this class
+	 * @throws EndpointNotReacheableException
+	 */
 	public RemoteIteratorAbstract() throws EndpointNotReacheableException {
 		try {
 			client = MyHdfsClient.getInstance().getDFSClient();
@@ -36,20 +47,25 @@ public abstract class RemoteIteratorAbstract<E> implements RemoteIterator<E> {
 		}
 		
 	}
-	
+	/**
+	 * This method is used to return the number of blocks
+	 */
 	public long getNumberOfBlocks() {
 		return numberOfBlocks;
 	}
 	
 	public void calculNumberOfBlocks() {
 		this.numberOfBlocks = fileSize / blockSizeInOctet;
-		System.out.println("number of blocks = " + getNumberOfBlocks());
+		logger.info("number of blocks = " + getNumberOfBlocks());
 	}
 	
 	public void calculSizeOfLatestBlock() {
 		lastBlockSize = fileSize % blockSizeInOctet;
 	}
 	
+	/**
+	 * This method allows clients to verify if there is next value or not
+	 */
 	public boolean hasNext() throws IOException {
 		if (position < numberOfBlocks) {
 			return true;

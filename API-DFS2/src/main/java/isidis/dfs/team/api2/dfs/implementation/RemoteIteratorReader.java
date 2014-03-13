@@ -7,6 +7,13 @@ import org.apache.hadoop.security.AccessControlException;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
+/**
+ * 
+ * @author saad
+ * @see
+ * This class implements the way to read any BIG DATA block by block remotely, basing on Distributed Iterator.
+ *
+ */
 public class RemoteIteratorReader extends RemoteIteratorAbstract<byte[]> {
 
 	public RemoteIteratorReader(String fileLocation) throws IOException, EndpointNotReacheableException, SystemUserPermissionException {
@@ -43,6 +50,9 @@ public class RemoteIteratorReader extends RemoteIteratorAbstract<byte[]> {
 		logger.info("Lastest block size: " + lastBlockSize + " Octets \n");
 	}
 
+	/**
+	 * Next() method allows client to iterate block by block.
+	 */
 	public byte[] next() throws IOException {
 
 		if ((lastBlockSize != 0) && (position == numberOfBlocks-1)) 

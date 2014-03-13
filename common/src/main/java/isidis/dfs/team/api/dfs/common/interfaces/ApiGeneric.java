@@ -6,7 +6,7 @@ import isidis.dfs.team.api.dfs.common.exceptions.SystemUserPermissionException;
 
 public interface ApiGeneric {
 	/**
-	 * Deleting a file
+	 * Deleting a file method
 	 * @param sourceFileName
 	 * The path/name of the file that you want to delete
 	 * @throws FileNotFoundException

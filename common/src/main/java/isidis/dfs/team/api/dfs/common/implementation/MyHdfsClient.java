@@ -14,6 +14,8 @@ import org.apache.log4j.Logger;
 /**
  *
  * @author saad
+ * This class allows to keep one DFSClient instance on the life of the application.
+ * It allows also to load basic properties like hdfsURL and systemUserName from config.properties
  *
  */
 
