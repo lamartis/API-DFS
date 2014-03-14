@@ -23,9 +23,9 @@ public class MyHdfsClient {
 	
 	public static MyHdfsClient myHdfsClient = null;
 	/**
-	 * Blocks will be splited into 200Ko.
+	 * Blocks will be splited into 100Ko.
 	 */
-	public Long Ko = (long) 200;
+	public Long Ko = (long) 100;
 	public Long blockSizeInOctet = Ko * 1024;
 
 	public static String hdfsURL = null;
