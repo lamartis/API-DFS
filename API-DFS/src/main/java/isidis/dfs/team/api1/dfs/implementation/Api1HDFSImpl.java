@@ -51,7 +51,7 @@ public class Api1HDFSImpl extends ApiGenericImpl implements Api1HDFS{
 			arr = new byte[(int)myHdfsClient.getDFSClient().getFileInfo(sourceFileName).getLen()];
 			dfsInputStream = myHdfsClient.getDFSClient().open(sourceFileName);
 			dfsInputStream.read(arr, 0, (int)myHdfsClient.getBlockSizeInOctet());
-			logger.log(Level.INFO,"File found and readed with success [" + sourceFileName + "]");
+			logger.log(Level.INFO,"File found and readed with success [" + sourceFileName + "] [Size: " + myHdfsClient.getDFSClient().getFileInfo(sourceFileName).getLen() + "]");
 		} catch (AccessControlException e){
 			logger.log(Level.ERROR, "SystemUserPermissionException reached");
 			throw new SystemUserPermissionException();
@@ -83,7 +83,7 @@ public class Api1HDFSImpl extends ApiGenericImpl implements Api1HDFS{
 		try {
 			outputStream = myHdfsClient.getDFSClient().create(destinationFileName, false);
 			outputStream.write(content);
-			logger.log(Level.INFO,"File wroten with success [" + destinationFileName + "]");
+			logger.log(Level.INFO,"File wroten with success [" + destinationFileName + "] [Size: " + content.length + "]");
 		} catch (FileAlreadyExistsException e){
 			logger.log(Level.ERROR, "FileAlreadyExistsException reached");
 			throw new FileAlreadyExistsException();
