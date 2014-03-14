@@ -4,9 +4,11 @@ import isidis.dfs.team.api.dfs.common.exceptions.*;
 import isidis.dfs.team.api.dfs.common.implementation.ApiGenericImpl;
 import isidis.dfs.team.api.dfs.common.tools.SecurityChecker;
 import isidis.dfs.team.api1.dfs.interfaces.Api1HDFS;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URISyntaxException;
+
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.hadoop.fs.FileAlreadyExistsException;
@@ -32,7 +34,7 @@ public class Api1HDFSImpl extends ApiGenericImpl implements Api1HDFS{
 	@Override
 	public byte[] readFile(String sourceFileName) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException, FileSizeThresholdNotRespected {
 		
-		byte[] arr = new byte[(int)512L];
+		byte[] arr = new byte[(int)myHdfsClient.getBlockSizeInOctet()];
 		DFSInputStream dfsInputStream = null;
 
 		try {

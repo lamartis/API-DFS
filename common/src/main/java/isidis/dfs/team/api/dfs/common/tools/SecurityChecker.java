@@ -17,7 +17,7 @@ import org.apache.log4j.Logger;
 public class SecurityChecker {
 
 	public static Logger logger = Logger.getLogger(SecurityChecker.class);
-	public static long maximumThresholdForAPI1 = 64 * 1024 * 1024;
+	public static long maximumThresholdForAPI1 = 128 * 1024 * 1024;
 	
 	public DFSClient client = null;
 	private static SecurityChecker instance = null;

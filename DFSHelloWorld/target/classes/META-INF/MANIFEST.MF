@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Built-By: saad
+Built-By: dfs-one
 Build-Jdk: 1.7.0_51
 Class-Path: ../conf/ ../lib/api-dfs-0.0.2-SNAPSHOT.jar ../lib/common-0
  .0.1-SNAPSHOT.jar ../lib/log4j-1.2.16.jar ../lib/api-dfs2-0.0.2-SNAPS
