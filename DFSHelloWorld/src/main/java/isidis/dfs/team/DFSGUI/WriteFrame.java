@@ -79,6 +79,7 @@ public class WriteFrame extends JComponent implements ActionListener  {
 	public void actionPerformed(ActionEvent e) {
 
 		if	(e.getSource() == buttonWrite)	{
+			int returnVal = fc.showOpenDialog(this);
 			file = fc.getSelectedFile();
 			if	(file != null){
 
