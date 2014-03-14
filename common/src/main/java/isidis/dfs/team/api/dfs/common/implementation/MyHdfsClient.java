@@ -20,9 +20,13 @@ import org.apache.log4j.Logger;
  */
 
 public class MyHdfsClient {
+	
 	public static MyHdfsClient myHdfsClient = null;
-	public Long Mo = null;
-	public Long blockSizeInOctet = null;
+	/**
+	 * Blocks will be splited in 70ko.
+	 */
+	public Long Ko = (long) 70;
+	public Long blockSizeInOctet = Ko * 1024;
 
 	public static String hdfsURL = null;
 	public static String systemUserName = null;
@@ -47,11 +51,6 @@ public class MyHdfsClient {
 		}
 		hdfsURL = properties.getProperty("hdfsURL");
 		systemUserName = properties.getProperty("systemUserName");
-
-		if (properties.containsKey("Mo")) {
-			Mo = Long.parseLong(properties.getProperty("Mo"));
-			blockSizeInOctet = Mo * 1024 * 1024;
-		}
 
 		securityChecker = SecurityChecker.getInstance();
 
