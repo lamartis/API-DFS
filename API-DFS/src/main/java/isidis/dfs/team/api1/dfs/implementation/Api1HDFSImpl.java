@@ -34,7 +34,7 @@ public class Api1HDFSImpl extends ApiGenericImpl implements Api1HDFS{
 	@Override
 	public byte[] readFile(String sourceFileName) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException, FileSizeThresholdNotRespected {
 		
-		byte[] arr = new byte[(int)myHdfsClient.getBlockSizeInOctet()];
+		byte[] arr = null;
 		DFSInputStream dfsInputStream = null;
 
 		try {
@@ -48,6 +48,7 @@ public class Api1HDFSImpl extends ApiGenericImpl implements Api1HDFS{
 				throw new FileSizeThresholdNotRespected();
 			}
 			
+			arr = new byte[(int)myHdfsClient.getDFSClient().getFileInfo(sourceFileName).getLen()];
 			dfsInputStream = myHdfsClient.getDFSClient().open(sourceFileName);
 			dfsInputStream.read(arr, 0, (int)myHdfsClient.getBlockSizeInOctet());
 			logger.log(Level.INFO,"File found and readed with success [" + sourceFileName + "]");

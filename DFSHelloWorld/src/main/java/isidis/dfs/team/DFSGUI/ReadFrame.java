@@ -76,7 +76,7 @@ public class ReadFrame implements ActionListener {
 		if	(e.getSource() == buttonRead) {
 			try {
 				System.out.println("reading " + pathFile.getText());
-				System.out.println(DFSProvider.getInstance1().readFile(pathFile.getText()).length);
+				System.out.println("Received byte[], it's size is: " + DFSProvider.getInstance1().readFile(pathFile.getText()).length);
 				message = " with success !";
 			} catch (SystemUserPermissionException e1) {
 				message = " [system user permission Exception]";

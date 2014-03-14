@@ -56,7 +56,7 @@ public class SecurityChecker {
 		
 		try {
 			client = MyHdfsClient.getInstance().getDFSClient();
-			System.out.println(client.getFileInfo(sourceFileName).getLen() + " > " + maximumThresholdForAPI1);
+			logger.info("File size is: " + client.getFileInfo(sourceFileName).getLen() + " || " + maximumThresholdForAPI1);
 			if (client.getFileInfo(sourceFileName).getLen() > maximumThresholdForAPI1)
 				return false;
 		} catch (IOException e) {
