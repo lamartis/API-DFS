@@ -37,7 +37,7 @@ public class Connection extends JFrame implements ActionListener {
 		frame = new JFrame("Connexion");
 		
 		panel1.add(lebel);
-		panel1.add(URL);
+		panel1.add(URL);									
 		panel1.add(user);
 		panel.add(panel1);
 		panel.add(press);

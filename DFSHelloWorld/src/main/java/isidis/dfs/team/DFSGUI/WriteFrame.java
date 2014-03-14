@@ -6,12 +6,16 @@ import isidis.dfs.team.api.dfs.common.exceptions.SystemUserPermissionException;
 import isidis.dfs.team.tools.DFSProvider;
 
 import java.awt.Dimension;
+import java.awt.Event;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -39,7 +43,8 @@ public class WriteFrame extends JComponent implements ActionListener  {
 	private JButton buttonWrite;
 	private Supervisor supervisor;
 	private static final String newline = "\n";
-	private byte[] byteFile;
+
+	private byte[] byteFile = null;
 
 	private JPanel panel1;
 
@@ -74,17 +79,26 @@ public class WriteFrame extends JComponent implements ActionListener  {
 	public void actionPerformed(ActionEvent e) {
 
 		if	(e.getSource() == buttonWrite)	{
-			int returnVal = fc.showOpenDialog(this);
 			file = fc.getSelectedFile();
 			if	(file != null){
-				Path path = Paths.get(file.getAbsolutePath());
+
+				byteFile = new byte[(int) file.length()];
+
 				try {
-					byteFile = Files.readAllBytes(path);	
-				} catch (IOException e1) {
-					supervisor.getScrenSupervisor().append("Write File  : [Error reading file] "+newline);
+					//convert file into array of bytes
+					FileInputStream fileInputStream=null;
+					fileInputStream = new FileInputStream(file);
+					fileInputStream.read(byteFile);
+					fileInputStream.close();
+
+					System.out.println("Done");
+				}catch(Exception c){
+
 				}
+
 				String message = null;
 				try {
+					//System.out.println(read(file).length);
 					DFSProvider.getInstance1().writeFile(byteFile, pathFile.getText());
 					message = " with success !";
 				} catch (SystemUserPermissionException e1) {
@@ -97,9 +111,17 @@ public class WriteFrame extends JComponent implements ActionListener  {
 					message = " [File Size Exceeds Fixed Threshold]";
 				} catch (URISyntaxException e1) {
 					message = " [URI Syntax Exception]";
+				} catch (IOException e4) {
+					message = " [Lecture ERROR]";
 				}
 				supervisor.getScrenSupervisor().append("Write File  :  " + file.getName() + " to " + pathFile.getText() + " " + message +newline);
 			}
 		}
+	}
+
+	@Override
+	public boolean action(Event evt, Object what) {
+		// TODO Auto-generated method stub
+		return super.action(evt, what);
 	}
 }
