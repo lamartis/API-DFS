@@ -16,6 +16,13 @@ public interface ApiGeneric {
 	public void deleteFile(String sourceFileName) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException;
 
 	/**
+	 * Returning the number of remaining bytes on the file system
+	 * @return
+	 * @throws EndpointNotReacheableException
+	 */
+	public long getRemainingCapacity() throws EndpointNotReacheableException;
+	
+	/**
 	 * Closing connection with DFS.
 	 * @throws EndpointNotReacheableException
 	 */

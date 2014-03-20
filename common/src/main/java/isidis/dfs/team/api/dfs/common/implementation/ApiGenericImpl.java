@@ -2,10 +2,13 @@ package isidis.dfs.team.api.dfs.common.implementation;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+
+import org.apache.hadoop.hdfs.protocol.HdfsFileStatus;
 import org.apache.hadoop.ipc.RemoteException;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
+
 import isidis.dfs.team.api.dfs.common.exceptions.EndpointNotReacheableException;
 import isidis.dfs.team.api.dfs.common.exceptions.FileNotFoundException;
 import isidis.dfs.team.api.dfs.common.exceptions.SystemUserPermissionException;
@@ -51,6 +54,20 @@ public class ApiGenericImpl implements ApiGeneric {
 			logger.log(Level.ERROR, "EndpointNotReacheableException reached");
 			throw new EndpointNotReacheableException();
 		}
+	}
+	
+	public HdfsFileStatus getFileInfo(String fileLocation) throws IOException {
+		return myHdfsClient.getDFSClient().getFileInfo(fileLocation);
+	}
+	
+	public long getRemainingCapacity() throws EndpointNotReacheableException {
+		long remainingCapacity = 0;
+		try {
+			remainingCapacity = myHdfsClient.getDFSClient().getDiskStatus().getRemaining();
+		} catch (IOException e) {
+			throw new EndpointNotReacheableException();
+		}
+		return remainingCapacity;
 	}
 	
 	@Override
