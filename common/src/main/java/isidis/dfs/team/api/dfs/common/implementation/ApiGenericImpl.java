@@ -89,11 +89,11 @@ public class ApiGenericImpl implements ApiGeneric {
 	@Override
 	public HdfsFileStatus[] listPaths(String path) throws PathIsNotDirectoryException, EndpointNotReacheableException{	
 		HdfsFileStatus[] files = null;
-		
+
 		try {
 			if (!myHdfsClient.getDFSClient().getFileInfo(path).isDir())
 				throw new PathIsNotDirectoryException(path);
-			
+
 			files = myHdfsClient.getDFSClient().listPaths(path, HdfsFileStatus.EMPTY_NAME, true).getPartialListing();
 			logger.log(Level.INFO,"All elements are returned with success");
 		} catch (PathIsNotDirectoryException e) {
@@ -115,6 +115,19 @@ public class ApiGenericImpl implements ApiGeneric {
 			throw new EndpointNotReacheableException();
 		}
 		return remainingCapacity;
+	}
+
+	@Override 
+	public void rename(String src, String dst) throws EndpointNotReacheableException, FileNotFoundException {
+		try{
+			if (!myHdfsClient.getDFSClient().exists(src))
+				throw new FileNotFoundException();
+
+			myHdfsClient.getDFSClient().rename(src, dst);
+		} catch (IOException e) {
+			logger.log(Level.ERROR,"End point not recheable Exception");
+			throw new EndpointNotReacheableException();
+		}
 	}
 
 	@Override

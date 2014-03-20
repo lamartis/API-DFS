@@ -11,8 +11,6 @@ import isidis.dfs.team.api.dfs.common.implementation.ApiGenericImpl;
 public class Main3 {
 	public static void main(String[] args) throws EndpointNotReacheableException, URISyntaxException, IOException {
 		ApiGenericImpl api = new ApiGenericImpl();
-		api.mkdirs("/user/s3ida");
-		for (HdfsFileStatus f : api.listPaths("/user"))
-			System.out.println(f.getLocalName());
+		//api.mathoer();
 	}
 }

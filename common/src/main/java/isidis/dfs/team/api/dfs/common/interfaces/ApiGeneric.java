@@ -1,5 +1,7 @@
 package isidis.dfs.team.api.dfs.common.interfaces;
 
+import java.io.IOException;
+
 import org.apache.hadoop.fs.PathIsNotDirectoryException;
 import org.apache.hadoop.hdfs.protocol.HdfsFileStatus;
 
@@ -54,6 +56,17 @@ public interface ApiGeneric {
 	 * @throws EndpointNotReacheableException
 	 */
 	public HdfsFileStatus[] listPaths(String path) throws PathIsNotDirectoryException, EndpointNotReacheableException;
+	
+	/**
+	 * Rename file or directory. It can be used to move file or directory to an other location.
+	 * @param src
+	 * Source
+	 * @param dst
+	 * Destination
+	 * @throws EndpointNotReacheableException
+	 * @throws FileNotFoundException
+	 */
+	public void rename(String src, String dst) throws EndpointNotReacheableException, FileNotFoundException;
 	
 	/**
 	 * Closing connection with DFS.
