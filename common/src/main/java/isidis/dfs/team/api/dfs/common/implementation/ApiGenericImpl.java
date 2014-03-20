@@ -3,6 +3,7 @@ package isidis.dfs.team.api.dfs.common.implementation;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import org.apache.hadoop.fs.PathIsNotDirectoryException;
 import org.apache.hadoop.hdfs.protocol.HdfsFileStatus;
 import org.apache.hadoop.ipc.RemoteException;
 import org.apache.log4j.Level;
@@ -57,14 +58,52 @@ public class ApiGenericImpl implements ApiGeneric {
 	}
 
 	@Override
-	public HdfsFileStatus getFileInfo(String fileLocation) throws EndpointNotReacheableException {
+	public HdfsFileStatus getFileInfo(String fileLocation) throws FileNotFoundException, EndpointNotReacheableException {
 		HdfsFileStatus hdfsFileStatus = null;
+
 		try {
+			if (!myHdfsClient.getDFSClient().exists(fileLocation))
+				throw new FileNotFoundException();
+
 			hdfsFileStatus = myHdfsClient.getDFSClient().getFileInfo(fileLocation);
+			logger.log(Level.INFO,"File info returned with success [" + fileLocation + "]");
 		}catch (IOException e ) {
+			logger.log(Level.ERROR,"End point not recheable Exception");
 			throw new EndpointNotReacheableException();
 		}
 		return hdfsFileStatus;
+	}
+
+	@Override
+	public void mkdirs(String absoluteDirectory) throws EndpointNotReacheableException {
+		try {
+			myHdfsClient.getDFSClient().mkdirs(absoluteDirectory);
+			logger.log(Level.INFO,"Path created with success");
+		} catch (IOException e) {
+			logger.log(Level.ERROR,"End point not recheable Exception");
+			throw new EndpointNotReacheableException();
+		}	
+
+	}
+
+	@Override
+	public HdfsFileStatus[] listPaths(String path) throws PathIsNotDirectoryException, EndpointNotReacheableException{	
+		HdfsFileStatus[] files = null;
+		
+		try {
+			if (!myHdfsClient.getDFSClient().getFileInfo(path).isDir())
+				throw new PathIsNotDirectoryException(path);
+			
+			files = myHdfsClient.getDFSClient().listPaths(path, HdfsFileStatus.EMPTY_NAME, true).getPartialListing();
+			logger.log(Level.INFO,"All elements are returned with success");
+		} catch (PathIsNotDirectoryException e) {
+			logger.log(Level.ERROR,"Path is not a directory exception");
+			throw new PathIsNotDirectoryException(path);
+		} catch (IOException e) {
+			logger.log(Level.ERROR,"End point not recheable Exception");
+			throw new EndpointNotReacheableException();
+		}
+		return files;
 	}
 
 	@Override

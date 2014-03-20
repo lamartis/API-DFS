@@ -1,5 +1,6 @@
 package isidis.dfs.team.api.dfs.common.interfaces;
 
+import org.apache.hadoop.fs.PathIsNotDirectoryException;
 import org.apache.hadoop.hdfs.protocol.HdfsFileStatus;
 
 import isidis.dfs.team.api.dfs.common.exceptions.EndpointNotReacheableException;
@@ -20,6 +21,7 @@ public interface ApiGeneric {
 	/**
 	 * Returning the number of remaining bytes on the file system
 	 * @return
+	 * long variable which represents the number of remaining bytes
 	 * @throws EndpointNotReacheableException
 	 */
 	public long getRemainingCapacity() throws EndpointNotReacheableException;
@@ -29,9 +31,29 @@ public interface ApiGeneric {
 	 * @param fileLocation
 	 * The path/name of the file that you want to get its informations
 	 * @return
+	 * HdfsFileStatus Object which contains all file's info.
+	 * @throws EndpointNotReacheableException
+	 * @throws FileNotFoundException
+	 */
+	public HdfsFileStatus getFileInfo(String fileLocation) throws FileNotFoundException, EndpointNotReacheableException;
+	
+	/**
+	 * Create a directory (or hierarchy of directories) with the given name.
+	 * @param absoluteDirectory
+	 * The path of the directory being created
 	 * @throws EndpointNotReacheableException
 	 */
-	public HdfsFileStatus getFileInfo(String fileLocation) throws EndpointNotReacheableException;
+	public void mkdirs(String absoluteDirectory) throws EndpointNotReacheableException;
+	
+	/**
+	 * Liste path in order to show all files and directories.
+	 * @param path
+	 * The path of the directory being listed
+	 * @return
+	 * Array of HdfsFileStatus which contains all file's info.
+	 * @throws EndpointNotReacheableException
+	 */
+	public HdfsFileStatus[] listPaths(String path) throws PathIsNotDirectoryException, EndpointNotReacheableException;
 	
 	/**
 	 * Closing connection with DFS.
@@ -39,5 +61,4 @@ public interface ApiGeneric {
 	 */
 	public void close() throws EndpointNotReacheableException;
 
-	
 }
