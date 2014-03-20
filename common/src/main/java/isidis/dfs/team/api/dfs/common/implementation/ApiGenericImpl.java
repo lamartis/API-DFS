@@ -25,7 +25,7 @@ public class ApiGenericImpl implements ApiGeneric {
 	public SecurityChecker securityChecker = null;
 	public MyHdfsClient myHdfsClient = null;
 	public static final Logger logger = Logger.getLogger(ApiGenericImpl.class);
-	
+
 	/**
 	 * Constructor
 	 * @throws EndpointNotReacheableException
@@ -34,10 +34,10 @@ public class ApiGenericImpl implements ApiGeneric {
 	public ApiGenericImpl() throws EndpointNotReacheableException, URISyntaxException {
 		PropertyConfigurator.configure(ApiGenericImpl.class.getClassLoader().getResource("log4j.properties"));
 		myHdfsClient = MyHdfsClient.getInstance();
-		
+
 		securityChecker = SecurityChecker.getInstance();
 	}
-	
+
 	@Override
 	public void deleteFile(String sourceFileName) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException{
 		try {
@@ -55,11 +55,19 @@ public class ApiGenericImpl implements ApiGeneric {
 			throw new EndpointNotReacheableException();
 		}
 	}
-	
-	public HdfsFileStatus getFileInfo(String fileLocation) throws IOException {
-		return myHdfsClient.getDFSClient().getFileInfo(fileLocation);
+
+	@Override
+	public HdfsFileStatus getFileInfo(String fileLocation) throws EndpointNotReacheableException {
+		HdfsFileStatus hdfsFileStatus = null;
+		try {
+			hdfsFileStatus = myHdfsClient.getDFSClient().getFileInfo(fileLocation);
+		}catch (IOException e ) {
+			throw new EndpointNotReacheableException();
+		}
+		return hdfsFileStatus;
 	}
-	
+
+	@Override
 	public long getRemainingCapacity() throws EndpointNotReacheableException {
 		long remainingCapacity = 0;
 		try {
@@ -69,7 +77,7 @@ public class ApiGenericImpl implements ApiGeneric {
 		}
 		return remainingCapacity;
 	}
-	
+
 	@Override
 	public void close() throws EndpointNotReacheableException {
 		try {
