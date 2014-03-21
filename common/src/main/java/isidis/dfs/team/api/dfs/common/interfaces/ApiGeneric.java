@@ -2,6 +2,7 @@ package isidis.dfs.team.api.dfs.common.interfaces;
 
 import java.io.IOException;
 
+import org.apache.hadoop.fs.PathExistsException;
 import org.apache.hadoop.fs.PathIsNotDirectoryException;
 import org.apache.hadoop.hdfs.protocol.HdfsFileStatus;
 
@@ -44,11 +45,12 @@ public interface ApiGeneric {
 	 * @param absoluteDirectory
 	 * The path of the directory being created
 	 * @throws EndpointNotReacheableException
+	 * @throws PathExistsException 
 	 */
-	public void mkdirs(String absoluteDirectory) throws EndpointNotReacheableException;
+	public void mkdirs(String absoluteDirectory) throws EndpointNotReacheableException, PathExistsException;
 	
 	/**
-	 * Liste path in order to show all files and directories.
+	 * List path in order to show all files and directories.
 	 * @param path
 	 * The path of the directory being listed
 	 * @return
@@ -58,7 +60,7 @@ public interface ApiGeneric {
 	public HdfsFileStatus[] listPaths(String path) throws PathIsNotDirectoryException, EndpointNotReacheableException;
 	
 	/**
-	 * Rename file or directory. It can be used to move file or directory to an other location.
+	 * Rename file or directory. It can be used also to move file or directory to an other location.
 	 * @param src
 	 * Source
 	 * @param dst

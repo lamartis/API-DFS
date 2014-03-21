@@ -3,6 +3,7 @@ package isidis.dfs.team.api.dfs.common.implementation;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import org.apache.hadoop.fs.PathExistsException;
 import org.apache.hadoop.fs.PathIsNotDirectoryException;
 import org.apache.hadoop.hdfs.protocol.HdfsFileStatus;
 import org.apache.hadoop.ipc.RemoteException;
@@ -75,11 +76,17 @@ public class ApiGenericImpl implements ApiGeneric {
 	}
 
 	@Override
-	public void mkdirs(String absoluteDirectory) throws EndpointNotReacheableException {
+	public void mkdirs(String absoluteDirectory) throws EndpointNotReacheableException, PathExistsException {
 		try {
+			if (myHdfsClient.getDFSClient().exists(absoluteDirectory))
+				throw new PathExistsException(absoluteDirectory);
+			
 			myHdfsClient.getDFSClient().mkdirs(absoluteDirectory);
 			logger.log(Level.INFO,"Path created with success");
-		} catch (IOException e) {
+		} catch (PathExistsException p) {
+			logger.log(Level.ERROR,"Path already exists");
+			throw new PathExistsException(absoluteDirectory);
+	 	} catch (IOException e) {
 			logger.log(Level.ERROR,"End point not recheable Exception");
 			throw new EndpointNotReacheableException();
 		}	
@@ -111,7 +118,9 @@ public class ApiGenericImpl implements ApiGeneric {
 		long remainingCapacity = 0;
 		try {
 			remainingCapacity = myHdfsClient.getDFSClient().getDiskStatus().getRemaining();
+			logger.log(Level.INFO,"Remining Capacity is calculated with success");
 		} catch (IOException e) {
+			logger.log(Level.ERROR,"End point not recheable Exception");
 			throw new EndpointNotReacheableException();
 		}
 		return remainingCapacity;
@@ -124,6 +133,7 @@ public class ApiGenericImpl implements ApiGeneric {
 				throw new FileNotFoundException();
 
 			myHdfsClient.getDFSClient().rename(src, dst);
+			logger.log(Level.INFO,"Rename action is executed with success");
 		} catch (IOException e) {
 			logger.log(Level.ERROR,"End point not recheable Exception");
 			throw new EndpointNotReacheableException();
