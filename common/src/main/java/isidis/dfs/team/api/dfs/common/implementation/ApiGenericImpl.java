@@ -41,13 +41,13 @@ public class ApiGenericImpl implements ApiGeneric {
 	}
 
 	@Override
-	public void deleteFile(String sourceFileName) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException{
+	public void delete(String sourceFileName, boolean recursive) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException{
 		try {
 			if (!myHdfsClient.getDFSClient().exists(sourceFileName)){
 				logger.log(Level.ERROR, "FileNotFoundException reached");
 				throw new FileNotFoundException();
 			}
-			myHdfsClient.getDFSClient().delete(sourceFileName);
+			myHdfsClient.getDFSClient().delete(sourceFileName, recursive);
 			logger.log(Level.INFO,"File deleted with success [" + sourceFileName + "]");
 		} catch (RemoteException e){
 			logger.log(Level.ERROR, "SystemUserPermissionException reached");

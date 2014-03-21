@@ -1,7 +1,5 @@
 package isidis.dfs.team.api.dfs.common.interfaces;
 
-import java.io.IOException;
-
 import org.apache.hadoop.fs.PathExistsException;
 import org.apache.hadoop.fs.PathIsNotDirectoryException;
 import org.apache.hadoop.hdfs.protocol.HdfsFileStatus;
@@ -12,14 +10,16 @@ import isidis.dfs.team.api.dfs.common.exceptions.SystemUserPermissionException;
 
 public interface ApiGeneric {
 	/**
-	 * Deleting a file method
+	 * Delete file or directory. delete contents of the directory if non empty and recursive set to true 
 	 * @param sourceFileName
 	 * The path/name of the file that you want to delete
+	 * @param recursive
+	 * delete contents of the directory if non empty and recursive set to true 
 	 * @throws FileNotFoundException
 	 * @throws EndpointNotReacheableException
 	 * @throws SystemUserPermissionException
 	 */
-	public void deleteFile(String sourceFileName) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException;
+	public void delete(String sourceFileName, boolean recursive) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException;
 
 	/**
 	 * Returning the number of remaining bytes on the file system
@@ -35,6 +35,7 @@ public interface ApiGeneric {
 	 * The path/name of the file that you want to get its informations
 	 * @return
 	 * HdfsFileStatus Object which contains all file's info.
+	 * HdfsFileStatus is an Hadoop class.
 	 * @throws EndpointNotReacheableException
 	 * @throws FileNotFoundException
 	 */
@@ -55,6 +56,7 @@ public interface ApiGeneric {
 	 * The path of the directory being listed
 	 * @return
 	 * Array of HdfsFileStatus which contains all file's info.
+	 * HdfsFileStatus is an Hadoop class which defines all file's informations.
 	 * @throws EndpointNotReacheableException
 	 */
 	public HdfsFileStatus[] listPaths(String path) throws PathIsNotDirectoryException, EndpointNotReacheableException;
