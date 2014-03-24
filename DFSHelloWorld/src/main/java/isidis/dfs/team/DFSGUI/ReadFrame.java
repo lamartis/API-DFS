@@ -35,7 +35,6 @@ public class ReadFrame implements ActionListener {
 	private Supervisor supervisor;
 
 	private JTabbedPane tabbedPane;
-	private JTextArea area;
 	private JButton buttonRead;
 
 	private JPanel panel1;
@@ -43,14 +42,12 @@ public class ReadFrame implements ActionListener {
 	public ReadFrame()	{
 
 		panel = new JPanel(new FlowLayout());
-		panel.setPreferredSize(new Dimension(20,20));
+		panel.setPreferredSize(new Dimension(500,200));
 		panel1 = new JPanel(new FlowLayout());
 		pathFile = new JTextField(34);
 		labelPathFile = new JLabel("File path : ");
 		buttonRead = new JButton("Read");
 		buttonRead.addActionListener(this);
-		area = new JTextArea(20,40);
-		scroll = new JScrollPane(area);
 
 		supervisor = Supervisor.getInstance();
 
@@ -59,20 +56,18 @@ public class ReadFrame implements ActionListener {
 		panel1.add(labelPathFile);
 		panel1.add(pathFile);
 		panel.add(panel1);
-		panel.add(scroll);
 		panel.add(buttonRead);
 
 	}
 
-	public JTabbedPane build()	{
-		tabbedPane.addTab("Read File", panel);
+	public JTabbedPane build() {
+		tabbedPane.addTab("Download File", panel);
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 		return tabbedPane;
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		String message = null;
-		area.setText("");
 		if	(e.getSource() == buttonRead) {
 			try {
 				System.out.println("reading " + pathFile.getText());

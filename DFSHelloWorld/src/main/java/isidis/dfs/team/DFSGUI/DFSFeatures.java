@@ -94,7 +94,7 @@ public class DFSFeatures implements ActionListener {
 		String message = null;
 		if	(e.getSource() == buttonCreate)	{
 			try {
-				DFSProvider.getInstance2().mkdirs(pathFile.getText());
+				DFSProvider.getInstance1().mkdirs(pathFile.getText());
 				message =  " with success";
 			} catch (EndpointNotReacheableException e1) {
 				message =  " [Endpoint Not Reacheable Exception]";
@@ -108,7 +108,7 @@ public class DFSFeatures implements ActionListener {
 		} else if (e.getSource() == buttonList) {
 			
 			try {
-				HdfsFileStatus[] files = DFSProvider.getInstance2().listPaths(pathFile.getText());
+				HdfsFileStatus[] files = DFSProvider.getInstance1().listPaths(pathFile.getText());
 				message =  " with success";
 				
 				for (HdfsFileStatus hdfsFileStatus : files) {
@@ -129,7 +129,7 @@ public class DFSFeatures implements ActionListener {
 		} else if (e.getSource() == buttonInfo) {
 			
 			try {
-				HdfsFileStatus file = DFSProvider.getInstance2().getFileInfo(pathFile.getText());
+				HdfsFileStatus file = DFSProvider.getInstance1().getFileInfo(pathFile.getText());
 				message =  " with success";
 				supervisor.addL("Size: " + file.getLen() + "\nType: " + (file.isDir() ? "Folder" : "File") + "\nLast modification:" + new Date(file.getModificationTime() * 1000));
 		
@@ -145,7 +145,7 @@ public class DFSFeatures implements ActionListener {
 			
 		} else if (e.getSource() == renameButton) {
 			try {
-				DFSProvider.getInstance2().rename(pathFile.getText(), renameField.getText());
+				DFSProvider.getInstance1().rename(pathFile.getText(), renameField.getText());
 				message =  " with success";
 		
 			} catch (EndpointNotReacheableException e1) {
