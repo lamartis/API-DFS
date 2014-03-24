@@ -59,7 +59,7 @@ public interface ApiGeneric {
 	 * HdfsFileStatus is an Hadoop class which defines all file's informations.
 	 * @throws EndpointNotReacheableException
 	 */
-	public HdfsFileStatus[] listPaths(String path) throws PathIsNotDirectoryException, EndpointNotReacheableException;
+	public HdfsFileStatus[] listPaths(String path) throws PathIsNotDirectoryException, FileNotFoundException, EndpointNotReacheableException;
 	
 	/**
 	 * Rename file or directory. It can be used also to move file or directory to an other location.

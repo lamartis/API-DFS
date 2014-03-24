@@ -22,6 +22,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import org.apache.hadoop.fs.PathExistsException;
+import org.apache.hadoop.fs.PathIsNotDirectoryException;
 import org.apache.hadoop.hdfs.protocol.HdfsFileStatus;
 
 public class DFSFeatures implements ActionListener {
@@ -116,8 +117,10 @@ public class DFSFeatures implements ActionListener {
 				message =  " [Endpoint Not Reacheable Exception]";
 			} catch (URISyntaxException e1) {
 				message = " [URI Syntax Exception]";
-			} catch (PathExistsException e1) {
-				message = " [Path already Exists Exception]";
+			} catch (PathIsNotDirectoryException e1) {
+				message = " [Path Is Not Directory Exception]";
+			} catch (FileNotFoundException e1) {
+				message = " [File or Folder Not Found Exception]";
 			}
 			supervisor.add("List folder: "+ pathFile.getText() + message);
 			

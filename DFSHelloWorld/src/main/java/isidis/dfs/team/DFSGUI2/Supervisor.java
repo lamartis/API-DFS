@@ -44,7 +44,7 @@ public class Supervisor {
 	}
 	
 	public void add(String text) {
-		this.screenSupervisor.setText(screenSupervisor.getText() + "\n" + text);
+		this.screenSupervisor.setText(screenSupervisor.getText() + "\n" + text + "\n");
 	}
 	
 	public void addL(String text) {

@@ -94,10 +94,13 @@ public class ApiGenericImpl implements ApiGeneric {
 	}
 
 	@Override
-	public HdfsFileStatus[] listPaths(String path) throws PathIsNotDirectoryException, EndpointNotReacheableException{	
+	public HdfsFileStatus[] listPaths(String path) throws PathIsNotDirectoryException, FileNotFoundException, EndpointNotReacheableException{	
 		HdfsFileStatus[] files = null;
 
 		try {
+			if (!myHdfsClient.getDFSClient().exists(path))
+				throw new FileNotFoundException();
+				
 			if (!myHdfsClient.getDFSClient().getFileInfo(path).isDir())
 				throw new PathIsNotDirectoryException(path);
 
