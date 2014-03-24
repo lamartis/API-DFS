@@ -36,13 +36,11 @@ public class ReadFrame implements ActionListener {
 	private JTextField pathFile;
 	private JLabel labelPathFile;
 	//private JLabel LabelNameFile;
-	private JScrollPane scroll;
 
 	//Supervision des actions read
 	private Supervisor supervisor;
 
 	private JTabbedPane tabbedPane;
-	private JTextArea area;
 	private JButton buttonRead;
 
 	private JPanel panel1;
@@ -50,14 +48,12 @@ public class ReadFrame implements ActionListener {
 	public ReadFrame()	{
 
 		panel = new JPanel(new FlowLayout());
-		panel.setPreferredSize(new Dimension(20,20));
+		panel.setPreferredSize(new Dimension(500,200));
 		panel1 = new JPanel(new FlowLayout());
 		pathFile = new JTextField(34);
 		labelPathFile = new JLabel("File path : ");
 		buttonRead = new JButton("Read");
 		buttonRead.addActionListener(this);
-		area = new JTextArea(20,40);
-		scroll = new JScrollPane(area);
 
 		supervisor = Supervisor.getInstance();
 
@@ -66,7 +62,6 @@ public class ReadFrame implements ActionListener {
 		panel1.add(labelPathFile);
 		panel1.add(pathFile);
 		panel.add(panel1);
-		panel.add(scroll);
 		panel.add(buttonRead);
 
 	}
@@ -79,7 +74,6 @@ public class ReadFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		String message = "";
-		area.setText("");
 		if	(e.getSource() == buttonRead) {
 			try {
 				remoteIterator2 = DFSProvider.getInstance2().readFile(pathFile.getText());
@@ -126,14 +120,14 @@ public class ReadFrame implements ActionListener {
 			
 			try {
 				while (remoteIterator2.hasNext()) {
-					String m = " \n downloading " + i++ + "/" + numberOfBlocks;
-					supervisor.getScrenSupervisor().setText(supervisor.getScrenSupervisor().getText() + m);
+					String m = " downloading " + i++ + "/" + numberOfBlocks;
+					supervisor.getScrenSupervisor().setText(m + "\n" + supervisor.getScrenSupervisor().getText());
 					fos.write(remoteIterator2.next());
 				}
 				fos.close();
 
 				String message = ("reading " + pathFile.getText() + " with success !");
-				supervisor.getScrenSupervisor().setText(supervisor.getScrenSupervisor().getText() + "\n" + message );
+				supervisor.getScrenSupervisor().setText(message + "\n" + supervisor.getScrenSupervisor().getText());
 				
 			} catch (IOException e1) {
 				e1.printStackTrace();

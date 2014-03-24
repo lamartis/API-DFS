@@ -27,6 +27,7 @@ public class MainFrame extends JPanel {
 	private JPanel secondaryPanel1;
 	private JPanel secondaryPanel2;
 	private JPanel secondaryPanel3;
+	private JPanel secondaryPanel4;
 	private static Supervisor supervisor;
 	
 	public MainFrame() {
@@ -36,6 +37,7 @@ public class MainFrame extends JPanel {
 		secondaryPanel1 = new JPanel(new GridLayout(1, 1));
 		secondaryPanel2 = new JPanel(new FlowLayout());
 		secondaryPanel3 = new JPanel(new BorderLayout());
+		secondaryPanel4 = new JPanel(new BorderLayout());
 		
 		supervisor = Supervisor.getInstance();
 		
@@ -44,11 +46,15 @@ public class MainFrame extends JPanel {
 		ReadFrame readFrame = new ReadFrame();
 		WriteFrame writeFrame = new WriteFrame();
 		DeleteFile delete = new DeleteFile();
+		DFSFeatures rename = new DFSFeatures();
 		
 		secondaryPanel3.add(writeFrame.getWriteFrame() , BorderLayout.NORTH);
 		secondaryPanel3.add(delete.getDeleteFrame(),BorderLayout.SOUTH);
 		
-		secondaryPanel1.add(readFrame.build());
+		secondaryPanel4.add(readFrame.build(), BorderLayout.NORTH);
+		secondaryPanel4.add(rename.getDeleteFrame(), BorderLayout.SOUTH);
+		
+		secondaryPanel1.add(secondaryPanel4);
 		secondaryPanel1.add(secondaryPanel3);
 		secondaryPanel2.add(supervisor.getSupervisor());
 		

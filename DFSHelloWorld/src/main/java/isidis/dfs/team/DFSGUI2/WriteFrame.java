@@ -95,7 +95,7 @@ public class WriteFrame extends JComponent implements ActionListener  {
 				} catch (URISyntaxException e1) {
 					message.append("  [URI Syntax Exception]");
 				}
-				supervisor.getScrenSupervisor().setText(supervisor.getScrenSupervisor().getText() + "\n" + message );
+				supervisor.getScrenSupervisor().setText(message + "\n" + supervisor.getScrenSupervisor().getText() );
 				
 			}
 		}
@@ -116,8 +116,8 @@ public class WriteFrame extends JComponent implements ActionListener  {
 			
 			try {
 				while (remoteIterator.hasNext()) {
-					String m = " \n Writing " + i++ + "/" + numberOfBlocks;
-					supervisor.getScrenSupervisor().setText(supervisor.getScrenSupervisor().getText() + m);
+					String m = " Writing " + i++ + "/" + numberOfBlocks;
+					supervisor.getScrenSupervisor().setText( m + "\n" + supervisor.getScrenSupervisor().getText());
 					remoteIterator.next();
 				}
 			} catch (IOException e1) {

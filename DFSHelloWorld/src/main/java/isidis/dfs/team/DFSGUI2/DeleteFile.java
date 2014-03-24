@@ -77,7 +77,7 @@ public class DeleteFile implements ActionListener {
 			} catch (URISyntaxException e1) {
 				message = " [URI Syntax Exception]";
 			}
-			supervisor.getScrenSupervisor().append("Delete File: "+ pathFile.getText() + message + "\n");
+			supervisor.getScrenSupervisor().append("Delete File: "+ pathFile.getText() + message + "\n" + supervisor.getScrenSupervisor().getText());
 
 		}
 	}
