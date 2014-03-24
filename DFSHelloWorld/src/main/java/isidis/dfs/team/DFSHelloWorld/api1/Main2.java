@@ -98,7 +98,7 @@ public class Main2 {
 		 * Deleting file.
 		 */
 		try {
-			api2.deleteFile(destionationFile);
+			api2.delete(destionationFile, false);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (EndpointNotReacheableException e) {

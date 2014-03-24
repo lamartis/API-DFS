@@ -62,7 +62,7 @@ public class Main {
 		 * Deleting file.
 		 */
 		try {
-			api1.deleteFile(file);
+			api1.delete(file, false);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (EndpointNotReacheableException e) {

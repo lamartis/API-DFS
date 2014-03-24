@@ -66,7 +66,7 @@ public class DeleteFile implements ActionListener {
 		String message = null;
 		if	(e.getSource() == buttonDelete)	{
 			try {
-				DFSProvider.getInstance2().deleteFile(pathFile.getText());
+				DFSProvider.getInstance2().delete(pathFile.getText(), false);
 				message =  " with success";
 			} catch (SystemUserPermissionException e1) {
 				message =  " [System user permission exception]";
