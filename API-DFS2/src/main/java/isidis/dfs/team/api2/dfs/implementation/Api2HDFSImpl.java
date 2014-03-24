@@ -81,6 +81,10 @@ public class Api2HDFSImpl extends ApiGenericImpl implements Api2HDFS {
 			 */
 
 			remoteIterator = new RemoteIteratorWriter(file, destinationFileLocation);
+		} catch (FileAlreadyExistsException e) {
+			throw new FileAlreadyExistsException();
+		} catch (FileSizeThresholdNotRespected e) {
+			throw new FileSizeThresholdNotRespected();
 		} catch (IOException e) {
 			throw new EndpointNotReacheableException();
 		}

@@ -73,7 +73,7 @@ public class WriteFrame extends JComponent implements ActionListener  {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-
+		String message = "";
 		if	(e.getSource() == buttonWrite)	{
 			int returnVal = fc.showOpenDialog(this);
 			file = fc.getSelectedFile();
@@ -82,20 +82,20 @@ public class WriteFrame extends JComponent implements ActionListener  {
 				System.out.println(file.getAbsolutePath());
 				try {
 					remoteIterator = DFSProvider.getInstance2().writeFile(new File(file.getAbsolutePath()), pathFile.getText());
-					message.append(" with success !");
+					message = " with success !";
 					new Thread(new MyThread()).start();
 				} catch (SystemUserPermissionException e1) {
-					message.append("  [System User Permission denied]");
+					message = "writing  [System User Permission denied]";
 				} catch (FileAlreadyExistsException e1) {
-					message.append("  [File Already Exists Exception]");
-				} catch (EndpointNotReacheableException e1) {
-					message.append("  [Endpoint Not Reacheable]");
+					message = "writing  [File Already Exists Exception]";
 				} catch (FileSizeThresholdNotRespected e1) {
-					message.append("  [File Size Exceeds Fixed Threshold]");
+					message = "writing  [File Size Exceeds Fixed Threshold]";
 				} catch (URISyntaxException e1) {
-					message.append("  [URI Syntax Exception]");
+					message = "writing  [URI Syntax Exception]";
+				} catch (EndpointNotReacheableException e1) {
+					message = "writing  [Endpoint Not Reacheable]";
 				}
-				supervisor.add(message.toString());
+				supervisor.add(message);
 				
 			}
 		}

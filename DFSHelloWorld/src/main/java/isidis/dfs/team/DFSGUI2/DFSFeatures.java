@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.net.URISyntaxException;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -111,7 +112,7 @@ public class DFSFeatures implements ActionListener {
 				message =  " with success";
 				
 				for (HdfsFileStatus hdfsFileStatus : files) {
-					supervisor.addL(hdfsFileStatus.getLocalName());
+					supervisor.addL((hdfsFileStatus.isDir() ? "Dir : " : "File: " ) + hdfsFileStatus.getLocalName());
 				}
 			} catch (EndpointNotReacheableException e1) {
 				message =  " [Endpoint Not Reacheable Exception]";
@@ -130,7 +131,7 @@ public class DFSFeatures implements ActionListener {
 			try {
 				HdfsFileStatus file = DFSProvider.getInstance2().getFileInfo(pathFile.getText());
 				message =  " with success";
-				supervisor.addL("Size: " + file.getLen() + "\nType: " + (file.isDir() ? "Folder" : "File") + "\nLast modification:" + file.getModificationTime());
+				supervisor.addL("Size: " + file.getLen() + "\nType: " + (file.isDir() ? "Folder" : "File") + "\nLast modification:" + new Date(file.getModificationTime() * 1000));
 		
 			} catch (EndpointNotReacheableException e1) {
 				message =  " [Endpoint Not Reacheable Exception]";

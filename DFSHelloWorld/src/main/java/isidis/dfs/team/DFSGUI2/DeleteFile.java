@@ -56,7 +56,7 @@ public class DeleteFile implements ActionListener {
 	public JTabbedPane getDeleteFrame()	{
 
 		JTextArea area1 = new JTextArea();
-		tabbedPane.addTab("Delete File", panel);
+		tabbedPane.addTab("Delete path", panel);
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 		return tabbedPane;
 	}
@@ -65,7 +65,7 @@ public class DeleteFile implements ActionListener {
 		String message = null;
 		if	(e.getSource() == buttonDelete)	{
 			try {
-				DFSProvider.getInstance2().delete(pathFile.getText(), false);
+				DFSProvider.getInstance2().delete(pathFile.getText(), true);
 				message =  " with success";
 			} catch (SystemUserPermissionException e1) {
 				message =  " [System user permission exception]";

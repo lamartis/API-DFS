@@ -67,7 +67,7 @@ public class ReadFrame implements ActionListener {
 	}
 
 	public JTabbedPane build()	{
-		tabbedPane.addTab("Read File", panel);
+		tabbedPane.addTab("Download File", panel);
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 		return tabbedPane;
 	}
