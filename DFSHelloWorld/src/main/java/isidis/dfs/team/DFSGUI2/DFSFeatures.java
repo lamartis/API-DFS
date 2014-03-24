@@ -101,7 +101,7 @@ public class DFSFeatures implements ActionListener {
 			} catch (PathExistsException e1) {
 				message = " [Path already Exists Exception]";
 			}
-			supervisor.getScrenSupervisor().setText("Create folder: "+ pathFile.getText() + message + "\n");
+			supervisor.add("Create folder: "+ pathFile.getText() + message);
 			
 		} else if (e.getSource() == buttonList) {
 			
@@ -110,7 +110,7 @@ public class DFSFeatures implements ActionListener {
 				message =  " with success";
 				
 				for (HdfsFileStatus hdfsFileStatus : files) {
-					supervisor.getScrenSupervisor().setText(hdfsFileStatus.getLocalName() + "\n" + supervisor.getScrenSupervisor().getText());
+					supervisor.addL(hdfsFileStatus.getLocalName());
 				}
 			} catch (EndpointNotReacheableException e1) {
 				message =  " [Endpoint Not Reacheable Exception]";
@@ -119,7 +119,7 @@ public class DFSFeatures implements ActionListener {
 			} catch (PathExistsException e1) {
 				message = " [Path already Exists Exception]";
 			}
-			supervisor.getScrenSupervisor().setText("List folder: "+ pathFile.getText() + message + "\n" + supervisor.getScrenSupervisor().getText() );
+			supervisor.add("List folder: "+ pathFile.getText() + message);
 			
 			
 		} else if (e.getSource() == buttonInfo) {
@@ -127,7 +127,7 @@ public class DFSFeatures implements ActionListener {
 			try {
 				HdfsFileStatus file = DFSProvider.getInstance2().getFileInfo(pathFile.getText());
 				message =  " with success";
-				supervisor.getScrenSupervisor().setText("Size: " + file.getLen() + "\nType: " + (file.isDir() ? "Folder" : "File") + "\nLast modification:" + file.getModificationTime() + "\n" + supervisor.getScrenSupervisor().getText());
+				supervisor.addL("Size: " + file.getLen() + "\nType: " + (file.isDir() ? "Folder" : "File") + "\nLast modification:" + file.getModificationTime());
 		
 			} catch (EndpointNotReacheableException e1) {
 				message =  " [Endpoint Not Reacheable Exception]";
@@ -136,7 +136,7 @@ public class DFSFeatures implements ActionListener {
 			} catch (FileNotFoundException e1) {
 				message = " [File Not Found Exception]";
 			}
-			supervisor.getScrenSupervisor().setText("File Info: "+ pathFile.getText() + message + "\n" + supervisor.getScrenSupervisor().getText());
+			supervisor.add("File Info: "+ pathFile.getText() + message);
 			
 			
 		} else if (e.getSource() == renameButton) {
@@ -151,7 +151,7 @@ public class DFSFeatures implements ActionListener {
 			} catch (FileNotFoundException e1) {
 				message = " [File Not Found Exception]";
 			}
-			supervisor.getScrenSupervisor().setText("Rename/Place action: "+ pathFile.getText() + message + "\n" + supervisor.getScrenSupervisor().getText());
+			supervisor.add("Rename/Place action: "+ pathFile.getText() + message);
 			
 		}
 	}

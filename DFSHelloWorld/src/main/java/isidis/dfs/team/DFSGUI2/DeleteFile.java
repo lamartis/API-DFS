@@ -14,7 +14,6 @@ import java.io.File;
 import java.net.URISyntaxException;
 
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -77,7 +76,7 @@ public class DeleteFile implements ActionListener {
 			} catch (URISyntaxException e1) {
 				message = " [URI Syntax Exception]";
 			}
-			supervisor.getScrenSupervisor().append("Delete File: "+ pathFile.getText() + message + "\n" + supervisor.getScrenSupervisor().getText());
+			supervisor.add("Delete File: "+ pathFile.getText() + message);
 
 		}
 	}

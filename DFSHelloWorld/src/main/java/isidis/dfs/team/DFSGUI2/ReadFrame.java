@@ -77,7 +77,7 @@ public class ReadFrame implements ActionListener {
 		if	(e.getSource() == buttonRead) {
 			try {
 				remoteIterator2 = DFSProvider.getInstance2().readFile(pathFile.getText());
-				supervisor.getScrenSupervisor().setText("Starting downloading file " + pathFile.getText() + "\n" + supervisor.getScrenSupervisor().getText() );
+				supervisor.addL("Starting downloading file " + pathFile.getText() + "\n" + supervisor.getScrenSupervisor().getText() );
 				
 				new Thread(new MyThread()).start();
 				
@@ -92,7 +92,7 @@ public class ReadFrame implements ActionListener {
 			} catch (URISyntaxException e1) {
 				message = ("reading " + pathFile.getText() +  " [URI Syntax Exception]");
 			}
-			supervisor.getScrenSupervisor().setText(message + "\n" + supervisor.getScrenSupervisor().getText() );
+			supervisor.add(message );
 			
 			
 		}
@@ -121,13 +121,13 @@ public class ReadFrame implements ActionListener {
 			try {
 				while (remoteIterator2.hasNext()) {
 					String m = " downloading " + i++ + "/" + numberOfBlocks;
-					supervisor.getScrenSupervisor().setText(m + "\n" + supervisor.getScrenSupervisor().getText());
+					supervisor.addL(m);
 					fos.write(remoteIterator2.next());
 				}
 				fos.close();
 
 				String message = ("reading " + pathFile.getText() + " with success !");
-				supervisor.getScrenSupervisor().setText(message + "\n" + supervisor.getScrenSupervisor().getText());
+				supervisor.add(message);
 				
 			} catch (IOException e1) {
 				e1.printStackTrace();

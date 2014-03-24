@@ -42,4 +42,12 @@ public class Supervisor {
 	public JTextArea getScrenSupervisor()	{
 		return screenSupervisor;
 	}
+	
+	public void add(String text) {
+		this.screenSupervisor.setText(screenSupervisor.getText() + "\n" + text);
+	}
+	
+	public void addL(String text) {
+		this.screenSupervisor.setText(screenSupervisor.getText() + "\n" + text);
+	}
 }
