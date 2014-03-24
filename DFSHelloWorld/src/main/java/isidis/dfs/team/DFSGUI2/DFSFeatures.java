@@ -35,6 +35,7 @@ public class DFSFeatures implements ActionListener {
 	private JTabbedPane tabbedPane;
 	private JButton buttonCreate;
 	private JButton buttonList;
+	private JButton buttonInfo;
 	private Supervisor supervisor;
 	private JPanel panel1, panel2;
 	private JTextField renameField ;
@@ -49,9 +50,14 @@ public class DFSFeatures implements ActionListener {
 		pathFile = new JTextField(15);
 		labelNameFile = new JLabel("Path location : ");
 		buttonCreate = new JButton("create");
-		buttonList = new JButton("list");
-		
 		buttonCreate.addActionListener(this);
+		buttonList = new JButton("list");
+		buttonList.addActionListener(this);
+		buttonInfo = new JButton("get Info");
+		buttonInfo.addActionListener(this);
+		JButton renameButton = new JButton("Rename/Place");
+		renameButton.addActionListener(this);
+		
 		supervisor = Supervisor.getInstance();
 
 		tabbedPane = new JTabbedPane();
@@ -60,8 +66,9 @@ public class DFSFeatures implements ActionListener {
 		panel1.add(pathFile);
 		panel1.add(buttonCreate);
 		panel1.add(buttonList);
+		panel1.add(buttonInfo);
 		
-		JButton renameButton = new JButton("Rename/Place");
+		
 		renameField = new JTextField(15);
 		JLabel filepathLocation = new JLabel("Path/File location : ");
 		panel2.add(filepathLocation);
@@ -93,7 +100,7 @@ public class DFSFeatures implements ActionListener {
 			} catch (PathExistsException e1) {
 				message = " [Path already Exists Exception]";
 			}
-			supervisor.getScrenSupervisor().append("Create folder: "+ pathFile.getText() + message + "\n");
+			supervisor.getScrenSupervisor().append("Create folder: "+ pathFile.getText() + message + "\n" + supervisor.getScrenSupervisor().getText());
 
 		} else if (e.getSource() == buttonList) {
 			
@@ -101,6 +108,9 @@ public class DFSFeatures implements ActionListener {
 				HdfsFileStatus[] files = DFSProvider.getInstance2().listPaths(pathFile.getText());
 				message =  " with success";
 				
+				for (HdfsFileStatus hdfsFileStatus : files) {
+					supervisor.getScrenSupervisor().append(hdfsFileStatus.getLocalName() + "\n" + supervisor.getScrenSupervisor().getText());
+				}
 			} catch (EndpointNotReacheableException e1) {
 				message =  " [Endpoint Not Reacheable Exception]";
 			} catch (URISyntaxException e1) {
@@ -108,10 +118,39 @@ public class DFSFeatures implements ActionListener {
 			} catch (PathExistsException e1) {
 				message = " [Path already Exists Exception]";
 			}
-			supervisor.getScrenSupervisor().append("Create folder: "+ pathFile.getText() + message + "\n");
-
+			supervisor.getScrenSupervisor().append("List folder: "+ pathFile.getText() + message + "\n" + supervisor.getScrenSupervisor().getText());
+			
+			
+		} else if (e.getSource() == buttonInfo) {
+			
+			try {
+				HdfsFileStatus file = DFSProvider.getInstance2().getFileInfo(pathFile.getText());
+				message =  " with success";
+				supervisor.getScrenSupervisor().append("Size: " + file.getLen() + "\nType: " + (file.isDir() ? "Folder" : "File") + "\nLast modification:" + file.getModificationTime() + "\n" + supervisor.getScrenSupervisor().getText());
+		
+			} catch (EndpointNotReacheableException e1) {
+				message =  " [Endpoint Not Reacheable Exception]";
+			} catch (URISyntaxException e1) {
+				message = " [URI Syntax Exception]";
+			} catch (FileNotFoundException e1) {
+				message = " [File Not Found Exception]";
+			}
+			supervisor.getScrenSupervisor().append("File Info: "+ pathFile.getText() + message + "\n" + supervisor.getScrenSupervisor().getText());
+			
 			
 		} else {
+			try {
+				DFSProvider.getInstance2().rename(pathFile.getText(), renameField.getText());
+				message =  " with success";
+		
+			} catch (EndpointNotReacheableException e1) {
+				message =  " [Endpoint Not Reacheable Exception]";
+			} catch (URISyntaxException e1) {
+				message = " [URI Syntax Exception]";
+			} catch (FileNotFoundException e1) {
+				message = " [File Not Found Exception]";
+			}
+			supervisor.getScrenSupervisor().append("Rename/Place action: "+ pathFile.getText() + message + "\n" + supervisor.getScrenSupervisor().getText());
 			
 		}
 	}
