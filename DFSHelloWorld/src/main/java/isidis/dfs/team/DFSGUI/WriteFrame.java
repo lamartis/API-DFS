@@ -115,7 +115,7 @@ public class WriteFrame extends JComponent implements ActionListener  {
 				} catch (IOException e4) {
 					message = " [Lecture ERROR]";
 				}
-				supervisor.getScrenSupervisor().append("Write File  :  " + file.getName() + " to " + pathFile.getText() + " " + message +newline);
+				supervisor.add("Write File  :  " + file.getName() + " to " + pathFile.getText() + " " + message);
 			}
 		}
 	}

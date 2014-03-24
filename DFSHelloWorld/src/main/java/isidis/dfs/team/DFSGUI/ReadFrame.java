@@ -89,7 +89,7 @@ public class ReadFrame implements ActionListener {
 			} catch (URISyntaxException e1) {
 				message = " [URI Syntax Exception]";
 			}
-			supervisor.getScrenSupervisor().append("Read File : " + pathFile.getText() + message + "\n");
+			supervisor.add("Read File : " + pathFile.getText() + message );
 
 		}
 	}
