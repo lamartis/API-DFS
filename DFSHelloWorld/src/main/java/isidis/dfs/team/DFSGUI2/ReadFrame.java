@@ -110,7 +110,7 @@ public class ReadFrame implements ActionListener {
 			int i = 1;
 
 			long numberOfBlocks = remoteIterator2.getNumberOfBlocks();
-			
+			DFSFeatures.progress.setMaximum((int)numberOfBlocks);
 			FileOutputStream fos = null;
 			try {
 				fos = new FileOutputStream(new File(pathFile.getText().split("/")[pathFile.getText().split("/").length - 1]));
@@ -120,6 +120,7 @@ public class ReadFrame implements ActionListener {
 			
 			try {
 				while (remoteIterator2.hasNext()) {
+					DFSFeatures.progress.setValue(i);
 					String m = " downloading " + i++ + "/" + numberOfBlocks;
 					supervisor.addL(m);
 					fos.write(remoteIterator2.next());

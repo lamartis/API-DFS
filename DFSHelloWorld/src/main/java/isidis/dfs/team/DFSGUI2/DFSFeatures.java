@@ -5,6 +5,7 @@ import isidis.dfs.team.api.dfs.common.exceptions.FileNotFoundException;
 import isidis.dfs.team.api.dfs.common.exceptions.SystemUserPermissionException;
 import isidis.dfs.team.tools.DFSProvider;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -18,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -43,8 +45,16 @@ public class DFSFeatures implements ActionListener {
 	private JTextField renameField ;
 	private JButton renameButton;
 	
-	public DFSFeatures()	{
+	public static JProgressBar progress = new JProgressBar();
+	
+	public DFSFeatures() {
+		progress.setForeground(new Color(0,176,80));
 
+		// Edit progress bar height
+		Dimension prefSize = progress.getPreferredSize();
+		prefSize.width = 500;
+		progress.setPreferredSize(prefSize);
+		
 		panel = new JPanel(new FlowLayout());
 		panel.setPreferredSize(new Dimension(500,200));
 		panel1 = new JPanel(new FlowLayout());
@@ -80,6 +90,10 @@ public class DFSFeatures implements ActionListener {
 		
 		panel.add(panel1);
 		panel.add(panel2);
+		
+
+		panel.add(new JLabel("Progression Info: "));
+		panel.add(progress);
 	}
 
 	public JTabbedPane getDeleteFrame()	{

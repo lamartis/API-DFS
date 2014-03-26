@@ -113,9 +113,11 @@ public class WriteFrame extends JComponent implements ActionListener  {
 			int i = 1;
 
 			long numberOfBlocks = remoteIterator.getNumberOfBlocks();
-			
+
+			DFSFeatures.progress.setMaximum((int)numberOfBlocks);
 			try {
 				while (remoteIterator.hasNext()) {
+					DFSFeatures.progress.setValue(i);
 					String m = " Writing " + i++ + "/" + numberOfBlocks;
 					supervisor.add( m  );
 					remoteIterator.next();
