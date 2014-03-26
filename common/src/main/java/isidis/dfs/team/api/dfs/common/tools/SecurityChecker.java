@@ -2,9 +2,11 @@ package isidis.dfs.team.api.dfs.common.tools;
 
 import isidis.dfs.team.api.dfs.common.exceptions.*;
 import isidis.dfs.team.api.dfs.common.implementation.MyHdfsClient;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import org.apache.hadoop.hdfs.DFSClient;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -69,7 +71,10 @@ public class SecurityChecker {
 		}
 
 		return true;
-
+	}
+	
+	public long getLen(String sourceFileName) throws IOException, EndpointNotReacheableException, URISyntaxException {
+		return MyHdfsClient.getInstance().getDFSClient().getFileInfo(sourceFileName).getLen();
 	}
 
 

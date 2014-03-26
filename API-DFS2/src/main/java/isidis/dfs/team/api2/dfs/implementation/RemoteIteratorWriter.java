@@ -23,7 +23,7 @@ public class RemoteIteratorWriter extends RemoteIteratorAbstract<Void>{
 
 	private OutputStream outputStream = null;
 
-	public RemoteIteratorWriter(File file, String destinationFileLocation) throws IOException, EndpointNotReacheableException, SystemUserPermissionException {
+	public RemoteIteratorWriter(File file, long bytesAlreadySended, String destinationFileLocation) throws IOException, EndpointNotReacheableException, SystemUserPermissionException {
 		super();
 		logger = Logger.getLogger(RemoteIteratorWriter.class);
 
@@ -43,7 +43,7 @@ public class RemoteIteratorWriter extends RemoteIteratorAbstract<Void>{
 		/**
 		 * Getting file size.
 		 */
-		fileSize = file.length();
+		fileSize = file.length() - bytesAlreadySended;
 		logger.info("File size: " + fileSize + " Octets, which can be devised by: " + blockSizeInOctet + " Octets");
 		/**
 		 * Tracking size number of file's blocks

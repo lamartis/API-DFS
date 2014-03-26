@@ -16,6 +16,7 @@ import java.net.URISyntaxException;
 import org.apache.hadoop.fs.FileAlreadyExistsException;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.apache.log4j.pattern.FileLocationPatternConverter;
 
 /**
  * 
@@ -32,32 +33,32 @@ public class Api2HDFSImpl extends ApiGenericImpl implements Api2HDFS {
 		super();
 	}
 
-	public RemoteIterator<byte[]> readFile(String fileLocation) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException, FileSizeThresholdNotRespected {
+	public RemoteIterator<byte[]> readFile(long bytesAlreadyReceived, String fileLocation) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException, FileSizeThresholdNotRespected {
 		RemoteIterator<byte[]> remoteIterator = null;
 
 		/**
 		 * Verification system.
 		 */
-		
+
 		try {
-			if (!myHdfsClient.getDFSClient().exists(fileLocation)){ 
+			if (!getDFSClient().exists(fileLocation)){ 
 				logger.log(Level.ERROR, "FileNotFoundException reached");
 				throw new FileNotFoundException();
 			}
 
-			if (securityChecker.isNormalFile(fileLocation)) {
+			if (getSecurityChecker().isNormalFile(fileLocation)) {
 				logger.log(Level.ERROR, "FileSizeExceedsFixedThreshold reached");
 				throw new FileSizeThresholdNotRespected();
 			}
 
-			remoteIterator = new RemoteIteratorReader(fileLocation);
+			remoteIterator = getRIR(bytesAlreadyReceived, fileLocation);
 		} catch (IOException e) {
 			throw new EndpointNotReacheableException();
 		}
 		return remoteIterator;
 	}
 
-	public RemoteIterator<Void> writeFile(File file, String destinationFileLocation) throws FileAlreadyExistsException, EndpointNotReacheableException, FileSizeThresholdNotRespected, SystemUserPermissionException {
+	public RemoteIterator<Void> writeFile(File file, long bytesAlreadySended, String destinationFileLocation) throws FileAlreadyExistsException, EndpointNotReacheableException, FileSizeThresholdNotRespected, SystemUserPermissionException {
 
 		/**
 		 * Verification system.
@@ -66,12 +67,12 @@ public class Api2HDFSImpl extends ApiGenericImpl implements Api2HDFS {
 
 		try {
 
-			if (myHdfsClient.getDFSClient().exists(destinationFileLocation)) { 
+			if (getDFSClient().exists(destinationFileLocation)) { 
 				logger.log(Level.ERROR, "File Already existed reached");
 				throw new FileAlreadyExistsException();
 			}
 
-			if (file.length() < SecurityChecker.maximumThresholdForAPI1) {
+			if (file.length() < getSecurityChecker().maximumThresholdForAPI1) {
 				logger.log(Level.ERROR, "FileSizeThresholdNotRespected reached");
 				throw new FileSizeThresholdNotRespected();
 			}
@@ -80,7 +81,7 @@ public class Api2HDFSImpl extends ApiGenericImpl implements Api2HDFS {
 			 * Instantiation of distributed iterator which save each block on the OutputStream object.
 			 */
 
-			remoteIterator = new RemoteIteratorWriter(file, destinationFileLocation);
+			remoteIterator = getRIW(file, bytesAlreadySended, destinationFileLocation);
 		} catch (FileAlreadyExistsException e) {
 			throw new FileAlreadyExistsException();
 		} catch (FileSizeThresholdNotRespected e) {
@@ -90,6 +91,14 @@ public class Api2HDFSImpl extends ApiGenericImpl implements Api2HDFS {
 		}
 
 		return remoteIterator;
+	}
+
+	public RemoteIteratorReader getRIR(long bytesAlreadyReceived, String FileLocation) throws IOException, EndpointNotReacheableException, SystemUserPermissionException {
+		return new RemoteIteratorReader(bytesAlreadyReceived, FileLocation);
+	}
+	
+	public RemoteIteratorWriter getRIW(File file, long bytesAlreadySended, String destinationFileLocation) throws IOException, EndpointNotReacheableException, SystemUserPermissionException {
+		return new RemoteIteratorWriter(file, bytesAlreadySended, destinationFileLocation);
 	}
 
 }

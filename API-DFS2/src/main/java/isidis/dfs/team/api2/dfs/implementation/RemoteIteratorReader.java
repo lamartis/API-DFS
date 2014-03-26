@@ -16,7 +16,7 @@ import org.apache.log4j.Logger;
  */
 public class RemoteIteratorReader extends RemoteIteratorAbstract<byte[]> {
 
-	public RemoteIteratorReader(String fileLocation) throws IOException, EndpointNotReacheableException, SystemUserPermissionException {
+	public RemoteIteratorReader(long bytesAlreadyReceived, String fileLocation) throws IOException, EndpointNotReacheableException, SystemUserPermissionException {
 		super();
 		logger = Logger.getLogger(RemoteIteratorWriter.class);
 
@@ -30,7 +30,7 @@ public class RemoteIteratorReader extends RemoteIteratorAbstract<byte[]> {
 		/**
 		 * Getting file size.
 		 */
-		fileSize = client.getFileInfo(fileLocation).getLen();
+		fileSize = client.getFileInfo(fileLocation).getLen() - bytesAlreadyReceived;
 		logger.info("File size: " + fileSize + " Octets, which can be devised by: " + blockSizeInOctet + " Octets");
 
 		/**

@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 
 import org.apache.hadoop.fs.PathExistsException;
 import org.apache.hadoop.fs.PathIsNotDirectoryException;
+import org.apache.hadoop.hdfs.DFSClient;
 import org.apache.hadoop.hdfs.protocol.HdfsFileStatus;
 import org.apache.hadoop.ipc.RemoteException;
 import org.apache.log4j.Level;
@@ -35,9 +36,27 @@ public class ApiGenericImpl implements ApiGeneric {
 	 */
 	public ApiGenericImpl() throws EndpointNotReacheableException, URISyntaxException {
 		PropertyConfigurator.configure(ApiGenericImpl.class.getClassLoader().getResource("log4j.properties"));
-		myHdfsClient = MyHdfsClient.getInstance();
-
 		securityChecker = SecurityChecker.getInstance();
+	}
+	
+	public MyHdfsClient getMyHdfsClient() {
+		MyHdfsClient myHdfsClient = null;
+		try {
+			myHdfsClient = MyHdfsClient.getInstance();
+		} catch (EndpointNotReacheableException e) {
+			logger.log(Level.ERROR, "EndpointNotReacheableException reached");
+		} catch (URISyntaxException e) {
+			logger.log(Level.ERROR, "URISyntaxException reached");
+		}
+		return myHdfsClient;
+	}
+	
+	public DFSClient getDFSClient() {
+		return getMyHdfsClient().getDFSClient();
+	}
+	
+	public SecurityChecker getSecurityChecker() {
+		return securityChecker;
 	}
 
 	@Override

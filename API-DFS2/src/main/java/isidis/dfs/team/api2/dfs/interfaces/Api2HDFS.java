@@ -23,6 +23,7 @@ public interface Api2HDFS extends ApiGeneric {
 	 * Reading the file from HDFS with the path in param
 	 * @param fileLocation
 	 * the path/name of the file you want to read from HDFS
+	 * @param bytesAlreadyReceived
 	 * @return
 	 * RemoteIterator which can be used to iterate between file's parts
 	 * @throws FileNotFoundException
@@ -30,12 +31,13 @@ public interface Api2HDFS extends ApiGeneric {
 	 * @throws SystemUserPermissionException
 	 * @throws FileSizeThresholdNotRespected
 	 */
-	RemoteIterator<byte[]> readFile(String fileLocation) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException, FileSizeThresholdNotRespected;
+	RemoteIterator<byte[]> readFile(long bytesAlreadyReceived, String fileLocation) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException, FileSizeThresholdNotRespected;
 	
 	/**
 	 * Writing a file into HDFS
 	 * @param file
 	 * file refers to the local file which you want to save into your HDFS.
+	 * @param bytesAlreadySended
 	 * @param destinationFileLocation
 	 * The path where the file will be wrote on HDFS
 	 * @return
@@ -45,5 +47,5 @@ public interface Api2HDFS extends ApiGeneric {
 	 * @throws FileAlreadyExistsException
 	 * @throws FileSizeThresholdNotRespected
 	 */
-	RemoteIterator<Void> writeFile(File file, String destinationFileLocation) throws SystemUserPermissionException, EndpointNotReacheableException, FileAlreadyExistsException, FileSizeThresholdNotRespected;
+	RemoteIterator<Void> writeFile(File file,long bytesAlreadySended, String destinationFileLocation) throws SystemUserPermissionException, EndpointNotReacheableException, FileAlreadyExistsException, FileSizeThresholdNotRespected;
 }

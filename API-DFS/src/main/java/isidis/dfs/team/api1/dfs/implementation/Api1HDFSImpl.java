@@ -38,25 +38,25 @@ public class Api1HDFSImpl extends ApiGenericImpl implements Api1HDFS{
 		DFSInputStream dfsInputStream = null;
 
 		try {
-			if (!myHdfsClient.getDFSClient().exists(sourceFileName)){ 
+			if (!getDFSClient().exists(sourceFileName)){ 
 				logger.log(Level.ERROR, "FileNotFoundException reached");
 				throw new FileNotFoundException();
 			}
 			
-			if (!securityChecker.isNormalFile(sourceFileName)) {
+			if (!getSecurityChecker().isNormalFile(sourceFileName)) {
 				logger.log(Level.ERROR, "FileSizeExceedsFixedThreshold reached");
 				throw new FileSizeThresholdNotRespected();
 			}
 			
-			arr = new byte[(int)myHdfsClient.getDFSClient().getFileInfo(sourceFileName).getLen()];
-			dfsInputStream = myHdfsClient.getDFSClient().open(sourceFileName);
-			dfsInputStream.read(arr, 0, (int)myHdfsClient.getBlockSizeInOctet());
-			logger.log(Level.INFO,"File found and readed with success [" + sourceFileName + "] [Size: " + myHdfsClient.getDFSClient().getFileInfo(sourceFileName).getLen() + "]");
+			arr = new byte[(int) getSecurityChecker().getLen(sourceFileName)];
+			dfsInputStream = getDFSClient().open(sourceFileName);
+			dfsInputStream.read(arr, 0, (int)getMyHdfsClient().getBlockSizeInOctet());
+			logger.log(Level.INFO,"File found and readed with success [" + sourceFileName + "] [Size: " + getSecurityChecker().getLen(sourceFileName) + "]");
 		} catch (AccessControlException e){
 			logger.log(Level.ERROR, "SystemUserPermissionException reached");
 			throw new SystemUserPermissionException();
-		} catch (IOException |IllegalArgumentException e) {
-			logger.log(Level.ERROR, "EndpointNotReacheableException reached");
+		} catch (IOException |IllegalArgumentException | URISyntaxException e) {
+			logger.log(Level.ERROR, "EndpointNotReacheableException / IOException / URISyntaxException reached");
 			throw new EndpointNotReacheableException();
 		} finally {
 			try {
@@ -74,14 +74,16 @@ public class Api1HDFSImpl extends ApiGenericImpl implements Api1HDFS{
 	@Override
 	public void writeFile(byte[] content, String destinationFileName) throws SystemUserPermissionException, EndpointNotReacheableException, FileAlreadyExistsException, FileSizeThresholdNotRespected {
 		
-		if (content.length > SecurityChecker.maximumThresholdForAPI1) {
-			logger.error(content.length + " > " + myHdfsClient.getBlockSizeInOctet());
+		if (content.length > getSecurityChecker().maximumThresholdForAPI1) {
+			logger.error(content.length + " > " + getMyHdfsClient().getBlockSizeInOctet());
 			throw new FileSizeThresholdNotRespected();
 		}
 		
 		OutputStream outputStream = null;
 		try {
-			outputStream = myHdfsClient.getDFSClient().create(destinationFileName, false);
+			outputStream = getDFSClient().create(destinationFileName, false);
+			if (outputStream == null)
+				System.out.println("=null");
 			outputStream.write(content);
 			logger.log(Level.INFO,"File wroten with success [" + destinationFileName + "] [Size: " + content.length + "]");
 		} catch (FileAlreadyExistsException e){
