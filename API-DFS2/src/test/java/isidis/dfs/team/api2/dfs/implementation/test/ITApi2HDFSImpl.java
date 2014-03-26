@@ -20,7 +20,7 @@ import isidis.dfs.team.api2.dfs.interfaces.RemoteIterator;
 
 public class ITApi2HDFSImpl {
 
-	public final static String fileToRead = "/user/trauma";
+	public final static String fileToRead = "/user2/beck";
 	public final static String destionationFile = "/user/trauma2";
 	
 	
@@ -34,9 +34,9 @@ public class ITApi2HDFSImpl {
 		try {
 			api2 = new Api2HDFSImpl();
 		} catch (EndpointNotReacheableException e) {
-			Assert.fail("");
+			Assert.fail("EndpointNotReacheableException");
 		} catch (URISyntaxException e) {
-			Assert.fail("");
+			Assert.fail("URISyntaxException");
 		}
 
 
@@ -47,13 +47,13 @@ public class ITApi2HDFSImpl {
 		try {
 			remoteIterator2 = api2.readFile(0, fileToRead);
 		} catch (FileNotFoundException e1) {
-			Assert.fail("");
+			Assert.fail("FileNotFoundException");
 		} catch (EndpointNotReacheableException e1) {
-			Assert.fail("");
+			Assert.fail("EndpointNotReacheableException");
 		} catch (SystemUserPermissionException e1) {
-			Assert.fail("");
+			Assert.fail("SystemUserPermissionException");
 		} catch (FileSizeThresholdNotRespected e1) {
-			Assert.fail("");
+			Assert.fail("FileSizeThresholdNotRespected");
 		}
 
 		/**
@@ -67,7 +67,7 @@ public class ITApi2HDFSImpl {
 		try {
 			fos = new FileOutputStream(file);
 		} catch (java.io.FileNotFoundException e1) {
-			Assert.fail("");
+			Assert.fail("FileNotFoundException");
 		}
 
 		try {
@@ -76,7 +76,7 @@ public class ITApi2HDFSImpl {
 			}
 			fos.close();
 		} catch (IOException e1) {
-			Assert.fail("");
+			Assert.fail("IOException");
 		}
 		
 		
@@ -89,13 +89,13 @@ public class ITApi2HDFSImpl {
 			remoteIterator = api2.writeFile(new File("trauma"), 0, destionationFile);
 
 		} catch (SystemUserPermissionException e) {
-			Assert.fail("");
+			Assert.fail("SystemUserPermissionException");
 		} catch (EndpointNotReacheableException e) {
-			Assert.fail("");
+			Assert.fail("EndpointNotReacheableException");
 		} catch (FileSizeThresholdNotRespected e) {
-			Assert.fail("");
+			Assert.fail("FileSizeThresholdNotRespected");
 		} catch (FileAlreadyExistsException e) {
-			Assert.fail("");
+			Assert.fail("FileAlreadyExistsException");
 		}
 
 		/**
@@ -109,7 +109,7 @@ public class ITApi2HDFSImpl {
 				remoteIterator.next();
 			}
 		} catch (IOException e) {
-			Assert.fail("");
+			Assert.fail("IOException");
 		}
 
 		
@@ -120,11 +120,11 @@ public class ITApi2HDFSImpl {
 		try {
 			api2.delete(destionationFile, false);
 		} catch (FileNotFoundException e) {
-			Assert.fail("");
+			Assert.fail("FileNotFoundException");
 		} catch (EndpointNotReacheableException e) {
-			Assert.fail("");
+			Assert.fail("EndpointNotReacheableException");
 		} catch (SystemUserPermissionException e) {
-			Assert.fail("");
+			Assert.fail("SystemUserPermissionException");
 		}
 		
 		/**
@@ -136,11 +136,11 @@ public class ITApi2HDFSImpl {
 		} catch (FileNotFoundException e1) {
 			System.out.println("TEST OK");
 		} catch (EndpointNotReacheableException e1) {
-			Assert.fail("");
+			Assert.fail("EndpointNotReacheableException");
 		} catch (SystemUserPermissionException e1) {
-			Assert.fail("");
+			Assert.fail("SystemUserPermissionException");
 		} catch (FileSizeThresholdNotRespected e1) {
-			Assert.fail("");
+			Assert.fail("FileSizeThresholdNotRespected");
 		}
 		
 		
@@ -151,7 +151,7 @@ public class ITApi2HDFSImpl {
 		try {
 			api2.close();
 		} catch (EndpointNotReacheableException e) {
-			Assert.fail("");
+			Assert.fail("EndpointNotReacheableException");
 		}
 		
 		/**

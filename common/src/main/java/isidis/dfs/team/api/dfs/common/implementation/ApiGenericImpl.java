@@ -62,11 +62,11 @@ public class ApiGenericImpl implements ApiGeneric {
 	@Override
 	public void delete(String sourceFileName, boolean recursive) throws FileNotFoundException, EndpointNotReacheableException, SystemUserPermissionException{
 		try {
-			if (!myHdfsClient.getDFSClient().exists(sourceFileName)){
+			if (!getDFSClient().exists(sourceFileName)){
 				logger.log(Level.ERROR, "FileNotFoundException reached");
 				throw new FileNotFoundException();
 			}
-			myHdfsClient.getDFSClient().delete(sourceFileName, recursive);
+			getDFSClient().delete(sourceFileName, recursive);
 			logger.log(Level.INFO,"File deleted with success [" + sourceFileName + "]");
 		} catch (RemoteException e){
 			logger.log(Level.ERROR, "SystemUserPermissionException reached");
@@ -82,10 +82,10 @@ public class ApiGenericImpl implements ApiGeneric {
 		HdfsFileStatus hdfsFileStatus = null;
 
 		try {
-			if (!myHdfsClient.getDFSClient().exists(fileLocation))
+			if (!getDFSClient().exists(fileLocation))
 				throw new FileNotFoundException();
 
-			hdfsFileStatus = myHdfsClient.getDFSClient().getFileInfo(fileLocation);
+			hdfsFileStatus = getDFSClient().getFileInfo(fileLocation);
 			logger.log(Level.INFO,"File info returned with success [" + fileLocation + "]");
 		}catch (IOException e ) {
 			logger.log(Level.ERROR,"End point not recheable Exception");
@@ -97,10 +97,10 @@ public class ApiGenericImpl implements ApiGeneric {
 	@Override
 	public void mkdirs(String absoluteDirectory) throws EndpointNotReacheableException, PathExistsException {
 		try {
-			if (myHdfsClient.getDFSClient().exists(absoluteDirectory))
+			if (getDFSClient().exists(absoluteDirectory))
 				throw new PathExistsException(absoluteDirectory);
 			
-			myHdfsClient.getDFSClient().mkdirs(absoluteDirectory);
+			getDFSClient().mkdirs(absoluteDirectory);
 			logger.log(Level.INFO,"Path created with success");
 		} catch (PathExistsException p) {
 			logger.log(Level.ERROR,"Path already exists");
@@ -117,13 +117,13 @@ public class ApiGenericImpl implements ApiGeneric {
 		HdfsFileStatus[] files = null;
 
 		try {
-			if (!myHdfsClient.getDFSClient().exists(path))
+			if (!getDFSClient().exists(path))
 				throw new FileNotFoundException();
 				
-			if (!myHdfsClient.getDFSClient().getFileInfo(path).isDir())
+			if (!getDFSClient().getFileInfo(path).isDir())
 				throw new PathIsNotDirectoryException(path);
 
-			files = myHdfsClient.getDFSClient().listPaths(path, HdfsFileStatus.EMPTY_NAME, true).getPartialListing();
+			files = getDFSClient().listPaths(path, HdfsFileStatus.EMPTY_NAME, true).getPartialListing();
 			logger.log(Level.INFO,"All elements are returned with success");
 		} catch (PathIsNotDirectoryException e) {
 			logger.log(Level.ERROR,"Path is not a directory exception");
@@ -139,7 +139,7 @@ public class ApiGenericImpl implements ApiGeneric {
 	public long getRemainingCapacity() throws EndpointNotReacheableException {
 		long remainingCapacity = 0;
 		try {
-			remainingCapacity = myHdfsClient.getDFSClient().getDiskStatus().getRemaining();
+			remainingCapacity = getDFSClient().getDiskStatus().getRemaining();
 			logger.log(Level.INFO,"Remining Capacity is calculated with success");
 		} catch (IOException e) {
 			logger.log(Level.ERROR,"End point not recheable Exception");
@@ -151,10 +151,10 @@ public class ApiGenericImpl implements ApiGeneric {
 	@Override 
 	public void rename(String src, String dst) throws EndpointNotReacheableException, FileNotFoundException {
 		try{
-			if (!myHdfsClient.getDFSClient().exists(src))
+			if (!getDFSClient().exists(src))
 				throw new FileNotFoundException();
 
-			myHdfsClient.getDFSClient().rename(src, dst);
+			getDFSClient().rename(src, dst);
 			logger.log(Level.INFO,"Rename action is executed with success");
 		} catch (IOException e) {
 			logger.log(Level.ERROR,"End point not recheable Exception");
@@ -165,7 +165,7 @@ public class ApiGenericImpl implements ApiGeneric {
 	@Override
 	public void close() throws EndpointNotReacheableException {
 		try {
-			myHdfsClient.getDFSClient().close();
+			getDFSClient().close();
 			logger.info("Connection is closed");
 		} catch (IOException e) {
 			throw new EndpointNotReacheableException();
