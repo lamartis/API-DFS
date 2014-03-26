@@ -27,7 +27,7 @@ public class Api1HDFSImpl extends ApiGenericImpl implements Api1HDFS{
 	 * @throws URISyntaxException
 	 * @throws EndpointNotReacheableException 
 	 */
-	public Api1HDFSImpl() throws URISyntaxException, EndpointNotReacheableException {
+	public Api1HDFSImpl() {
 		super();
 	}
 

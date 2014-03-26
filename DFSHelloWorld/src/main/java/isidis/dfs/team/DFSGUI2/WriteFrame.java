@@ -81,7 +81,7 @@ public class WriteFrame extends JComponent implements ActionListener  {
 
 				System.out.println(file.getAbsolutePath());
 				try {
-					remoteIterator = DFSProvider.getInstance2().writeFile(new File(file.getAbsolutePath()), pathFile.getText());
+					remoteIterator = DFSProvider.getInstance2().writeFile(new File(file.getAbsolutePath()), 0, pathFile.getText());
 					message = " with success !";
 					new Thread(new MyThread()).start();
 				} catch (SystemUserPermissionException e1) {

@@ -76,7 +76,7 @@ public class ReadFrame implements ActionListener {
 		String message = "";
 		if	(e.getSource() == buttonRead) {
 			try {
-				remoteIterator2 = DFSProvider.getInstance2().readFile(pathFile.getText());
+				remoteIterator2 = DFSProvider.getInstance2().readFile(0, pathFile.getText());
 				supervisor.addL("Starting downloading file " + pathFile.getText() + "\n" + supervisor.getScrenSupervisor().getText() );
 				
 				new Thread(new MyThread()).start();

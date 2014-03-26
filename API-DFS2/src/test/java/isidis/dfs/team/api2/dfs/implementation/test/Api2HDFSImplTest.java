@@ -21,6 +21,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class Api2HDFSImplTest {
+	
 	public Api2HDFSImpl toTest = null;
 	DFSClient client = mock(DFSClient.class);
 	public SecurityChecker securityChecker = mock(SecurityChecker.class);

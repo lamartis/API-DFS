@@ -31,7 +31,7 @@ public class SecurityChecker {
 		
 	}
 
-	public static SecurityChecker getInstance() throws EndpointNotReacheableException, URISyntaxException{
+	public static SecurityChecker getInstance() {
 		if (instance == null) {
 			instance = new SecurityChecker();
 			return instance; 

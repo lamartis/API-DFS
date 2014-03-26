@@ -34,7 +34,7 @@ public class ApiGenericImpl implements ApiGeneric {
 	 * @throws EndpointNotReacheableException
 	 * @throws URISyntaxException
 	 */
-	public ApiGenericImpl() throws EndpointNotReacheableException, URISyntaxException {
+	public ApiGenericImpl() {
 		PropertyConfigurator.configure(ApiGenericImpl.class.getClassLoader().getResource("log4j.properties"));
 		securityChecker = SecurityChecker.getInstance();
 	}

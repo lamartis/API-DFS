@@ -63,8 +63,9 @@ public class ITApi2HDFSImpl {
 		 */
 		
 		FileOutputStream fos = null;
+		File file = new File("trauma");
 		try {
-			fos = new FileOutputStream(new File("trauma"));
+			fos = new FileOutputStream(file);
 		} catch (java.io.FileNotFoundException e1) {
 			Assert.fail("");
 		}
@@ -152,5 +153,10 @@ public class ITApi2HDFSImpl {
 		} catch (EndpointNotReacheableException e) {
 			Assert.fail("");
 		}
+		
+		/**
+		 * Delete file from localy
+		 */
+		System.out.println("Deleted from localy : " + file.delete());
 	}
 }
