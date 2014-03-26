@@ -18,7 +18,7 @@ public class RemoteIteratorReader extends RemoteIteratorAbstract<byte[]> {
 
 	public RemoteIteratorReader(String fileLocation) throws IOException, EndpointNotReacheableException, SystemUserPermissionException {
 		super();
-		logger = Logger.getLogger(RemoteIteratorWriter.class);
+		logger = Logger.getLogger(RemoteIteratorReader.class);
 
 		try { 
 			this.fileLocation = fileLocation;
