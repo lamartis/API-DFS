@@ -14,7 +14,10 @@ through an asynchronous manner. The same logic will be applied to download a fil
 
 The different projects are:
 -> API-DFS       : The API treats files whose the maximum size threshold is 10Mo.
+
 -> API-DFS2      : The API treats files whose the size is greatter than 10Mo.
+
 -> Common        : Common library for the two APIs.
+
 -> DFSHelloWorld : The project simulate the use of the API-DFS2.
 
